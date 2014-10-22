@@ -1,8 +1,7 @@
 #I. Game Concept
 
 1.  **Introduction**
- 
-Imagine Minecraft, except instead of being able to merely interact with everything in the world, you can program  everything in the world.  Everything is scriptable.
+  Imagine Minecraft, except instead of being able to merely interact with everything in the world, you can program  everything in the world.  Everything is scriptable.
 
 2.  **Background**
 3.  **Description**
@@ -15,8 +14,7 @@ Imagine Minecraft, except instead of being able to merely interact with everythi
 
 1.  **Revised Game concept**
 2.  **Market Analysis**
-
-Minecraft modding is very popular.  This is the ultimate mod.  
+  Minecraft modding is very popular.  This is the ultimate mod.  
 
 3.  **Technical Analysis**
 4.  **Art**
