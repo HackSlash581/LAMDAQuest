@@ -1,4 +1,4 @@
-#h1 I. Game Concept
+#I. Game Concept
 
 1.  **Introduction**
  
@@ -11,7 +11,7 @@ Imagine Minecraft, except instead of being able to merely interact with everythi
 6.  **Platforms**
 7.  **Concept Art**
 
-#h1 II.  Game Proposal
+#II.  Game Proposal
 
 1.  **Revised Game concept**
 2.  **Market Analysis**
@@ -21,7 +21,7 @@ Minecraft modding is very popular.  This is the ultimate mod.
 3.  **Technical Analysis**
 4.  **Art**
 
-#h1 III.  Functional Specification
+#III.  Functional Specification
 
 1.  **Game Mechanics**
   1.	Core Game Play
@@ -62,7 +62,7 @@ Minecraft modding is very popular.  This is the ultimate mod.
   2.	Asset Revelation Schedule
   3.	Level Design Seeds
 
-#h1 IV.  Technical Specification
+#IV.  Technical Specification
 
 1.  **Game Mechanics**
   1.	Platform and OS
@@ -82,7 +82,7 @@ Minecraft modding is very popular.  This is the ultimate mod.
 4.  **Sound and Music**
 5.  **Level Specific Code**
 
-#h1 V.  Milestones
+#V.  Milestones
 
 1.  **Conceptual Phase** 
   *	Document: Game Concept
