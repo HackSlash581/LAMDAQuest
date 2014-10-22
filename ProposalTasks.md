@@ -1,22 +1,22 @@
-I. Game Concept
-============
+#h1 I. Game Concept
 1.  **Introduction**
-Imagine Minecraft, except instead of being able to merely interact with everything in the world, you can program everything in the world.  Everything is scriptable.
+2.  
+  Imagine Minecraft, except instead of being able to merely interact with everything in the world, you can program  everything in the world.  Everything is scriptable.
 2.  **Background**
 3.  **Description**
 4.  **Key Features**
 5.  **Genre**
 6.  **Platforms**
 7.  **Concept Art**
-II.  Game Proposal
-==================
+#h1 II.  Game Proposal
 1.  **Revised Game concept**
 2.  **Market Analysis**
-Minecraft modding is very popular.  This is the ultimate mod.  
+  
+  Minecraft modding is very popular.  This is the ultimate mod.  
 3.  **Technical Analysis**
 4.  **Art**
-III.  Functional Specification
-==============================
+#h1 III.  Functional Specification
+
 1.  **Game Mechanics**
   1.	Core Game Play
   2.	Game Flow
@@ -55,8 +55,7 @@ III.  Functional Specification
   1.	Level Diagram
   2.	Asset Revelation Schedule
   3.	Level Design Seeds
-IV.  Technical Specification
-============================
+#h1 IV.  Technical Specification
 1.  **Game Mechanics**
   1.	Platform and OS
   2.	Third Party Code
@@ -74,8 +73,7 @@ IV.  Technical Specification
   2.	Art Requirements
 4.  **Sound and Music**
 5.  **Level Specific Code**
-V.  Milestones
-==============
+#h1 V.  Milestones
 1.  **Conceptual Phase** 
   *	Document: Game Concept
   *	Document: Game Proposal 
