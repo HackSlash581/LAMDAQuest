@@ -15,8 +15,11 @@
   * Open world
   * Scriptable game entities
 5.  **Genre**
+  * Adventure RPG
+  * Crafting
 6.  **Platforms**
   * Browser
+  * Possible mobile support
 7.  **Concept Art**
 
 #II.  Game Proposal
