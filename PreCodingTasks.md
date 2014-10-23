@@ -2,12 +2,21 @@
 
 1.  **Introduction**
   
-  Imagine Minecraft, except instead of being able to merely interact with everything in the world, you can program  everything in the world.  Everything is scriptable.
+  Imagine Zelda with a Minecraft level of world interaction, except instead of being able to merely interact with everything in the world, you can program  everything in the world.  Everything is scriptable.  The player can attach custom scripts written in our own HackSlash DSL to any game entity.  We're proposing a game by programmers, for programmers.    
 2.  **Background**
 3.  **Description**
+
+  When you start the game, you begin adventuring in the world like any other RPG with a fantasy setting.  Then, you meet another character that would like to join you on your journies.  That character is now in your party, however, in order to control that character, you will have to attach a script to it.  You open the character's scripting pane, and since this is early in the game, you don't have many options yet.  Right now you can just call one of three methods: aggressive(), guard(), follow().  As you progress in the game, you gain access to more elemnets of the language and are able to control the character to a higher degree.  Later in your journey, for example, you might write a script that tells the character to attack any monster that comes within two tiles of you with a normal attack, and use a special attack if that monster has more than 20 hit points. 
+  
+  Say you acquire a new weapon, a wand of flame.  The default behavior for this weapon is to shoot a straight line of flame that travels 3 tiles per second.  As you gain experience with this item, you gain access to the private variables of the object that encapsulates it.  That means you can attach scripts to it that change its speed, trajectory, and width.
+  
+  There is a large rock on the path ahead of you.  Once you've gained the 'telepathy' ability, you will be able to write scripts for inanimate objects.  You can make the rock move in a circle to disrupt enemies, use it to plug doors, or float it to otherwise inaccessible switches.  
 4.  **Key Features**
+  * Open world
+  * Scriptable game entities
 5.  **Genre**
 6.  **Platforms**
+  * Browser
 7.  **Concept Art**
 
 #II.  Game Proposal
@@ -15,7 +24,7 @@
 1.  **Revised Game concept**
 2.  **Market Analysis**
   
-  Minecraft modding is very popular.  This is the ultimate mod.  
+  Minecraft modding is very popular.  This is the ultimate mod.  It allows for in-game modding while playing, and modding is part of the challenge of the game.  
 3.  **Technical Analysis**
 4.  **Art**
 
