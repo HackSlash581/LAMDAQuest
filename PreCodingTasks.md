@@ -29,7 +29,8 @@
   
   Minecraft modding is very popular.  This is the ultimate mod.  It allows for in-game modding while playing, and modding is part of the challenge of the game.  
 3.  **Technical Analysis**
-  User our own programming language for game entity scripts will allow us a fine grain of control over what the user can do with scripting.  We considered allowing the user to directly type in JavaScript or Lua, but that would present many security issues.  With our own language, we can compile it to JavaScript and execute it with the knowledge that nothing harmful can be done.  
+
+  User our own programming language for game entity scripts will allow us a fine grain of control over what the user can do with scripting.  We considered allowing the user to directly type in JavaScript or Lua, but that would present many security issues.  With our own language, we can compile it to JavaScript and execute it with the knowledge that nothing harmful can be done.  Additionally, this will let us define various levels of scripting that the user can access.  For example, level one might give access to assignment and conditional branching, while iteration would only be allowed at later stages.
 4.  **Art**
 
 #III.  Functional Specification
