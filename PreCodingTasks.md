@@ -29,6 +29,7 @@
   
   Minecraft modding is very popular.  This is the ultimate mod.  It allows for in-game modding while playing, and modding is part of the challenge of the game.  
 3.  **Technical Analysis**
+  User our own programming language for game entity scripts will allow us a fine grain of control over what the user can do with scripting.  We considered allowing the user to directly type in JavaScript or Lua, but that would present many security issues.  With our own language, we can compile it to JavaScript and execute it with the knowledge that nothing harmful can be done.  
 4.  **Art**
 
 #III.  Functional Specification
@@ -110,3 +111,11 @@
 4.  **Testing Phase (Quality Assurance)** 
   *	Beta - First Potential Code Release 
   *	Gold Master - Code Release 
+
+#VI.  Team Members
+
+1.  **Kevin Bajaj**
+2.  **Greg Ervin**
+3.  **Thomas Ford**
+4.  **Sean Hannah**
+5.  **Chris Hogan**
