@@ -1,8 +1,9 @@
 /* HackSlash grammar */
 
-%left PLUS MINUS TIMES DOT
-%nonassoc EQUALITY GTHAN LTHAN
-%nonassoc GTHANEQ LTHANEQ
+
+%left EQUALITY GTHAN LTHAN GTHANEQ LTHANEQ
+%left PLUS MINUS 
+%left TIMES DIVIDED
 
 %%
 
@@ -34,7 +35,10 @@ propertychain
 	;
 
 expr
-	: side comparison side
+	: propertychain comparison INT
+	| propertychain comparison propertychain
+	| INT comparison propertychain
+	| INT comparison INT
 	;
 
 side

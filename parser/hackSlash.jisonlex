@@ -15,6 +15,7 @@ STRVAL					\".*\"
 "+"                       return 'PLUS';
 "-"                       return 'MINUS';
 "*"                       return 'TIMES';
+"/"												return 'DIVIDE';
 ">"                       return 'GTHAN';
 "<"												return 'LTHAN';
 ">="											return 'GTHANEQ';
