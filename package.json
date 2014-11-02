@@ -1,0 +1,29 @@
+{
+  "name": "HackSlash",
+  "version": "0.0.0",
+  "description": "Programmable 2D adventure RPG",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "should": "~4.1.0"
+  },
+  "devDependencies": {
+    "should": "^4.1.0",
+    "mocha": "^2.0.1"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha test/testGrammar.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HackSlash581/HackSlash.git"
+  },
+  "author": "Chris Hogan, Kevin Bajaj, Sean Hannah, Greg Ervin, Thomas Ford",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HackSlash581/HackSlash/issues"
+  },
+  "homepage": "https://github.com/HackSlash581/HackSlash"
+}
