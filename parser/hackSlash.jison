@@ -10,47 +10,47 @@
 %%
 
 script
-	: "EVERY" "INT" ":" propertychain
-	| "IF" expr ":" ifbody
-	| assignment
-	;
+  : "EVERY" "INT" ":" propertychain
+  | "IF" expr ":" ifbody
+  | assignment
+  ;
 
 ifbody
-	: assignment
-	| propertychain
-	;
+  : assignment
+  | propertychain
+  ;
 
 assignment
-	: propertychain ":" newprop
-	;
+  : propertychain ":" newprop
+  ;
 
 newprop
-	: "STRVAL"
-	| "INT"
-	| "ID"
-	;
+  : "STRVAL"
+  | "INT"
+  | "ID"
+  ;
 
 propertychain
-	: propertychain "." "ID"
-	| "ID"
-	;
+  : propertychain "." "ID"
+  | "ID"
+  ;
 
 expr
-	: propertychain comparison "INT"
-	| propertychain comparison propertychain
-	| "INT" comparison propertychain
-	| "INT" comparison "INT"
-	;
+  : propertychain comparison "INT"
+  | propertychain comparison propertychain
+  | "INT" comparison propertychain
+  | "INT" comparison "INT"
+  ;
 
 side
-	: propertychain
-	| "INT"
-	;
+  : propertychain
+  | "INT"
+  ;
 
 comparison
-	: "="
-	| ">"
-	| "<"
-	| ">="
-	| "<="
-	;
+  : "="
+  | ">"
+  | "<"
+  | ">="
+  | "<="
+  ;
