@@ -5,11 +5,13 @@
 %left PLUS MINUS 
 %left TIMES DIVIDED
 
+%start script
+
 %%
 
 script
-	: EVERY INT COLON propertychain
-	| IF expr COLON ifbody
+	: "EVERY" "INT" ":" propertychain
+	| "IF" expr ":" ifbody
 	| assignment
 	;
 
@@ -19,39 +21,36 @@ ifbody
 	;
 
 assignment
-	: propertychain COLON newprop
+	: propertychain ":" newprop
 	;
 
 newprop
-	: STRVAL
-	| INT
-	| FLOAT
-	| ID
+	: "STRVAL"
+	| "INT"
+	| "ID"
 	;
 
 propertychain
-	: propertychain DOT ID
-	| ID
+	: propertychain "." "ID"
+	| "ID"
 	;
 
 expr
-	: propertychain comparison INT
+	: propertychain comparison "INT"
 	| propertychain comparison propertychain
-	| INT comparison propertychain
-	| INT comparison INT
+	| "INT" comparison propertychain
+	| "INT" comparison "INT"
 	;
 
 side
 	: propertychain
-	| INT
-	| FLOAT
+	| "INT"
 	;
 
 comparison
-	: EQUALITY
-	| GTHAN
-	| LTHAN
-	| GTHANEQ
-	| LTHANEQ
+	: "="
+	| ">"
+	| "<"
+	| ">="
+	| "<="
 	;
-
