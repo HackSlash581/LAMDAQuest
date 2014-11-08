@@ -36,7 +36,8 @@
   7. Play the modified version
   8. Repeat
 
- Each step represents a significant time investment, and modding is out of reach for the average Minecraft player.  LAMDA Quest proposes a simplified modification scheme, aimed at getting more people able to modify the game more quickly with a much more shallow learning curve.
+ Each step represents a significant time investment, and modding is out of reach for the average Minecraft player. LAMDA Quest proposes a simplified modification scheme, aimed at getting more people able to modify the game more quickly with a much more shallow learning curve.
+  
   1. Pause the game
   2. Type a line of HackScript with help from the cheatsheet
   3. Unpause the game, and play the new version. Instant gratification!
