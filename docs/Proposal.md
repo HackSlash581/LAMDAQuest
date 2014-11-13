@@ -55,6 +55,15 @@
 
 1.  **Game Mechanics**
   1.  Core Game Play
+      
+    Lambda Quest is a single player 2d adventure game that allows not only interaction with the fantasy world, but  also  the ability to change the way the world looks and behaves.  This ability to creatively alter the world that the user is interacting with is the core concept of the game.  This is accomplished first by the user clicking on any of the glowing objects in the world, this will pause the game and bring up a text box that will allow the user to enter his or her own script.  The script will then be injected into the selected object, the game will unpause, and the user can continue playing in the now changed world.  
+	
+    The user will write these scripts in our simplified language, HackScript.  This will allow us to keep the scripts the user wants/needs to write relatively simple and therefore limit the required programming knowledge neccessary to enjoy the game.  An example of this would be the user clicking on a tree and entering “color: blue” in the text box.  Then when the game resumes the tree will now be blue instead of the default green color.  This same idea is used to change everything from the location of inanimate objects to enemy behavior. 
+
+  	As the user advances in the game, they will be awarded with new elements of the HackScript language to use.  At the start the user will only have the ability to change attribute values, but as they gain levels they will gain the ability to use conditionals and loops.  A quick description of how to use each new element will be provided when it is unlocked.  As they level up they will also gain the ability to affect more and more objects in the world, including enemies of an equal level or below.
+
+  	Advancing in the game will consist of completing procedural generated levels that generally have a boss at the end the user needs to defeat.  The ability to change the environment will be required to advance in the game at certain points, such as needing to move inanimate objects to certain places to solve a puzzle or using a loop to repeatedly take down an enemy's shield.  However, there will be vastly more options available to the user that are not needed to advance in the game, this allows for the user to use his or her creativity to truly create their own world.
+	
   2.  Game Flow
   3.  Characters/Units
   4.  Game Play Elements
