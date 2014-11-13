@@ -51,7 +51,7 @@
 
   Using our own programming language for game entity scripts gives us several distinct advantages.  First, it will allow us a fine grain of control over what the user can do with scripting.  We can give the player access only to the language constructs that we deem appropriate for the task at hand, and scale the possibilites up as the game progresses. Second, we initially considered allowing the user to directly type in JavaScript or Lua, but that would present many security issues.  With our own language, we can compile it to JavaScript and execute it with the knowledge that nothing harmful can be done since everything the user types in has to make it through the HackScript parser. Third, using a simple language will reduce the overall complexity and allow us to finish the year with a playable game.  Finally, creating a programming language just sounds fun!
 
-#III.  Functional Specification
+#II.  Functional Specification
 
 1.  **Game Mechanics**
   1.  Core Game Play
@@ -66,7 +66,31 @@
 	
   2.  Game Flow
   3.  Characters/Units
-  4.  Game Play Elements
+  4.  Scripting Elements
+
+   HackScript is the simplified programming language that we will use to handle all player scripting.  It will be compiled to JavaScript on the server and sent to the browser to attach to the object that called it using AJAX.  We will start by implementing just a few core operations, and will gradually add more to the system as we get a working shell up and running.  The initial language will be as follows.
+    ####Supported Syntax
+
+    1. Conditionals
+ 
+     `if <expression>: <propertychain | function call | expression | assignment>`
+
+    2. Timeouts
+ 
+     `every <time in milliseconds>: <function name>`
+
+    3. Assignment
+
+     `<property | property chain>: <property>`
+
+    ####Examples
+
+    `if enemy.distance < 2: player.activateShield`
+
+    `every 2000: player.heal`
+
+    `player.tunic.color: blue`
+
   5.  Game Physics and Statistics
   6.  Artificial Intelligence
   7.  Multiplayer
@@ -101,22 +125,22 @@
   2.  Asset Revelation Schedule
   3.  Level Design Seeds
 
-#V.  Implications
+#III.  Implications
 
 At the heart of our application is the ability to inject code into a running application.  This has some implications beyond our goal of a scriptable game.  Our architecture can serve as a model for a web application that can be updated without having to restart the server.  Imagine fixing a bug in a web application by simply typing in a list of changes on the command line.  Those changes would be put into an object that would notify the application that properties of existing objects have changed, and that it should update itself.  While this would be usefule for small fixes, it is probably not feasable to add entire modules to a running application.  
 
-#VI.  Timeline
+#IV.  Timeline
 
 (Insert Gantt chart here)
 
-#VII.  Budget
+#V.  Budget
 
 
-#VIII.  Team Members
+#VI.  Team Members and Contributions
 
 1.  **Kevin Bajaj**
 2.  **Greg Ervin**
 3.  **Thomas Ford**
 4.  **Sean Hannah**
-5.  **Chris Hogan**
+5.  **Chris Hogan**: Game Concept, Scripting Elements, Implications
 6.  **Grant Steuart**
