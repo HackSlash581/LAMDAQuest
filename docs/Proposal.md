@@ -68,28 +68,28 @@
   3.  Characters/Units
   4.  Scripting Elements
 
-   HackScript is the simplified programming language that we will use to handle all player scripting.  It will be compiled to JavaScript on the server and sent to the browser to attach to the object that called it using AJAX.  We will start by implementing just a few core operations, and will gradually add more to the system as we get a working shell up and running.  The initial language will be as follows.
-    ####Supported Syntax
+    HackScript is the simplified programming language that we will use to handle all player scripting.  It will be compiled to JavaScript on the server and sent to the browser to attach to the object that called it using AJAX.  We will start by implementing just a few core operations, and will gradually add more to the system as we get a working shell up and running.  The initial language will be as follows.
+     ####Supported Syntax
 
-    1. Conditionals
+     1. Conditionals
+  
+      `if <expression>: <propertychain | function call | expression | assignment>`
+
+     2. Timeouts
  
-     `if <expression>: <propertychain | function call | expression | assignment>`
+      `every <time in milliseconds>: <function name>`
 
-    2. Timeouts
- 
-     `every <time in milliseconds>: <function name>`
+     3. Assignment
 
-    3. Assignment
+      `<property | property chain>: <property>`
 
-     `<property | property chain>: <property>`
+     ####Examples
 
-    ####Examples
+     `if enemy.distance < 2: player.activateShield`
 
-    `if enemy.distance < 2: player.activateShield`
+     `every 2000: player.heal`
 
-    `every 2000: player.heal`
-
-    `player.tunic.color: blue`
+     `player.tunic.color: blue`
 
   5.  Game Physics and Statistics
   6.  Artificial Intelligence
