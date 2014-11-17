@@ -66,6 +66,31 @@
 	
   2.  Game Flow
   3.  Characters/Units
+    a.  Main Character - Player controller character that has extensive mutability as player levels. User can change
+        basic character attributes such as speed, color, and other various aesthetic changes. As level progress player
+        will be able to add scripting elements to the character. These scripting elements are listed in further detail
+        below.
+    b.  Basic Enemy - A low level encounter the player will have to interact with to accomplish their objective. These
+        lower level enemy units usually stand in place and fight, deal contact damage, and/or walk in very simple
+        routes around the map. Once the player reaches a high enough level, they will be able to add scripts to these
+        low level enemies to be used in their strategic planning. Small chance at dropping a low level mod for the
+        player to use.
+    c.  Advanced Enemy - A medium to higher level encounter that has more random game play elements and is harder for
+        the player to pass to get to the objective. Dependent on the enemy encounter, the player will not have access to
+        controlling this enemy unit or very limited mutability. These enemies will deal more damage and are likely to
+        be encountered with lower level enemies as well. Higher chance than basic enemy to drop a low level mod, and
+        a small chance to drop a medium to higher level mod for the player to use.
+    d.  Bosses - Uncontrollable to the player and usually is at the end of an objective. Mini-bosses may be in place
+        throughout objectives or for random encounters to add to game variability. Higher chance to drop a player mode
+        across all levels.
+    e.  Tile Units - Throughout the game there will be various tile units the player will be exposed to. These will
+        vary between "ice" tiles where the player must move slowly across to effectively get to the check point,
+        "hot" tiles where the player must move quickly across to minimize damage dealt, or even teleporting tiles that
+        transports the player to another part of the map.
+    f.  Misc - Other game play characters/units may involve bombs, trip mines, turrets, etc. that may be found in other
+        games to add to the gaming experience. Most of these ideas are tentative until we solidify the game mechanics and
+        feel of the game we our looking for.
+
   4.  Scripting Elements
 
     HackScript is the simplified programming language that we will use to handle all player scripting.  It will be compiled to JavaScript on the server and sent to the browser to attach to the object that called it using AJAX.  We will start by implementing just a few core operations, and will gradually add more to the system as we get a working shell up and running.  The initial language will be as follows.
@@ -93,6 +118,20 @@
 
   5.  Game Physics and Statistics
   6.  Artificial Intelligence
+    a.  Basic AI - At the lowest level enemy encounters, the player will experience easy artificial intelligence. This
+        will range from simple standing and attacking enemies, enemies that patrol a route, and enemies that patrol and
+        attack.
+    b.  Medium AI - At medium levels the player can experience randomly moving AI that "dodge" attacks, move quicker,
+        and move with randomness. These AI units will typically have higher health based off enemy movement abilities.
+        If an elemental system is in place, the player will begin to experience enemies where only certain attacks will
+        damage these enemy units.
+    c.  Advanced AI - The player will experience enemy AI units that may randomly teleport, spawn enemies, and many
+        other random game play elements to add increasing difficulty.
+    d.  Boss AI - The bosses will typically follow that of an advanced AI or of a predetermined script that the player
+        must solve to effectively eliminate the boss.
+    e.  Companion AI - As the player levels, and companions that may be implemented in the game will start off with
+        simple AI logic and attacks/defenses. As the player unlocks/levels the companion, scripts can be added and
+        smarter intelligence added.
   7.  Multiplayer
 2.  **User Interface**
   1.  Flowchart
