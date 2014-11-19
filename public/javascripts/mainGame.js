@@ -1,0 +1,52 @@
+var LAMDAQuest = LAMDAQuest || {};
+
+LAMDAQuest.mainGame = function() {};
+LAMDAQuest.mainGame.prototype = {
+  create: function() {
+    this.map = this.game.add.tilemap('level1');
+
+    this.map.addTilesetImage('tiles', 'sygma_dwtileset2');
+
+    this.backgroundlayer = this.map.createLayer('Backgroundlayer');
+
+    this.environmentLayer = this.map.createLayer('EnvironmentLayer');
+    this.map.setCollisionBetween(1, 2000, true, 'EnvironmentLayer');
+    this.backgroundlayer.resizeWorld();
+
+    var result = this.findObjectsByType('playerStart', this.map, 'GameEntities');
+    this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
+    this.game.physics.arcade.enable(this.player);
+    this.game.camera.follow(this.player);
+    this.cursors = this.game.input.keyboard.createCursorKeys();
+  },
+
+  findObjectsByType: function(type, map, layer) {
+    var result = [];
+    map.objects[layer].forEach(function(element){
+      if(element.properties.type === type) {
+        element.y -= map.tileHeight;
+        result.push(element);
+      }      
+    });
+    return result;
+  },
+
+  update: function() {
+    //player movement
+    this.player.body.velocity.y = 0;
+    this.player.body.velocity.x = 0;
+
+    if(this.cursors.up.isDown) {
+      this.player.body.velocity.y -= 50;
+    }
+    else if(this.cursors.down.isDown) {
+      this.player.body.velocity.y += 50;
+    }
+    if(this.cursors.left.isDown) {
+      this.player.body.velocity.x -= 50;
+    }
+    else if(this.cursors.right.isDown) {
+      this.player.body.velocity.x += 50;
+    }
+  }
+};
