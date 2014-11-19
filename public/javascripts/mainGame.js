@@ -7,7 +7,7 @@ LAMDAQuest.mainGame.prototype = {
 
     this.map.addTilesetImage('tiles', 'sygma_dwtileset2');
 
-    this.backgroundlayer = this.map.createLayer('Backgroundlayer');
+    this.backgroundlayer = this.map.createLayer('BackgroundLayer');
 
     this.environmentLayer = this.map.createLayer('EnvironmentLayer');
     this.map.setCollisionBetween(1, 2000, true, 'EnvironmentLayer');
