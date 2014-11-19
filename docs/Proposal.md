@@ -198,6 +198,6 @@ At the heart of our application is the ability to inject code into a running app
 1.  **Kevin Bajaj**: Core Game Play
 2.  **Greg Ervin**
 3.  **Thomas Ford**
-4.  **Sean Hannah**
+4.  **Sean Hannah**: Game Flow
 5.  **Chris Hogan**: Game Concept, Scripting Elements, Implications
 6.  **Grant Steuart**
