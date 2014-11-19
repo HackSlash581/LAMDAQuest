@@ -48,5 +48,8 @@ LAMDAQuest.mainGame.prototype = {
     else if(this.cursors.right.isDown) {
       this.player.body.velocity.x += 50;
     }
+
+    this.game.physics.arcade.collide(this.player, this.environmentLayer);
+    
   }
 };
