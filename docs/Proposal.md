@@ -157,8 +157,8 @@
   7.  Multiplayer
 2.  **User Interface**
   1.  Flowchart
-   ![Architecture Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/Mainmenu.PNG)
-   ![Architecture Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/Characturepause.PNG)
+   ![Menu Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/Mainmenu.PNG)
+   ![Char Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/Characturepause.PNG)
   2.  Functional Requirements
     a. The user interface is going to be very simple and strait forward, there will be two total pause buttons. The first pause button will be your average character menu with
     equipment, options, inventory, spells, talents. The second pause button will be implemented as a scripting pause which will be entered by selecting an object and then opening 
