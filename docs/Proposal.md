@@ -132,6 +132,10 @@
 
      `player.tunic.color: blue`
 
+     ####Scripting Architecture
+    
+     ![Architecture Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/architecture.PNG)
+
   5.  Game Physics and Statistics
   6.  Artificial Intelligence
 
