@@ -156,20 +156,17 @@
         smarter intelligence added.
   7.  Multiplayer
 2.  **User Interface**
-  1.  Flowchart
+   1.  Flowchart
   
-   ![Menu Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/Mainmenu.png)
+     ![Menu Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/Mainmenu.png)
 
-   ![Char Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/Characturepause.png)
+     ![Char Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/Characturepause.png)
    
-  2.  Functional Requirements
-    a. The user interface is going to be very simple and strait forward, there will be two total pause buttons. The first pause button will be your average character menu with
-    equipment, options, inventory, spells, talents. The second pause button will be implemented as a scripting pause which will be entered by selecting an object and then opening 
-    the script screen. In the script screen there will be a list of the objects elements that can be changed along with a display of how many action points worth of changes you can make.
-    Under the object box there will be a scripting box where one will do their scripting, in the scripting box there will be a scripting help button/tutorial to get new players started.
+   2.  Functional Requirements
     
-    b. Also to keep the story line somewhat enthralling the NPCs will have some conversation diversity and you will have multiple options on how to respond. The NPCs will react differently
-    to different responses. This will look like the average conversation box with options while you are interacting.
+     a. The user interface is going to be very simple and strait forward, there will be two total pause buttons. The first pause button will be your average character menu with equipment, options, inventory, spells, talents. The second pause button will be implemented as a scripting pause which will be entered by selecting an object and then opening the script screen. In the script screen there will be a list of the objects elements that can be changed along with a display of how many action points worth of changes you can make. Under the object box there will be a scripting box where one will do their scripting, in the scripting box there will be a scripting help button/tutorial to get new players started.
+    
+     b. Also to keep the story line somewhat enthralling the NPCs will have some conversation diversity and you will have multiple options on how to respond. The NPCs will react differently to different responses. This will look like the average conversation box with options while you are interacting.
     
   3.  Mockups
      
@@ -210,17 +207,10 @@
       Will have different "walking" sounds depending on the terrain that is being crossed    
   2.  Music
       All Music will be done in partnership with a recording studio that does sound Thomas Ford will be working with them.
-    * Event Jingles – success/failure/death/victory etc.
-    * Shell Screen
-    * Level Theme
-    * Situations
+   
 
-5.  **Story**
-	* Explore
-	* Hack Stuff	
-	* ????	
-	* Profit
-6.  **World Design**
+
+5.  **World Design**
 
 	1. Overview
 	
@@ -238,7 +228,7 @@
 		
 		Dungeons exist in the overworld as entrances or portals, but upon entering have their own separate map and their interior size may not be reflected by their exterior size (it's bigger on the inside). Dungeons will be themed just like the world is depending on the biome they are found in. Dungeons will be procedurally generated using a number of techniques to increase variety. Each dungeon ultimately follows the "lock and key" pattern epitomized by the dungeons found in the Zelda games. In this sense, a lock is not strictly a lock, and a key is not strictly a key. For instance, while a lock might actually be a locked door, it may just as well be a hidden door, a blocked passage, or unavoidable combat. Likewise, a key might actually be a key, but could just as well be a switch, a puzzle, or an npc that opens the path. Categorizing locks and keys this way allows easy development of new specific locks and keys that can be easily implemented. At the end of each dungeon is a boss, and this too is a form of a lock and key. In this case the boss is the lock, and the key is the item or strategy required to defeat it. Defeating bosses offers rewards critical to game progression.
 		
-7.	**Character Progression**
+6.	**Character Progression**
   
 	1. Level Progression
 	
@@ -261,7 +251,8 @@ At the heart of our application is the ability to inject code into a running app
 (Insert Gantt chart here)
 
 #V.  Budget
-     Given that the nature of our project is strictly software there are not a lot of expenses to be incurred. Given that our team lacks graphic designers, we anticipate purchasing a commercial sprite set. Initial investigation suggests that could cost between $40 and $100. It is possible that some costs may incurred in the process of creating sound and music resources as well. No other costs are anticipated at this time.
+
+ Given that the nature of our project is strictly software there are not a lot of expenses to be incurred. Given that our team lacks graphic designers, we anticipate purchasing a commercial sprite set. Initial investigation suggests that could cost between $40 and $100. It is possible that some costs may incurred in the process of creating sound and music resources as well. No other costs are anticipated at this time.
 
 #VI.  Team Members and Contributions
 
