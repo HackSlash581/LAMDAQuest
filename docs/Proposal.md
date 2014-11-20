@@ -216,10 +216,41 @@
     * Situations
 
 5.  **Story**
-6.  **Level Requirements**
-  1.  Level Diagram
-  2.  Asset Revelation Schedule
-  3.  Level Design Seeds
+	* Explore
+	* Hack Stuff	
+	* ????	
+	* Profit
+6.  **World Design**
+
+	1. Overview
+	
+		The world in LAMBDA Quest is practically infinite. New players always start in a small tutorial region that is always the same. From there the player is introduced to the world map. The world extends infinitely in the four primary directions, and is procedurally generated as you explore. In the world you will find a variety of enemies, npcs, puzzles, and treasures. The areas the player explores will be scaled to the players level when the area was generated. If the player travels sufficiently far and then returns he may find that stronger enemies have taken over the region. In the world the player will also find several dungeons. These dungeons will also be procedurally generated and will be an important focus throughout the game.
+		
+	2. Introductory Region
+	
+		When the player starts a new character he will find himself in an area that remains consistent between all playthroughs. The exact nature of the reason is not yet determined, but will likely be the characters home, an inn, or something similar. This area will feature a set of tutorials to orient the player to navigating the UI and the world, grant some initial equipment, and introduce the user to the scripting portion of the game through a series of guided puzzles. The exact number and nature of the puzzles depends on the final details of the scripting language implementation. There will generally be one tutorial puzzle for each scripting function available at the beginning of the game. A stretch goal along this vein is to provide optional introductory puzzles to each new scripting function as you unlock them.
+		
+	3. World Map
+	
+		The world in LAMBDA Quest is primarily two dimensional, continuing infinitely to the north, south, east, and west. The third dimension height may be implemented as in such games as Final Fantasy Tactics, but the game will not be 3D. As in Minecraft the world in LAMDA Quest will be procedurally generated. To accomplish this the game acquires a seed. This seed can be input manually by the player, allowing players to share interesting worlds. In the absence of a user input seed, the game will generate a seed from the system time. The world will be organized into various biomes, examples include but are not limited to plains, forest, valleys, cemeteries, caverns, ocean, and desert. Each biome will feature unique enemies, npcs, challenges and rewards. For example a cemetery might feature rapidly respawning skeletons, and eventually reward the player with the ability to modify his companions to respawn. Rewards will generally be scaled by the risk associated. Unguarded rewards result in weaker rewards, while more significant challenges preceding the reward will result in significantly more useful rewards.
+		
+	4. Dungeons
+		
+		Dungeons exist in the overworld as entrances or portals, but upon entering have their own separate map and their interior size may not be reflected by their exterior size (it's bigger on the inside). Dungeons will be themed just like the world is depending on the biome they are found in. Dungeons will be procedurally generated using a number of techniques to increase variety. Each dungeon ultimately follows the "lock and key" pattern epitomized by the dungeons found in the Zelda games. In this sense, a lock is not strictly a lock, and a key is not strictly a key. For instance, while a lock might actually be a locked door, it may just as well be a hidden door, a blocked passage, or unavoidable combat. Likewise, a key might actually be a key, but could just as well be a switch, a puzzle, or an npc that opens the path. Categorizing locks and keys this way allows easy development of new specific locks and keys that can be easily implemented. At the end of each dungeon is a boss, and this too is a form of a lock and key. In this case the boss is the lock, and the key is the item or strategy required to defeat it. Defeating bosses offers rewards critical to game progression.
+		
+7.	**Character Progression**
+  
+	1. Level Progression
+	
+		The most familiar form of progression in games is experiences based level progression. Monsters, puzzles, and dungeons reward the player with experience. At predefined intervals the players increases in level. Each level gives the user a number of Action Points (this number may be one, five, or any number that gives the greatest overall player satisfaction). These Action Points dictate the power of scripts you can write. For instance, reducing a units health by five might cost one action, increasing the attack on a weapon by one may cost one action point, using a fireball function might cost five action points. Action points are on a per script basis, meaning that with 5 action point the user can have a 5 action point script on his weapon, and a 5 action point script on an enemy. Levels also provide the user with stats, and as a stretch goal also provide feats.
+	
+	2. Item Progression
+	
+		Also a familiar form of progression in games is item based progression. Rewards will often include a variety of procedurally generated weapons and armor, that will increase the players stats. Additionally items may have predefined scripts on them with a lower cost than writing the same script. Items may also have unique functions, one sword may have a function to fire a laser that is normally not available to that item. Other items may be important to overall progression. For instance shoes that allow the character to jump may be required to access new areas or reach the boss in a dungeon.
+	
+	3. Scripting Progression
+  
+		A less familiar form of progression, LAMDA Quest allows scripting progression. Aside from the level based action point system, you're scripting ability also increases independently. Initially you only have a very limited access to the full power of scripting, but unlock features as you progress. For instance, the boss of a dungeon may hold the secret to using conditionals in your script, or after solving a particularly hard puzzle in a swamp may the player may find the ability to create timed loops. Additionally the player may find prewritten (and possibly procedurally generated) script blocks with a lower total cost to use than if the player had scripted it themselves.
 
 #III.  Implications
 
@@ -230,12 +261,12 @@ At the heart of our application is the ability to inject code into a running app
 (Insert Gantt chart here)
 
 #V.  Budget
-     In our budget buying a nice sprite sheet to work with has been mentioned and will probably be done. Along with any help we need from recording studio to make custom sound effects.
+     Given that the nature of our project is strictly software there are not a lot of expenses to be incurred. Given that our team lacks graphic designers, we anticipate purchasing a commercial sprite set. Initial investigation suggests that could cost between $40 and $100. It is possible that some costs may incurred in the process of creating sound and music resources as well. No other costs are anticipated at this time.
 
 #VI.  Team Members and Contributions
 
 1.  **Kevin Bajaj**: Core Game Play
-2.  **Greg Ervin**
+2.  **Greg Ervin**: Procedurally Generated Content
 3.  **Thomas Ford**: Sound/Graphics and GUI
 4.  **Sean Hannah**: Game Flow
 5.  **Chris Hogan**: Game Concept, Scripting Elements, Implications
