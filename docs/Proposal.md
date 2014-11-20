@@ -157,29 +157,61 @@
   7.  Multiplayer
 2.  **User Interface**
   1.  Flowchart
+   ![Architecture Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/Mainmenu.PNG)
+   ![Architecture Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/Characturepause.PNG)
   2.  Functional Requirements
+    a. The user interface is going to be very simple and strait forward, there will be two total pause buttons. The first pause button will be your average character menu with
+    equipment, options, inventory, spells, talents. The second pause button will be implemented as a scripting pause which will be entered by selecting an object and then opening 
+    the script screen. In the script screen there will be a list of the objects elements that can be changed along with a display of how many action points worth of changes you can make.
+    Under the object box there will be a scripting box where one will do their scripting, in the scripting box there will be a scripting help button/tutorial to get new players started.
+    
+    b. Also to keep the story line somewhat enthralling the NPCs will have some conversation diversity and you will have multiple options on how to respond. The NPCs will react differently
+    to different responses. This will look like the average conversation box with options while you are interacting.
+    
   3.  Mockups
+     
+      We want the GUI as a whole to be very easy to use because one of the problems we have seen with other products like this is that they are just way to confusing and, or way to linear.
+      To do this I will include many optional tutorials and make the menus easily navigatable with apparent tags and as little buttons as possible.       
   4.  GUI Objects
+      
+      The objects in game still need to be discussed in depth but generally the items will have a Title, Rarity and Description.
+      The Title will be at the top of a text box the rarity will be depicted by color and the description will fall under that.
+      
+      a. Equipment "HELM OF SIGHT" "10 ARMOR +2 HEALTH"
+      b. SPELLS "FIREBALL, LVL 1" "10 Magic Damage, 10 Fire damage" "Throw a ball of fire from medium range to do magic and fire damage"
+      c. ITEMS "Health Potion" "Instantly restores 20 Health Points"
+      
 3.  **Art and Video**
   1.  Overall goals
+      The overall goal is to have a simple Legend of Zelda style top down graphics with many many cosmetic options to change through the scripting.
+      
   2.  2D Art and Animation
+      We will start this process with sprite sheets
   3.  GUI
-  4.  Terrain
+      See GUI 
   5.  Game Play Elements
-  6.  Cinematics
+      Ideally all terrain elements will be able to be interacted with.
+  6.  Cinematic
+      To early to be discussed will focus on this if I have time.
 4.  **Sound and Music**
   1.  Sound Effects
-    *  GUI
+    * GUI
+      Will Start of with simple sound board for the most basic elements of sound (sword slashing, mousing over items, EX..)  
     * Special Effects
+      Will be a future endeavor     
     * Characters
-    * Game Play Elements
+      Have yet to decide whether or not we have time to give characters voices    
     * Environment
+      Each mob will have a unique set of sounds they make to alert the player of their presence (unless they are stealthed)    
     * Motion
+      Will have different "walking" sounds depending on the terrain that is being crossed    
   2.  Music
+      All Music will be done in partnership with a recording studio that does sound Thomas Ford will be working with them.
     * Event Jingles – success/failure/death/victory etc.
     * Shell Screen
     * Level Theme
     * Situations
+
 5.  **Story**
 6.  **Level Requirements**
   1.  Level Diagram
@@ -195,7 +227,7 @@ At the heart of our application is the ability to inject code into a running app
 (Insert Gantt chart here)
 
 #V.  Budget
-
+     In our budget buying a nice sprite sheet to work with has been mentioned and will probably be done. Along with any help we need from recording studio to make custom sound effects.
 
 #VI.  Team Members and Contributions
 
