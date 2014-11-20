@@ -261,4 +261,4 @@ At the heart of our application is the ability to inject code into a running app
 3.  **Thomas Ford**: Sound/Graphics and GUI
 4.  **Sean Hannah**: Game Flow
 5.  **Chris Hogan**: Game Concept, Scripting Elements, Implications
-6.  **Grant Steuart**
+6.  **Grant Steuart** Characters/Units, Artificial Intelligence
