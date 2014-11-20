@@ -136,8 +136,7 @@
     
      ![Architecture Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/architecture.PNG)
 
-  5.  Game Physics and Statistics
-  6.  Artificial Intelligence
+  5.  Artificial Intelligence
 
     a.  Basic AI - At the lowest level enemy encounters, the player will experience easy artificial intelligence. This
         will range from simple standing and attacking enemies, enemies that patrol a route, and enemies that patrol 		and attack.
@@ -154,7 +153,7 @@
     e.  Companion AI - As the player levels, and companions that may be implemented in the game will start off with
         simple AI logic and attacks/defenses. As the player unlocks/levels the companion, scripts can be added and
         smarter intelligence added.
-  7.  Multiplayer
+  
 2.  **User Interface**
    1.  Flowchart
   
