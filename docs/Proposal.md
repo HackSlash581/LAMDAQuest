@@ -248,7 +248,7 @@ At the heart of our application is the ability to inject code into a running app
 
 #IV.  Timeline
 
-(Insert Gantt chart here)
+![Gantt Image](https://github.com/HackSlash581/LAMDAQuest/blob/master/docs/GanttChart.png)
 
 #V.  Budget
 
