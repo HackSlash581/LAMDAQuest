@@ -10,7 +10,7 @@ LAMDAQuest.mainGame.prototype = {
     this.backgroundlayer = this.map.createLayer('BackgroundLayer');
 
     this.environmentLayer = this.map.createLayer('EnvironmentLayer');
-    this.map.setCollisionBetween(1, 2000, true, 'EnvironmentLayer');
+    this.map.setCollisionBetween(1205, 1755, true, 'EnvironmentLayer');
     this.backgroundlayer.resizeWorld();
 
     var result = this.findObjectsByType('playerStart', this.map, 'GameEntities');
