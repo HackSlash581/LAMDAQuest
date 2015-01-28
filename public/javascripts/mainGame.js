@@ -11,16 +11,26 @@ LAMDAQuest.mainGame.prototype = {
 
     this.environmentLayer = this.map.createLayer('EnvironmentLayer');
 
+    /**
+     * Messing with UI ********************************
+     *
+     * Ideally we could do this here:
+     *
+     * this.myButton = createMyButton(this);
+     *
+     * where createMyButton() is defined in another file.
+     */
     this.myButton = this.game.add.button(200, 400, 'button', actionOnClick, this, 2, 1, 0);
-
-    function actionOnClick() {};
-    function over() {};
+    
+    function actionOnClick() {console.log("clicked")};
+    function over() {console.log(this)};
     function up() {};
     function out() {};
     
     this.myButton.onInputOver.add(over, this);
     this.myButton.onInputOut.add(out, this);
     this.myButton.onInputUp.add(up, this);
+    //**************************************************
 
     this.map.setCollisionBetween(1205, 1755, true, 'EnvironmentLayer');
     this.backgroundlayer.resizeWorld();
