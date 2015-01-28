@@ -10,8 +10,20 @@ LAMDAQuest.mainGame.prototype = {
     this.backgroundlayer = this.map.createLayer('BackgroundLayer');
 
     this.environmentLayer = this.map.createLayer('EnvironmentLayer');
+
+    this.myButton = this.game.add.button(200, 400, 'button', actionOnClick, this, 2, 1, 0);
+
+    function actionOnClick() {};
+    function over() {};
+    function up() {};
+    function out() {};
+    
+    this.myButton.onInputOver.add(over, this);
+    this.myButton.onInputOut.add(out, this);
+    this.myButton.onInputUp.add(up, this);
+
     this.map.setCollisionBetween(1205, 1755, true, 'EnvironmentLayer');
-    //this.backgroundlayer.resizeWorld();
+    this.backgroundlayer.resizeWorld();
 
     var result = this.findObjectsByType('playerStart', this.map, 'GameEntities');
     this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
