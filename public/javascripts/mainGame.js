@@ -3,43 +3,29 @@ var LAMDAQuest = LAMDAQuest || {};
 LAMDAQuest.mainGame = function() {};
 LAMDAQuest.mainGame.prototype = {
   create: function() {
-    this.map = this.game.add.tilemap('level1');
-
-    this.map.addTilesetImage('tiles', 'sygma_dwtileset2');
-
-    this.backgroundlayer = this.map.createLayer('BackgroundLayer');
-
-    this.environmentLayer = this.map.createLayer('EnvironmentLayer');
-
-    /**
-     * Messing with UI ********************************
-     *
-     * Ideally we could do this here:
-     *
-     * this.myButton = createMyButton(this);
-     *
-     * where createMyButton() is defined in another file.
-     */
-    this.myButton = this.game.add.button(200, 400, 'button', actionOnClick, this, 2, 1, 0);
     
-    function actionOnClick() {console.log("clicked")};
-    function over() {console.log(this)};
-    function up() {};
-    function out() {};
+    //Initialize the map
+    initMap(this);
+
+    //Initialize UI
+    createMyButton(this);
     
-    this.myButton.onInputOver.add(over, this);
-    this.myButton.onInputOut.add(out, this);
-    this.myButton.onInputUp.add(up, this);
-    //**************************************************
+    //Initialize player on the map
+    putPlayerOnMap(this);
 
-    this.map.setCollisionBetween(1205, 1755, true, 'EnvironmentLayer');
-    this.backgroundlayer.resizeWorld();
+    //Initialize input
+    initInput(this);
+  },
 
-    var result = this.findObjectsByType('playerStart', this.map, 'GameEntities');
-    this.player = this.game.add.sprite(result[0].x, result[0].y, 'player');
-    this.game.physics.arcade.enable(this.player);
-    this.game.camera.follow(this.player);
-    this.cursors = this.game.input.keyboard.createCursorKeys();
+  update: function() {
+    //player movement
+    this.player.body.velocity.y = 0;
+    this.player.body.velocity.x = 0;
+
+    //Check player input
+    checkInput(this);
+
+    this.game.physics.arcade.collide(this.player, this.environmentLayer);
   },
 
   findObjectsByType: function(type, map, layer) {
@@ -51,27 +37,5 @@ LAMDAQuest.mainGame.prototype = {
       }      
     });
     return result;
-  },
-
-  update: function() {
-    //player movement
-    this.player.body.velocity.y = 0;
-    this.player.body.velocity.x = 0;
-
-    if(this.cursors.up.isDown) {
-      this.player.body.velocity.y -= 50;
-    }
-    else if(this.cursors.down.isDown) {
-      this.player.body.velocity.y += 50;
-    }
-    if(this.cursors.left.isDown) {
-      this.player.body.velocity.x -= 50;
-    }
-    else if(this.cursors.right.isDown) {
-      this.player.body.velocity.x += 50;
-    }
-
-    this.game.physics.arcade.collide(this.player, this.environmentLayer);
-    
   }
 };
