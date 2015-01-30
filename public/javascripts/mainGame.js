@@ -5,16 +5,16 @@ LAMDAQuest.mainGame.prototype = {
   create: function() {
     
     //Initialize the map
-    initMap(this);
+    LAMDAQuest.MAP.initMap(this);
+
+    //Initialize player on the map
+    LAMDAQuest.MAP.putPlayerOnMap(this);
 
     //Initialize UI
-    createMyButton(this);
+    LAMDAQuest.UI.createMyButton(this);
     
-    //Initialize player on the map
-    putPlayerOnMap(this);
-
     //Initialize input
-    initInput(this);
+    LAMDAQuest.INPUT.initInput(this);
   },
 
   update: function() {
@@ -23,7 +23,7 @@ LAMDAQuest.mainGame.prototype = {
     this.player.body.velocity.x = 0;
 
     //Check player input
-    checkInput(this);
+    LAMDAQuest.INPUT.checkInput(this);
 
     this.game.physics.arcade.collide(this.player, this.environmentLayer);
   },
