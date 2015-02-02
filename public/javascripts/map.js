@@ -5,7 +5,7 @@ LAMDAQuest.MAP = function() {
   return {
     initMap: function(mainGame) {
       mainGame.map = mainGame.game.add.tilemap('level1');
-      mainGame.map.addTilesetImage('tiles', 'sygma_dwtileset2');
+      mainGame.map.addTilesetImage('tiles', 'tiles');
       mainGame.backgroundlayer = mainGame.map.createLayer('BackgroundLayer');
       mainGame.environmentLayer = mainGame.map.createLayer('EnvironmentLayer');
       mainGame.map.setCollisionBetween(1205, 1755, true, 'EnvironmentLayer');

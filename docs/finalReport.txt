@@ -1,0 +1,27 @@
+Summary
+
+LAMDA Quest is a 2D adventure role playing game where there user will be able to interact with the game using scripts from the HackScript language. Everything is scriptable and you will be able to program anything in the game world and attach any user written script written in HackScript to those in game objects. Every time the player will load into the game, he will be presented with a new procedurally generated map, with new challenges and enemies that will challenge the users ability to adapt to the new level of interactivity that this game provides. LAMDA Quest will help promote creativity to solve unique puzzles that will need to be solved using scripting, teach the users how to program, and will have unlimited replayability due to the dynamic nature of the game. 
+
+
+Status
+
+We currently have four projects in our Github repository, each representing a portion
+of the final project.
+
+1.  HackScript
+
+This project is the compiler for our custom language, HackScript. The README explainthe current language constructs it will accept.  We plan on adding more in the futureIt is working for basic statemnts, but it will not accept arbitrarily long propertychains.  It uses Jison to create the lexer and parser, and also includes source mapsfor easier debugging in the browser.  The compiled JavaScript is naive at the momenin that it doesn't include references to the objects the scripts will be injected into.
+
+2.  scriptingEnvTest
+The project tests updating an element in a <canvas> by clicking and typing in text. Clicking on the square in the canvas produces an alert box where you can type a hexnumber.  On submission, the canvas will change to the color of the entered number.  This is a proof of concept for dynamically updating the properties of an object ina canvas.  We need to add the compiler to this project, and integrate that into the actual game.
+
+3.  phaserSandboxThis is a game we built using an online tutorial.  We wanted to test out the Phaseframework and make sure it would suit our needs.  We also added the ability to pausthe game by pressing the spacebar.  When we pause our game, we will have access tthe object properties.  This project shows how easy Phaser makes game development.
+
+4.  LAMDAQuest
+This is the actual game.  Right now, we are using open source art as a placeholder.Currently, we have the ability to create tile maps that include collision, and charactyer movement.  The next step is to combine these projects into one.
+
+Next Semester Goals
+
+Going into next semester our goal is to have a playable demo completed by the beginning of March. This playable demo will have the core functionality of our game, but on a smaller scale.  It will allow the user to write scripts in our HackScript language, this code will then be compiled and injected into the running game.  The demo, however, will only be a single playable level with only two or three challenges to complete using the three basic HackScript functions.  The demo will also include background music and animation sound.
+
+The final game will hopefully include proceduraly generated levels that provide the user a continuously challenging and engaging experience.  Our HackScript language will also be expanded from the basic three functions that we currently have. We also plan to add a progression system for the user as they advance through the game.  This could include allowing the user access to more and more HackScript functions and allowing the user access to more of the game object properties.  
