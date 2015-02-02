@@ -5,18 +5,16 @@ LAMDAQuest.MAP = function() {
   return {
     initMap: function(mainGame) {
       mainGame.map = mainGame.game.add.tilemap('level1');
-      mainGame.map.addTilesetImage('tiles', 'tiles');
-      mainGame.backgroundlayer = mainGame.map.createLayer('BackgroundLayer');
-      mainGame.environmentLayer = mainGame.map.createLayer('EnvironmentLayer');
-      mainGame.map.setCollisionBetween(1205, 1755, true, 'EnvironmentLayer');
-      mainGame.backgroundlayer.resizeWorld();
+      mainGame.map.addTilesetImage('tiles');
+      mainGame.layer = mainGame.map.createLayer('layer1');
+      mainGame.layer.resizeWorld();
     },
     
     putPlayerOnMap: function(mainGame) {
-      var result = mainGame.findObjectsByType('playerStart', mainGame.map, 'GameEntities');
-      mainGame.player = mainGame.game.add.sprite(result[0].x, result[0].y, 'player');
-      mainGame.game.physics.arcade.enable(mainGame.player);
-      mainGame.game.camera.follow(mainGame.player);
+      //var result = mainGame.findObjectsByType('playerStart', mainGame.map, 'GameEntities');
+      //mainGame.player = mainGame.game.add.sprite(result[0].x, result[0].y, 'player');
+      //mainGame.game.physics.arcade.enable(mainGame.player);
+      //mainGame.game.camera.follow(mainGame.player);
     }
   };
 }();
