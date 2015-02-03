@@ -4,22 +4,22 @@ LAMDAQuest.INPUT = function() {
   
   return {
     checkInput: function(mainGame) {
-    	if(mainGame.cursors.up.isDown) {
+    	if(mainGame.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
         mainGame.player.body.velocity.y -= 50;
       }
-      else if(mainGame.cursors.down.isDown) {
+      else if(mainGame.game.input.keyboard.isDown(Phaser.Keyboard.S)) {
         mainGame.player.body.velocity.y += 50;
       }
-      if(mainGame.cursors.left.isDown) {
+      if(mainGame.game.input.keyboard.isDown(Phaser.Keyboard.A)) {
         mainGame.player.body.velocity.x -= 50;
       }
-      else if(mainGame.cursors.right.isDown) {
+      else if(mainGame.game.input.keyboard.isDown(Phaser.Keyboard.D)) {
         mainGame.player.body.velocity.x += 50;
       }
     },
     
     initInput: function(mainGame) {
-      mainGame.cursors = mainGame.game.input.keyboard.createCursorKeys();
+      //mainGame.cursors = mainGame.game.input.keyboard.createCursorKeys();
     }
   };
 }();
