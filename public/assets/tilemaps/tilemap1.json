@@ -55,7 +55,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"..\/sygma_dwtileset2.png",
+         "image":"..\/tilesets\/sygma_dwtileset2.png",
          "imageheight":256,
          "imagewidth":480,
          "margin":0,

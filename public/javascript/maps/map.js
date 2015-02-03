@@ -11,10 +11,10 @@ LAMDAQuest.MAP = function() {
     },
     
     putPlayerOnMap: function(mainGame) {
-      //var result = mainGame.findObjectsByType('playerStart', mainGame.map, 'GameEntities');
-      //mainGame.player = mainGame.game.add.sprite(result[0].x, result[0].y, 'player');
-      //mainGame.game.physics.arcade.enable(mainGame.player);
-      //mainGame.game.camera.follow(mainGame.player);
+      var result = mainGame.findObjectsByType('playerStart', mainGame.map, 'GameEntities');
+      mainGame.player = mainGame.game.add.sprite(result[0].x, result[0].y, 'player');
+      mainGame.game.physics.arcade.enable(mainGame.player);
+      mainGame.game.camera.follow(mainGame.player);
     }
   };
 }();
