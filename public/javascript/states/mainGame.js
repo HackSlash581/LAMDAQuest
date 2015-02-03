@@ -4,6 +4,9 @@ LAMDAQuest.mainGame = function() {};
 LAMDAQuest.mainGame.prototype = {
   create: function() {
     
+    //TODO:  Load any saved info after returning from pause
+    //LAMDAQuest.player = LAMDAQuest.player || {};
+
     //Initialize the map
     LAMDAQuest.MAP.initMap(this);
 

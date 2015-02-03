@@ -16,6 +16,11 @@ LAMDAQuest.INPUT = function() {
       else if(mainGame.game.input.keyboard.isDown(Phaser.Keyboard.D)) {
         mainGame.player.body.velocity.x += 50;
       }
+
+      if(mainGame.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+        //TODO:  Save all necessary info before changing states
+        mainGame.game.state.start('pause');
+      }
     },
     
     initInput: function(mainGame) {
