@@ -1,6 +1,11 @@
 var LAMDAQuest = LAMDAQuest || {};
 
-LAMDAQuest.game = new Phaser.Game(720, 560, Phaser.AUTO, 'gameDiv');
+LAMDAQuest.globals = {
+  "width": 720,
+  "height": 560
+};
+
+LAMDAQuest.game = new Phaser.Game(LAMDAQuest.globals.width, LAMDAQuest.globals.height, Phaser.AUTO, 'gameDiv');
 
 LAMDAQuest.game.state.add('boot', LAMDAQuest.boot);
 LAMDAQuest.game.state.add('preload', LAMDAQuest.preload);
