@@ -46,8 +46,13 @@ LAMDAQuest.mainGame.prototype = {
     this.game.physics.arcade.overlap(this.player, this.enemy, this.playerDie, null, this);
   },
 
+  pauseUpdate: function() {
+    this.game.tweens.update();
+  },
+
   playerDie: function(){
     this.game.state.start('gameOver');
+    
   },
 
   findObjectsByType: function(type, map, layer) {

@@ -4,37 +4,32 @@ LAMDAQuest.INPUT = function() {
   
   return {
     checkInput: function(mainGame) {
-    	if(mainGame.game.input.keyboard.isDown(Phaser.Keyboard.W)) {
+    	if(mainGame.wasd.up.isDown) {
         mainGame.player.body.velocity.y -= 50;
         mainGame.player.animations.play('up');
         mainGame.player.facing = "up";
       }
-      else if(mainGame.game.input.keyboard.isDown(Phaser.Keyboard.S)) {
+      else if(mainGame.wasd.down.isDown) {
         mainGame.player.body.velocity.y += 50;
         mainGame.player.animations.play('down');
         mainGame.player.facing = "down";
       }
-      if(mainGame.game.input.keyboard.isDown(Phaser.Keyboard.A)) {
+      if(mainGame.wasd.left.isDown) {
         mainGame.player.body.velocity.x -= 50;
         mainGame.player.animations.play('left');
         mainGame.player.facing = "left";
       }
-      else if(mainGame.game.input.keyboard.isDown(Phaser.Keyboard.D)) {
+      else if(mainGame.wasd.right.isDown) {
         mainGame.player.body.velocity.x += 50;
         mainGame.player.animations.play('right');
         mainGame.player.facing = "right";
       }
 
-      if(mainGame.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-        //TODO:  Save all necessary info before changing states
-        mainGame.game.state.start('pause');
-      }
-
       //will need better logic here when adding attacks and other animations
-      if(!mainGame.game.input.keyboard.isDown(Phaser.Keyboard.W) &&
-         !mainGame.game.input.keyboard.isDown(Phaser.Keyboard.S) &&
-         !mainGame.game.input.keyboard.isDown(Phaser.Keyboard.A) &&
-         !mainGame.game.input.keyboard.isDown(Phaser.Keyboard.D) )
+      if(!mainGame.wasd.up.isDown &&
+         !mainGame.wasd.down.isDown &&
+         !mainGame.wasd.left.isDown &&
+         !mainGame.wasd.right.isDown )
       {
         mainGame.player.animations.stop();
         if(mainGame.player.facing == "up")
@@ -49,7 +44,15 @@ LAMDAQuest.INPUT = function() {
     },
     
     initInput: function(mainGame) {
-      //mainGame.cursors = mainGame.game.input.keyboard.createCursorKeys();
+      mainGame.wasd = {
+        up: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.W),
+        down: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.S),
+        left: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.A),
+        right: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.D),
+        space: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+      };
+     
+      mainGame.wasd.space.onDown.add(LAMDAQuest.pauseMenu.pauseGame, mainGame);
     }
   };
 }();
