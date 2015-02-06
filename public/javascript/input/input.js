@@ -4,7 +4,7 @@ LAMDAQuest.INPUT = function() {
   
   return {
     checkInput: function(mainGame) {
-    	if(mainGame.wasd.up.isDown) {
+      if(mainGame.wasd.up.isDown) {
         mainGame.player.body.velocity.y -= 50;
         mainGame.player.animations.play('up');
         mainGame.player.facing = "up";
@@ -51,8 +51,8 @@ LAMDAQuest.INPUT = function() {
         right: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.D),
         space: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
       };
-     
-      mainGame.wasd.space.onDown.add(LAMDAQuest.pauseMenu.pauseGame, mainGame);
+      
+      mainGame.wasd.space.onDown.add(LAMDAQuest.PAUSE.pauseGame, mainGame);
     }
   };
 }();

@@ -34,20 +34,25 @@ LAMDAQuest.mainGame.prototype = {
   },
 
   update: function() {
-    //player movement
-    this.player.body.velocity.y = 0;
-    this.player.body.velocity.x = 0;
-
-    //Check player input
-    LAMDAQuest.INPUT.checkInput(this);
-
-    this.game.physics.arcade.collide(this.player, this.environmentLayer);
-    //if player and enemy overlap, call playerDie function
-    this.game.physics.arcade.overlap(this.player, this.enemy, this.playerDie, null, this);
+    if(!LAMDAQuest.globals.paused) {
+      //player movement
+      this.player.body.velocity.y = 0;
+      this.player.body.velocity.x = 0;
+  
+      //Check player input
+      LAMDAQuest.INPUT.checkInput(this);
+  
+      this.game.physics.arcade.collide(this.player, this.environmentLayer);
+      //if player and enemy overlap, call playerDie function
+      this.game.physics.arcade.overlap(this.player, this.enemy, this.playerDie, null, this);
+    } else {
+      //Scripting menu updates
+    }
   },
 
   pauseUpdate: function() {
-    this.game.tweens.update();
+    this.player.pauseTween.update();
+
   },
 
   playerDie: function(){

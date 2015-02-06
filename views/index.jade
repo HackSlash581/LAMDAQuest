@@ -4,4 +4,29 @@ block content
   h1= "LAMDA Quest"
   script(src="javascript/main.js")
   #gameDiv
-    
+  #scriptingModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='scriptingModalLabel', aria-hidden='true')
+    .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            |         
+            h4#scriptingModalLabel.modal-title Scripting Pane for #{this}
+          |       
+          .modal-body
+            form
+              .form-group
+                label.control-label(for='recipient-name') HackScript:
+                |             
+                input#recipient-name.form-control(type='text')
+              |           
+              .form-group
+                label.control-label(for='message-text') Status:
+                |             
+                textarea#message-text.form-control
+          |       
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+            |         
+            button.btn.btn-primary(type='button') Compile Script
+  

@@ -2,7 +2,8 @@ var LAMDAQuest = LAMDAQuest || {};
 
 LAMDAQuest.globals = {
   "width": 720,
-  "height": 560
+  "height": 560,
+  "paused": false
 };
 
 LAMDAQuest.game = new Phaser.Game(LAMDAQuest.globals.width, LAMDAQuest.globals.height, Phaser.AUTO, 'gameDiv');
