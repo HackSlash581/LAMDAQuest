@@ -2,6 +2,8 @@ var LAMDAQuest = LAMDAQuest || {};
 
 LAMDAQuest.INPUT = function() {
   
+  var wasdActive;
+
   return {
     checkInput: function(mainGame) {
       if(mainGame.wasd.up.isDown) {
@@ -42,6 +44,24 @@ LAMDAQuest.INPUT = function() {
           mainGame.player.frame = 5;
       }
     },
+
+    // We have to do this so typing w a s or d inputs the corresponding
+    // characters during the pause screen
+    toggleWASDCapture: function(mainGame) {
+      if(wasdActive) {
+        mainGame.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.W);
+        mainGame.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.S);
+        mainGame.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.A);
+        mainGame.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.D);
+        wasdActive = false;
+      } else {
+        mainGame.game.input.keyboard.addKeyCapture(Phaser.Keyboard.W);
+        mainGame.game.input.keyboard.addKeyCapture(Phaser.Keyboard.S);
+        mainGame.game.input.keyboard.addKeyCapture(Phaser.Keyboard.A);
+        mainGame.game.input.keyboard.addKeyCapture(Phaser.Keyboard.D);
+        wasdActive = true;
+      }
+    },
     
     initInput: function(mainGame) {
       mainGame.wasd = {
@@ -52,6 +72,7 @@ LAMDAQuest.INPUT = function() {
         space: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
       };
       
+      wasdActive = true;
       mainGame.wasd.space.onDown.add(LAMDAQuest.PAUSE.pauseGame, mainGame);
     }
   };

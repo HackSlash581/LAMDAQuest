@@ -20,10 +20,11 @@ LAMDAQuest.PAUSE = function() {
     });
     $("#scriptingModal").modal().find("#objectProperties").html(
       "<ul class='list-group'>" +
-        "<li class='list-group-item'>x-position:" + "<span class='badge'>" + player.x + "</span></lu>" +
-        "<li class='list-group-item'>y-position:" + "<span class='badge'>" + player.y + "</span></lu>" +
-        "<li class='list-group-item'>speed:" + "<span class='badge'>" + player.speed + "</span></lu>" +
-        "<li class='list-group-item'>name:" + "<span class='badge'>" + player.displayName + "</span></lu>" +
+        "<li class='list-group-item'>objectId: " + "<span class='badge'>player</span></li>" +
+        "<li class='list-group-item'>x:" + "<span class='badge'>" + player.x + "</span></li>" +
+        "<li class='list-group-item'>y:" + "<span class='badge'>" + player.y + "</span></li>" +
+        "<li class='list-group-item'>speed:" + "<span class='badge'>" + player.speed + "</span></li>" +
+        "<li class='list-group-item'>name:" + "<span class='badge'>" + player.displayName + "</span></li>" +
       "</ul>"
     );
   }
@@ -59,6 +60,7 @@ LAMDAQuest.PAUSE = function() {
         this.player.alpha = 0;
         this.player.pauseTween = this.game.add.tween(this.player).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true, 0, 1000, true);
         this.player.inputEnabled = true;
+        LAMDAQuest.INPUT.toggleWASDCapture(this);
         this.player.events.onInputDown.add(testPausedInput, this);
         /***********************************************************/
       } else {
@@ -69,6 +71,7 @@ LAMDAQuest.PAUSE = function() {
         this.player.inputEnabled = false;
         this.player.events.onInputDown.remove(testPausedInput, this);
         this.player.alpha = 1;
+        LAMDAQuest.INPUT.toggleWASDCapture(this);
       }
     }
   };
