@@ -15,7 +15,17 @@ LAMDAQuest.PAUSE = function() {
   }
 
   function testPausedInput(player) {
-    $('#scriptingModal').modal();
+    $("#scriptingModal").on("show.bs.modal", function(event) {
+      $('.modal-title').text('Scripting Pane for ' + player.displayName);
+    });
+    $("#scriptingModal").modal().find("#objectProperties").html(
+      "<ul class='list-group'>" +
+        "<li class='list-group-item'>x-position:" + "<span class='badge'>" + player.x + "</span></lu>" +
+        "<li class='list-group-item'>y-position:" + "<span class='badge'>" + player.y + "</span></lu>" +
+        "<li class='list-group-item'>speed:" + "<span class='badge'>" + player.speed + "</span></lu>" +
+        "<li class='list-group-item'>name:" + "<span class='badge'>" + player.displayName + "</span></lu>" +
+      "</ul>"
+    );
   }
 
   // TODO: This should be in input.js

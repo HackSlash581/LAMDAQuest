@@ -5,22 +5,22 @@ LAMDAQuest.INPUT = function() {
   return {
     checkInput: function(mainGame) {
       if(mainGame.wasd.up.isDown) {
-        mainGame.player.body.velocity.y -= 50;
+        mainGame.player.body.velocity.y -= mainGame.player.speed;
         mainGame.player.animations.play('up');
         mainGame.player.facing = "up";
       }
       else if(mainGame.wasd.down.isDown) {
-        mainGame.player.body.velocity.y += 50;
+        mainGame.player.body.velocity.y += mainGame.player.speed;
         mainGame.player.animations.play('down');
         mainGame.player.facing = "down";
       }
       if(mainGame.wasd.left.isDown) {
-        mainGame.player.body.velocity.x -= 50;
+        mainGame.player.body.velocity.x -= mainGame.player.speed;
         mainGame.player.animations.play('left');
         mainGame.player.facing = "left";
       }
       else if(mainGame.wasd.right.isDown) {
-        mainGame.player.body.velocity.x += 50;
+        mainGame.player.body.velocity.x += mainGame.player.speed;
         mainGame.player.animations.play('right');
         mainGame.player.facing = "right";
       }

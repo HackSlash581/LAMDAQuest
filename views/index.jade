@@ -8,25 +8,20 @@ block content
     .modal-dialog
         .modal-content
           .modal-header
-            button.close(type='button', data-dismiss='modal', aria-label='Close')
+            button.close(type='button', data-dismiss='modal', aria-label='Close') 
               span(aria-hidden='true') &times;
-            |         
-            h4#scriptingModalLabel.modal-title Scripting Pane for #{this}
-          |       
+            h4#scriptingModalLabel.modal-title 
           .modal-body
+            h5 Object Properties
+              #objectProperties
             form
               .form-group
-                label.control-label(for='recipient-name') HackScript:
-                |             
-                input#recipient-name.form-control(type='text')
-              |           
-              .form-group
-                label.control-label(for='message-text') Status:
-                |             
-                textarea#message-text.form-control
-          |       
+                label.control-label(for='script-text') HackScript:
+                input#script-text.form-control(type='text')
+          -// We need a hidden div or something here to display compiler errors
+          -// if the user submits invalid HackScript.
           .modal-footer
+            button.btn.btn-primary.pull-left(type='button') HackScript Help
             button.btn.btn-default(type='button', data-dismiss='modal') Cancel
-            |         
             button.btn.btn-primary(type='button') Compile Script
   
