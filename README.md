@@ -5,7 +5,7 @@ Live Action Modding with Dynamic Associations
 
 * Kevin - ~~Spritesheet for main character and animations~~, Enemy/hit detection
 
-* Thomas - Skill tree, level progression, items
+* Thomas - Skill tree, level progression, items, tutorial story
 
 * Grant - Set up DB, save state
 
