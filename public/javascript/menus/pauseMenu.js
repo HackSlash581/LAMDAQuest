@@ -27,6 +27,14 @@ LAMDAQuest.PAUSE = function() {
         "<li class='list-group-item'>name:" + "<span class='badge'>" + player.displayName + "</span></li>" +
       "</ul>"
     );
+
+    $('#submitScript').click(function(event) {
+      event.preventDefault();
+      $.post('/scripting', $('#script-text').serialize(), function(data) {
+        alert(data);
+        $('scriptingModal').modal('toggle');
+      });
+    })
   }
 
   // TODO: This should be in input.js

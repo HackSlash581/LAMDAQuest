@@ -14,7 +14,7 @@ LAMDAQuest.MAP = function() {
       var result = mainGame.findObjectsByType('playerStart', mainGame.map, 'GameEntities');
       mainGame.player = mainGame.game.add.sprite(result[0].x, result[0].y, 'player');
       mainGame.player.displayName = "Steve";
-      mainGame.player.speed = 50;
+      mainGame.player.speed = 75;
       mainGame.game.physics.arcade.enable(mainGame.player);
       mainGame.game.camera.follow(mainGame.player);
     }

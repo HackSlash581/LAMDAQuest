@@ -18,10 +18,10 @@ block content
               .form-group
                 label.control-label(for='script-text') HackScript:
                 input#script-text.form-control(type='text')
+                button.btn.btn-primary#submitScript(type='button') Compile Script
           -// We need a hidden div or something here to display compiler errors
           -// if the user submits invalid HackScript.
           .modal-footer
             button.btn.btn-primary.pull-left(type='button') HackScript Help
             button.btn.btn-default(type='button', data-dismiss='modal') Cancel
-            button.btn.btn-primary(type='button') Compile Script
-  
+            
