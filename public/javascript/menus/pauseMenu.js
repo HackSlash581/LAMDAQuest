@@ -39,8 +39,11 @@ LAMDAQuest.PAUSE = (function() {
     $('#submitScript').click(function(event) {
       event.preventDefault();
       $.post('/scripting/' + $('#script-text').val(), function(data) {
-        alert(data);
-        $('scriptingModal').modal('toggle');
+        var script = "player." + data;
+        console.log(script);
+        eval(script);
+        console.log(player.speed);
+        $('#scriptingModal').modal('toggle');
       });
     });
   }
