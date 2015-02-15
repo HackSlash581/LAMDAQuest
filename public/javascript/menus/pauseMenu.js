@@ -32,7 +32,7 @@ LAMDAQuest.PAUSE = (function() {
         "<li class='list-group-item'>x:" + "<span class='badge'>" + player.x + "</span></li>" +
         "<li class='list-group-item'>y:" + "<span class='badge'>" + player.y + "</span></li>" +
         "<li class='list-group-item'>speed:" + "<span class='badge'>" + player.speed + "</span></li>" +
-        "<li class='list-group-item'>name:" + "<span class='badge'>" + player.displayName + "</span></li>" +
+        "<li class='list-group-item'>displayName:" + "<span class='badge'>" + player.displayName + "</span></li>" +
       "</ul>"
     );
 
@@ -40,9 +40,7 @@ LAMDAQuest.PAUSE = (function() {
       event.preventDefault();
       $.post('/scripting/' + $('#script-text').val(), function(data) {
         var script = "player." + data;
-        console.log(script);
         eval(script);
-        console.log(player.speed);
         $('#scriptingModal').modal('toggle');
       });
     });
