@@ -1,12 +1,12 @@
 var LAMDAQuest = LAMDAQuest || {};
 
-LAMDAQuest.PAUSE = function() {
+LAMDAQuest.PAUSE = (function() {
   
   // private variable  
   var darkRectangle;
 
   // private method
-  function displayMenu(game) {
+  function darkenScreen(game) {
     darkRectangle = game.add.graphics(0, 0);
     darkRectangle.lineStyle(1, 0x000000, 0.3);
     darkRectangle.beginFill(0x000000, 0.3);
@@ -15,8 +15,16 @@ LAMDAQuest.PAUSE = function() {
   }
 
   function testPausedInput(player) {
-    $("#scriptingModal").on("show.bs.modal", function(event) {
+    var game = this.game;
+    var mainGame = this;
+    $('#scriptingModal').on('show.bs.modal', function(event) {
       $('.modal-title').text('Scripting Pane for ' + player.displayName);
+      game.paused = true;
+      mainGame.modalUp = true;
+    });
+    $('#scriptingModal').on('hidden.bs.modal', function(event) {
+      game.paused = false;
+      mainGame.modalUp = false;
     });
     $("#scriptingModal").modal().find("#objectProperties").html(
       "<ul class='list-group'>" +
@@ -30,11 +38,11 @@ LAMDAQuest.PAUSE = function() {
 
     $('#submitScript').click(function(event) {
       event.preventDefault();
-      $.post('/scripting', $('#script-text').serialize(), function(data) {
+      $.post('/scripting/' + $('#script-text').val(), function(data) {
         alert(data);
         $('scriptingModal').modal('toggle');
       });
-    })
+    });
   }
 
   // TODO: This should be in input.js
@@ -56,10 +64,11 @@ LAMDAQuest.PAUSE = function() {
   return {
     // public methods
     pauseGame: function(event) {
-      if(!LAMDAQuest.globals.paused) {
+      if(!LAMDAQuest.globals.paused && !this.modalUp) {
         LAMDAQuest.globals.paused = true;
         clearInput(this);
-        displayMenu(this.game);
+        darkenScreen(this.game);
+        
         // Pause everything else we eventually add (projectiles, etc.)
 
         /********Need to do this for each scriptable entity*********/
@@ -69,9 +78,10 @@ LAMDAQuest.PAUSE = function() {
         this.player.pauseTween = this.game.add.tween(this.player).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true, 0, 1000, true);
         this.player.inputEnabled = true;
         LAMDAQuest.INPUT.toggleWASDCapture(this);
+        LAMDAQuest.INPUT.toggleSpaceCapture(this);
         this.player.events.onInputDown.add(testPausedInput, this);
         /***********************************************************/
-      } else {
+      } else if(!this.modalUp) {
         LAMDAQuest.globals.paused = false;
         darkRectangle.destroy();
         //Stop the tweens for each entity
@@ -80,7 +90,8 @@ LAMDAQuest.PAUSE = function() {
         this.player.events.onInputDown.remove(testPausedInput, this);
         this.player.alpha = 1;
         LAMDAQuest.INPUT.toggleWASDCapture(this);
+        LAMDAQuest.INPUT.toggleSpaceCapture(this);
       }
     }
   };
-}();
+})();

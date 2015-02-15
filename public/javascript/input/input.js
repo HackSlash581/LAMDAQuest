@@ -1,8 +1,9 @@
 var LAMDAQuest = LAMDAQuest || {};
 
-LAMDAQuest.INPUT = function() {
+LAMDAQuest.INPUT = (function() {
   
   var wasdActive;
+  var spaceActive;
 
   return {
     checkInput: function(mainGame) {
@@ -62,6 +63,16 @@ LAMDAQuest.INPUT = function() {
         wasdActive = true;
       }
     },
+
+    toggleSpaceCapture: function(mainGame) {
+      if(spaceActive) {
+        mainGame.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
+        spaceActive = false;
+      } else {
+        mainGame.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
+        spaceActive = true;
+      }
+    },
     
     initInput: function(mainGame) {
       mainGame.wasd = {
@@ -73,7 +84,8 @@ LAMDAQuest.INPUT = function() {
       };
       
       wasdActive = true;
+      spaceActive = true;
       mainGame.wasd.space.onDown.add(LAMDAQuest.PAUSE.pauseGame, mainGame);
     }
   };
-}();
+})();

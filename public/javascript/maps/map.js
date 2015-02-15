@@ -1,6 +1,6 @@
 var LAMDAQuest = LAMDAQuest || {};
 
-LAMDAQuest.MAP = function() {
+LAMDAQuest.MAP = (function() {
   
   return {
     initMap: function(mainGame) {
@@ -19,4 +19,4 @@ LAMDAQuest.MAP = function() {
       mainGame.game.camera.follow(mainGame.player);
     }
   };
-}();
+})();

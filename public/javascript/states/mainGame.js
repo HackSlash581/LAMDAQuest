@@ -3,10 +3,6 @@ var LAMDAQuest = LAMDAQuest || {};
 LAMDAQuest.mainGame = function() {};
 LAMDAQuest.mainGame.prototype = {
   create: function() {
-    
-    //TODO:  Load any saved info after returning from pause
-    //LAMDAQuest.player = LAMDAQuest.player || {};
-
     //Initialize the map
     LAMDAQuest.MAP.initMap(this);
 
@@ -23,7 +19,7 @@ LAMDAQuest.mainGame.prototype = {
     this.enemy = this.game.add.sprite(60, 5, 'enemy');
     this.game.physics.arcade.enable(this.enemy);
 
-     //adding player animations
+    //adding player animations
     this.player.animations.add('right', [5,6,7,8,9], 8, true);
     this.player.animations.add('left', [0,1,2,3,4], 8, true);
     this.player.animations.add('up', [10,11,12,13,14], 8, true);
@@ -35,7 +31,7 @@ LAMDAQuest.mainGame.prototype = {
 
   update: function() {
     if(!LAMDAQuest.globals.paused) {
-      //player movement
+      //TODO:  Move to player.js
       this.player.body.velocity.y = 0;
       this.player.body.velocity.x = 0;
   

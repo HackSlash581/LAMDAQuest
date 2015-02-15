@@ -1,6 +1,6 @@
 var LAMDAQuest = LAMDAQuest || {};
 
-LAMDAQuest.UI = function() {
+LAMDAQuest.UI = (function() {
   
   //private variables and methods would go here
 
@@ -32,4 +32,4 @@ LAMDAQuest.UI = function() {
 
     //other UI initialization
   };
-}();
+})();
