@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var hackScript = require('HackScript/lib/hackScript.js');
+var hackScript = require('hackscript/lib/hackScript.js');
 
 hackScript.compileLine = function(input) {
   var file = "placeholder";
