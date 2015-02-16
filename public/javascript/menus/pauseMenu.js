@@ -36,14 +36,16 @@ LAMDAQuest.PAUSE = (function() {
       "</ul>"
     );
 
-    $('#submitScript').click(function(event) {
+    $('#submitScript').click(submitScript);
+
+    function submitScript(event) {
       event.preventDefault();
       $.post('/scripting/' + $('#script-text').val(), function(data) {
         var script = "player." + data;
         eval(script);
         $('#scriptingModal').modal('toggle');
       });
-    });
+    }
   }
 
   // TODO: This should be in input.js
@@ -61,6 +63,11 @@ LAMDAQuest.PAUSE = (function() {
     player.body.velocity.y = 0;
   }
   
+  // TODO: Move to player.js
+  //Called when the player is moused over in the pause menu.
+  function showName(player) {
+    console.log(player.displayName);
+  }
 
   return {
     // public methods
@@ -81,6 +88,7 @@ LAMDAQuest.PAUSE = (function() {
         LAMDAQuest.INPUT.toggleWASDCapture(this);
         LAMDAQuest.INPUT.toggleSpaceCapture(this);
         this.player.events.onInputDown.add(testPausedInput, this);
+        this.player.events.onInputOver.add(showName, this);
         /***********************************************************/
       } else if(!this.modalUp) {
         LAMDAQuest.globals.paused = false;
