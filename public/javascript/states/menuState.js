@@ -32,7 +32,7 @@ LAMDAQuest.menuState.prototype = {
 
   start: function(){
     //start the actual game
-    this.game.state.start('mainGame');
+    this.game.state.start('tutorial');
   },
 
 }
