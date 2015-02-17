@@ -32,16 +32,17 @@ LAMDAQuest.INPUT = (function() {
       if(mainGame.input.activePointer.isDown){
         mainGame.player.animating = true;
 
-        var x_diff = mainGame.player.x - mainGame.input.activePointer.x;
-        var y_diff = mainGame.player.y - mainGame.input.activePointer.y;
+        var x_diff = mainGame.input.activePointer.x - mainGame.player.x;
+        var y_diff = mainGame.input.activePointer.y - mainGame.player.y;
+
         if(Math.abs(x_diff) > Math.abs(y_diff)){
-          if(x_diff < 0){
+          if(x_diff > 0){
             mainGame.player.animations.play('shoot_right');
-            mainGame.player.facing = "right";          
+            mainGame.player.facing = "right";       
             mainGame.fireArrow();
 
           }
-          else if(x_diff > 0){
+          else if(x_diff < 0){
             mainGame.player.animations.play('shoot_left');
             mainGame.player.facing = "left";
             mainGame.fireArrow();
@@ -49,12 +50,12 @@ LAMDAQuest.INPUT = (function() {
         }
         else
         {
-          if(y_diff < 0){
+          if(y_diff > 0){
             mainGame.player.animations.play('shoot_down');
             mainGame.player.facing = "down";
             mainGame.fireArrow();
           }  
-          else if(y_diff > 0){
+          else if(y_diff < 0){
             mainGame.player.animations.play('shoot_up');    
             mainGame.player.facing = "up"; 
             mainGame.fireArrow();

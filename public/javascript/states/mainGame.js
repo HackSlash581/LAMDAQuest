@@ -37,6 +37,20 @@ LAMDAQuest.mainGame.prototype = {
     this.arrowPool.setAll('outOfBoundsKill', true);
     this.arrowPool.setAll('checkWorldBounds', true);
 
+
+    //set up explosion group
+    this.explosionPool = this.add.group();
+    this.explosionPool.enableBody = true;
+    this.explosionPool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.explosionPool.createMultiple(100, 'explosion');
+    this.explosionPool.setAll('anchor.x', 0.5);
+    this.explosionPool.setAll('anchor.y', 0.5);
+    this.explosionPool.forEach(function (explosion) {
+      explosion.animations.add('boom');
+    });
+
+
+
     this.nextShotAt = 0;
     this.shotDelay = 200;
 
@@ -62,6 +76,10 @@ LAMDAQuest.mainGame.prototype = {
     this.player.animations.add('shoot_down', [234,235,236,237,238,239,240,241,242,243,244,245,246], 25, false);
  
     this.player.animations.add('die', [260,261,262,263,264,265], 4, false);
+
+
+    //add explosion animation
+
 
     //default facing direction is down
     this.player.facing = "down";
@@ -106,11 +124,13 @@ LAMDAQuest.mainGame.prototype = {
     
   },
 
-  enemyHit: function(arrow, enemy){
+  enemyHit: function(arrow, enemy){  
     arrow.kill();
-    enemy.kill();
+    this.explode(enemy);
+    enemy.kill();  
     enemy.alive = false;
     this.enemyCount -= 1;
+
   },
 
   fireArrow: function(){
@@ -141,6 +161,15 @@ LAMDAQuest.mainGame.prototype = {
       this.enemyCount += 1;        
     }
  
+  },
+
+  explode: function(sprite) {
+    if (this.explosionPool.countDead() === 0) {
+      return;
+    }
+      var explosion = this.explosionPool.getFirstExists(false);
+      explosion.reset(sprite.x, sprite.y);
+      explosion.play('boom', 15, false, true);
   },
 
   findObjectsByType: function(type, map, layer) {

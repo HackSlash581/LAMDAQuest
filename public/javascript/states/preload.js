@@ -14,6 +14,7 @@ LAMDAQuest.preload.prototype = {
     this.load.image('enemy', 'assets/spriteSheets/beaver.png');
     this.load.spritesheet('button', 'assets/spriteSheets/button_sprite_sheet.png', 193, 71);
     this.load.image('arrow', 'assets/spriteSheets/arrow.png');
+    this.load.spritesheet('explosion', 'assets/spriteSheets/explosion_sprite_sheet.png', 32, 32);
   },
 
   create: function() {
