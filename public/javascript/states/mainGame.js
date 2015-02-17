@@ -77,10 +77,6 @@ LAMDAQuest.mainGame.prototype = {
  
     this.player.animations.add('die', [260,261,262,263,264,265], 4, false);
 
-
-    //add explosion animation
-
-
     //default facing direction is down
     this.player.facing = "down";
     this.player.animating = false;
@@ -100,10 +96,13 @@ LAMDAQuest.mainGame.prototype = {
       this.spawnEnemy();
   
       this.game.physics.arcade.collide(this.player, this.environmentLayer);
+
       //if player and enemy overlap, call playerDie function
       this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerDie, null, this);
+
       //if and arrow overlaps with an enemy, call enemyHit function
       this.game.physics.arcade.overlap(this.arrowPool, this.enemyPool, this.enemyHit, null, this);
+
     } else {
       //Scripting menu updates
     }
@@ -111,7 +110,6 @@ LAMDAQuest.mainGame.prototype = {
 
   pauseUpdate: function() {
     this.player.pauseTween.update();
-
   },
 
   playerDie: function(){
@@ -134,7 +132,6 @@ LAMDAQuest.mainGame.prototype = {
   },
 
   fireArrow: function(){
-
     //check if able to shoot again yet
     if(this.nextShotAt > this.time.now){
       return;
@@ -152,7 +149,6 @@ LAMDAQuest.mainGame.prototype = {
   },
 
   spawnEnemy: function(){
-
     if(this.nextEnemyAt < this.time.now && this.enemyCount < this.maxEnemy)
     {
       this.nextEnemyAt = this.time.now + this.enemyDelay;
