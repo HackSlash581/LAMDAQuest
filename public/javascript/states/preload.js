@@ -13,6 +13,8 @@ LAMDAQuest.preload.prototype = {
     this.load.image('background_gameover', 'assets/menus/background_gameover.jpg');
     this.load.image('enemy', 'assets/spriteSheets/beaver.png');
     this.load.spritesheet('button', 'assets/spriteSheets/button_sprite_sheet.png', 193, 71);
+    this.load.image('textSurface', 'assets/ui/panel_blue.png');
+    this.load.image('textSurfaceInset', 'assets/ui/panelInset_blue.png');
   },
 
   create: function() {

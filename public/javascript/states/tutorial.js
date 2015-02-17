@@ -9,9 +9,12 @@ LAMDAQuest.tutorial.prototype = {
     LAMDAQuest.PLAYER.createPlayer(this);
 
     LAMDAQuest.INPUT.initInput(this);
+
+    LAMDAQuest.TEXT.createTextBox(this);
   },
 
   update: function() {
+    
     if(!LAMDAQuest.globals.paused) {
       LAMDAQuest.PLAYER.updatePlayer(this);
       LAMDAQuest.INPUT.checkInput(this);
@@ -24,7 +27,7 @@ LAMDAQuest.tutorial.prototype = {
   },
 
   pauseUpdate: function() {
-    this.player.pauseTween.update();
+    //this.player.pauseTween.update();
 
   },
 
