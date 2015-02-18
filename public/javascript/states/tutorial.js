@@ -10,7 +10,11 @@ LAMDAQuest.tutorial.prototype = {
 
     LAMDAQuest.INPUT.initInput(this);
 
+    this.messageData = LAMDAQuest.data.loadMessages();
+
     LAMDAQuest.TEXT.createTextBox(this);
+    LAMDAQuest.TEXT.hideTextBox();
+    setTimeout(this.triggerMessage("intro"), 4000);
   },
 
   update: function() {
@@ -29,6 +33,23 @@ LAMDAQuest.tutorial.prototype = {
   pauseUpdate: function() {
     //this.player.pauseTween.update();
 
+  },
+
+  triggerMessage: function(key) {
+    var text = this.getMessage(key);
+    if(!LAMDAQuest.data.alreadySeen(key)) {
+      LAMDAQuest.TEXT.showTextBox();
+      LAMDAQuest.TEXT.showMessage(text);
+      LAMDAQuest.data.markAsRead(key);
+      setTimeout(function() {
+        LAMDAQuest.TEXT.destroyMessage();
+        LAMDAQuest.TEXT.hideTextBox();
+      }, 5000);
+    }
+  },
+
+  getMessage: function(key) {
+    return this.messageData.tutorial[key];
   },
 
   playerDie: function(){

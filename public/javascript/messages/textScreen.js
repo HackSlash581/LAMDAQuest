@@ -6,10 +6,12 @@ LAMDAQuest.TEXT = (function() {
   var textSurfaceInset;
   var message;
   var style;
-
+  var game;
+  var keys;
   return {
     createTextBox: function(mainGame) {
-      var game = mainGame.game;
+      game = mainGame.game;
+      keys = mainGame.wasd;
 
       textSurfaceGroup = game.add.group();
 
@@ -30,9 +32,20 @@ LAMDAQuest.TEXT = (function() {
         wordWrap: true,
         wordWrapWidth: game.cache.getImage('textSurface').width * 2.8
       };
+    },
 
-      message = game.add.text(game.camera.width/2.0, game.camera.height/2.0, "Hello", style);
+    showMessage: function(text) {
+      message = game.add.text(game.camera.width/2.0, game.camera.height/2.0, text, style);
       message.anchor.setTo(0.5);
+      // while(true) {
+      //   if(keys.space.isDown) {
+      //     break;
+      //   }
+      // }
+    },
+
+    destroyMessage: function() {
+      message.destroy();
     },
 
     hideTextBox: function() {
