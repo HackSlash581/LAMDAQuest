@@ -11,7 +11,8 @@ LAMDAQuest.Message = function(messageText) {
   // The number of lines, for purposes of displaying the message
   this.numLines = 0;
   // An array that holds the lines of the message.  Each element cannot
-  // contain more characters than Message.CHARS_PER_LINE.
+  // contain more characters than Message.CHARS_PER_LINE.  This ensures
+  // that the line will fit in the text box.
   this.lines = null;
 
   this.init();
@@ -40,6 +41,7 @@ LAMDAQuest.Message.prototype = {
 
 LAMDAQuest.Message.prototype.constructor = LAMDAQuest.Message;
 
+//Tests
 describe('Message', function() {
   it('should be created with proper number of lines', function() {
     var m = new LAMDAQuest.Message("1234567890123456789212345678930");
