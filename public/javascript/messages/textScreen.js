@@ -26,7 +26,7 @@ LAMDAQuest.TEXT = (function() {
       textSurfaceGroup.add(textSurfaceInset);
 
       style = { 
-        font: '12pt Arial',
+        font: '12pt Courier New',
         fill: 'white',
         align: 'left',
         wordWrap: true,

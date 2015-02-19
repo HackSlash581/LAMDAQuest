@@ -10,7 +10,7 @@ LAMDAQuest.data = (function() {
     loadMessages: function() {  
       return {
         "tutorial": {
-          "intro": "Hello.  Welcome to L.A.M.D.A. Quest",
+          "intro": "1234567890123456789212345678",
           "next": "Here's the next message."
         }
       };
