@@ -15,6 +15,7 @@ LAMDAQuest.preload.prototype = {
     this.load.spritesheet('button', 'assets/spriteSheets/button_sprite_sheet.png', 193, 71);
     this.load.image('textSurface', 'assets/ui/panel_blue.png');
     this.load.image('textSurfaceInset', 'assets/ui/panelInset_blue.png');
+    this.load.audio('message_letter', 'assets/sounds/message_letter.wav');
   },
 
   create: function() {

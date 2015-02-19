@@ -80,7 +80,7 @@ LAMDAQuest.INPUT = (function() {
         down: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.S),
         left: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.A),
         right: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.D),
-        space: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+        space: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
       };
       
       wasdActive = true;

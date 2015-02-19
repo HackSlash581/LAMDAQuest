@@ -12,8 +12,13 @@ LAMDAQuest.tutorial.prototype = {
 
     this.messageData = LAMDAQuest.data.loadMessages();
 
-    LAMDAQuest.TEXT.createTextBox(this);
-    LAMDAQuest.TEXT.hideTextBox();
+    LAMDAQuest.SOUNDS.init(this);
+    
+    LAMDAQuest.TEXTBOX.createTextBox(this);
+    LAMDAQuest.TEXTBOX.hideTextBox();
+
+    
+
     setTimeout(this.triggerMessage("intro"), 4000);
   },
 
@@ -27,24 +32,17 @@ LAMDAQuest.tutorial.prototype = {
     } else {
       //Scripting menu updates
     }
-    
   },
 
   pauseUpdate: function() {
     //this.player.pauseTween.update();
-
   },
 
   triggerMessage: function(key) {
     var text = this.getMessage(key);
     if(!LAMDAQuest.data.alreadySeen(key)) {
-      LAMDAQuest.TEXT.showTextBox();
-      LAMDAQuest.TEXT.showMessage(text);
+      LAMDAQuest.TEXTBOX.showMessage(text);
       LAMDAQuest.data.markAsRead(key);
-      setTimeout(function() {
-        LAMDAQuest.TEXT.destroyMessage();
-        LAMDAQuest.TEXT.hideTextBox();
-      }, 5000);
     }
   },
 
@@ -54,7 +52,6 @@ LAMDAQuest.tutorial.prototype = {
 
   playerDie: function(){
     this.game.state.start('gameOver');
-    
   },
 
   findObjectsByType: function(type, map, layer) {

@@ -10,6 +10,8 @@ LAMDAQuest.Message = function(messageText) {
   // An array that holds the lines of the message.  Each element cannot
   // contain more characters than Message.CHARS_PER_LINE.
   this.lines = null;
+  // Keeps track of which line is currently being rendered
+  this.index = 0;
 
   this.init();
 };
@@ -20,7 +22,7 @@ LAMDAQuest.Message.CHARS_PER_LINE = 28;
 LAMDAQuest.Message.prototype = {
 
   init: function() {
-    this.caclNumLines();
+    this.calcNumLines();
     this.populateLines();
   },
 
