@@ -6,6 +6,14 @@ LAMDAQuest.preload = function() {
 
 LAMDAQuest.preload.prototype = {
   preload: function() {
+    var loadingLabel = this.game.add.text(this.game.world.centerX, 150, 'Loading ...',
+      {font: '30px Courier New', fill: '#ffffff'}
+    );
+    loadingLabel.anchor.setTo(0.5, 0.5);
+    var progressBar = this.game.add.sprite(this.game.world.centerX, 200, 'progressBar');
+    progressBar.anchor.setTo(0.5, 0.5);
+    this.game.load.setPreloadSprite(progressBar);
+
     this.load.tilemap('level1', 'assets/tilemaps/tileMap.json', null, Phaser.Tilemap.TILED_JSON);
     
     this.load.spritesheet('player', 'assets/spriteSheets/player_sprite_bow.png', 48, 48);
