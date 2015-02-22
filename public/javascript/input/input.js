@@ -28,21 +28,62 @@ LAMDAQuest.INPUT = (function() {
         mainGame.player.facing = "right";
       }
 
+      //attack function
+      if(mainGame.input.activePointer.isDown){
+        mainGame.player.animating = true;
+
+        var x_diff = mainGame.input.activePointer.x - mainGame.player.x;
+        var y_diff = mainGame.input.activePointer.y - mainGame.player.y;
+
+        if(Math.abs(x_diff) > Math.abs(y_diff)){
+          if(x_diff > 0){
+            mainGame.player.animations.play('shoot_right');
+            mainGame.player.facing = "right";       
+            mainGame.fireArrow();
+
+          }
+          else if(x_diff < 0){
+            mainGame.player.animations.play('shoot_left');
+            mainGame.player.facing = "left";
+            mainGame.fireArrow();
+          }
+        }
+        else
+        {
+          if(y_diff > 0){
+            mainGame.player.animations.play('shoot_down');
+            mainGame.player.facing = "down";
+            mainGame.fireArrow();
+          }  
+          else if(y_diff < 0){
+            mainGame.player.animations.play('shoot_up');    
+            mainGame.player.facing = "up"; 
+            mainGame.fireArrow();
+          }
+        }
+        //when attack animation is finished set animating state back to false
+        mainGame.player.events.onAnimationComplete.add(function(){
+          mainGame.player.animating = false;
+        }, this);   
+
+      }
+
       //will need better logic here when adding attacks and other animations
       if(!mainGame.wasd.up.isDown &&
          !mainGame.wasd.down.isDown &&
          !mainGame.wasd.left.isDown &&
-         !mainGame.wasd.right.isDown )
+         !mainGame.wasd.right.isDown &&
+         !mainGame.player.animating)
       {
         mainGame.player.animations.stop();
         if(mainGame.player.facing == "up")
-          mainGame.player.frame = 10;
+          mainGame.player.frame = 104;
         if(mainGame.player.facing == "down")
-          mainGame.player.frame = 15;
+          mainGame.player.frame = 130;
         if(mainGame.player.facing == "left")
-          mainGame.player.frame = 0;
+          mainGame.player.frame = 117;
         if(mainGame.player.facing == "right")
-          mainGame.player.frame = 5;
+          mainGame.player.frame = 143;
       }
     },
 
