@@ -15,7 +15,6 @@ LAMDAQuest.mainGame.prototype = {
     //Initialize input
     LAMDAQuest.INPUT.initInput(this);
 
-
     //set up enemy pool
     this.enemyPool = this.add.group();
     this.enemyPool.enableBody = true;
@@ -26,7 +25,6 @@ LAMDAQuest.mainGame.prototype = {
     this.enemyPool.setAll('outOfBoundsKill', true);
     this.enemyPool.setAll('checkWorldBounds', true);
 
-
     //set up arrow group
     this.arrowPool = this.add.group();
     this.arrowPool.enableBody = true;
@@ -36,7 +34,6 @@ LAMDAQuest.mainGame.prototype = {
     this.arrowPool.setAll('anchor.y', 0.5);
     this.arrowPool.setAll('outOfBoundsKill', true);
     this.arrowPool.setAll('checkWorldBounds', true);
-
 
     //set up explosion group
     this.explosionPool = this.add.group();
@@ -49,8 +46,6 @@ LAMDAQuest.mainGame.prototype = {
       explosion.animations.add('boom');
     });
 
-
-
     this.nextShotAt = 0;
     this.shotDelay = 200;
 
@@ -58,9 +53,6 @@ LAMDAQuest.mainGame.prototype = {
     this.enemyDelay = 500;
     this.enemyCount = 0;
     this.maxEnemy = 10;
-
-    
-
   },
 
   update: function() {
@@ -98,7 +90,6 @@ LAMDAQuest.mainGame.prototype = {
       this.player.animating = false;
       this.game.state.start('gameOver');
       }, this);
-    
   },
 
   enemyHit: function(arrow, enemy){  
@@ -107,7 +98,6 @@ LAMDAQuest.mainGame.prototype = {
     enemy.kill();  
     enemy.alive = false;
     this.enemyCount -= 1;
-
   },
 
   fireArrow: function(){
