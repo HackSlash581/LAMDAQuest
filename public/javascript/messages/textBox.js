@@ -44,6 +44,7 @@ LAMDAQuest.TEXTBOX = (function() {
     showMessage: function(text) {
       message = new LAMDAQuest.Message(text);
       this.showTextBox();
+      LAMDAQuest.globals.paused = true;
       this.nextLine();
     },
 
@@ -74,6 +75,7 @@ LAMDAQuest.TEXTBOX = (function() {
             if(LAMDAQuest.TEXTBOX.messageDone()) {
               LAMDAQuest.TEXTBOX.destroyMessage();
               LAMDAQuest.TEXTBOX.hideTextBox();
+              LAMDAQuest.globals.paused = false;
             } else {
               LAMDAQuest.TEXTBOX.nextLine();
             }

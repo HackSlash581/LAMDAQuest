@@ -14,6 +14,5 @@ LAMDAQuest.game.state.add('menuState', LAMDAQuest.menuState);
 LAMDAQuest.game.state.add('mainGame', LAMDAQuest.mainGame);
 LAMDAQuest.game.state.add('tutorial', LAMDAQuest.tutorial);
 LAMDAQuest.game.state.add('gameOver', LAMDAQuest.gameOver);
-LAMDAQuest.game.state.add('pause', LAMDAQuest.pause);
 
 LAMDAQuest.game.state.start('boot');
