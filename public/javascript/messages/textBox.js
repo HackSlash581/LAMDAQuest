@@ -1,15 +1,15 @@
 LAMDAQuest = LAMDAQuest || {};
 
 LAMDAQuest.TEXTBOX = (function() {
-  var textSurfaceGroup;
-  var textSurface;
-  var textSurfaceInset;
-  var message;
-  var style;
-  var game;
-  var text;
-  var line;
-  var sound;
+  var textSurfaceGroup,
+      textSurface,
+      textSurfaceInset,
+      message,
+      style,
+      game,
+      text,
+      line,
+      sound;
 
   return {
     createTextBox: function(mainGame) {
@@ -18,16 +18,17 @@ LAMDAQuest.TEXTBOX = (function() {
 
       textSurfaceGroup = game.add.group();
 
-
-      textSurface = game.add.image(game.camera.width/2.0, game.camera.height/2.0, 'textSurface');
+      textSurface = game.add.image(game.camera.width/2.0,
+        game.camera.height/2.0 - (game.camera.height/2.0)/2.0, 'textSurface');
       textSurface.anchor.setTo(0.5, 0.5);
       textSurface.scale.setTo(3, 1);
       textSurfaceGroup.add(textSurface);
 
-      textSurfaceInset = game.add.image(game.camera.width/2.0, game.camera.height/2.0, 'textSurfaceInset');
-      textSurfaceInset.anchor.setTo(0.5, 0.5);
-      textSurfaceInset.scale.setTo(3, 1);
-      textSurfaceGroup.add(textSurfaceInset);
+      // textSurfaceInset = game.add.image(game.camera.width/2.0,
+      //   game.camera.height/2.0 - (game.camera.height/2.0)/2.0, 'textSurfaceInset');
+      // textSurfaceInset.anchor.setTo(0.5, 0.5);
+      // textSurfaceInset.scale.setTo(3, 1);
+      // textSurfaceGroup.add(textSurfaceInset);
 
       style = { 
         font: '12pt Courier New',
@@ -37,12 +38,14 @@ LAMDAQuest.TEXTBOX = (function() {
         wordWrapWidth: game.cache.getImage('textSurface').width * 2.8
       };
 
-      text = game.add.text(game.camera.width/2.0, game.camera.height/2.0, '', style);
+      text = game.add.text(game.camera.width/2.0,
+        game.camera.height/2.0 - (game.camera.height/2.0)/2.0, '', style);
       text.anchor.setTo(0.5);
     },
 
     showMessage: function(text) {
       message = new LAMDAQuest.Message(text);
+
       this.showTextBox();
       LAMDAQuest.globals.paused = true;
       this.nextLine();
@@ -67,7 +70,6 @@ LAMDAQuest.TEXTBOX = (function() {
         sound.play();
 
       } else {
-        // TODO: Change this to go to the next line when the spacebar is pressed.
         message.index++;
         var continueKey = LAMDAQuest.game.input.keyboard.addKey(Phaser.Keyboard.C);
         var check = function() {
@@ -88,8 +90,7 @@ LAMDAQuest.TEXTBOX = (function() {
     },
 
     destroyMessage: function() {
-      delete message;
-      text.destroy();
+      text.setText("");
       message = null;
     },
 

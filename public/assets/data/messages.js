@@ -10,8 +10,9 @@ LAMDAQuest.data = (function() {
     loadMessages: function() {  
       return {
         "tutorial": {
-          "intro": "Hi.  Welcome to LAMDAQuest! Here is the next line of text!",
-          "next": "Here's the next message."
+          "intro": "Press 'c' to go to the next message.",
+          "next": "Here's the next message.",
+          "beaver": "You killed a beaver!"
         }
       };
     },

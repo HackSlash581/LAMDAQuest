@@ -117,6 +117,7 @@ LAMDAQuest.tutorial.prototype = {
     enemy.kill();  
     enemy.alive = false;
     this.enemyCount -= 1;
+    this.triggerMessage("beaver");
 
   },
 
