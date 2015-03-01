@@ -24,12 +24,6 @@ LAMDAQuest.TEXTBOX = (function() {
       textSurface.scale.setTo(3, 1);
       textSurfaceGroup.add(textSurface);
 
-      // textSurfaceInset = game.add.image(game.camera.width/2.0,
-      //   game.camera.height/2.0 - (game.camera.height/2.0)/2.0, 'textSurfaceInset');
-      // textSurfaceInset.anchor.setTo(0.5, 0.5);
-      // textSurfaceInset.scale.setTo(3, 1);
-      // textSurfaceGroup.add(textSurfaceInset);
-
       style = { 
         font: '12pt Courier New',
         fill: 'white',

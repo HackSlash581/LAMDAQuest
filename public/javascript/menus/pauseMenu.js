@@ -65,6 +65,8 @@ LAMDAQuest.PAUSE = (function() {
   
   // TODO: Move to player.js
   //Called when the player is moused over in the pause menu.
+  //It would be cool to float a little text box with the entity's 
+  //name to make it more obvious that this entity is scriptable.
   function showName(player) {
     console.log(player.displayName);
   }
@@ -87,6 +89,7 @@ LAMDAQuest.PAUSE = (function() {
         this.player.inputEnabled = true;
         LAMDAQuest.INPUT.toggleWASDCapture(this);
         LAMDAQuest.INPUT.toggleSpaceCapture(this);
+        LAMDAQuest.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.C);
         this.player.events.onInputDown.add(testPausedInput, this);
         this.player.events.onInputOver.add(showName, this);
         /***********************************************************/
@@ -100,6 +103,7 @@ LAMDAQuest.PAUSE = (function() {
         this.player.alpha = 1;
         LAMDAQuest.INPUT.toggleWASDCapture(this);
         LAMDAQuest.INPUT.toggleSpaceCapture(this);
+        LAMDAQuest.game.input.keyboard.addKeyCapture(Phaser.Keyboard.C);
       }
     }
   };
