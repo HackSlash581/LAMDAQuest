@@ -60,7 +60,7 @@ LAMDAQuest.tutorial.prototype = {
     this.enemyCount = 0;
     this.maxEnemy = 10;
 
-    setTimeout(this.triggerMessage("intro"), 4000);
+    //setTimeout(this.triggerMessage("intro"), 4000);
   },
 
   update: function() {

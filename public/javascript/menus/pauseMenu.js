@@ -40,10 +40,11 @@ LAMDAQuest.PAUSE = (function() {
 
     function submitScript(event) {
       event.preventDefault();
+      event.stopImmediatePropagation();
       $.post('/scripting/' + $('#script-text').val(), function(data) {
         var script = "player." + data;
         eval(script);
-        $('#scriptingModal').modal('toggle');
+        $('#scriptingModal').find("input").val('').end().modal('toggle');
       });
     }
   }
