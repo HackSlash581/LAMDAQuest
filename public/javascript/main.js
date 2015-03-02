@@ -1,8 +1,8 @@
 var LAMDAQuest = LAMDAQuest || {};
 
 LAMDAQuest.globals = {
-  "width": 720,
-  "height": 560,
+  "width": 800,
+  "height": 640,
   "paused": false
 };
 
