@@ -27,6 +27,7 @@ LAMDAQuest.preload.prototype = {
     this.load.image('textSurface', 'assets/ui/panel_blue.png');
     this.load.image('textSurfaceInset', 'assets/ui/panelInset_blue.png');
     this.load.image('arrow', 'assets/spriteSheets/arrow.png');
+    this.load.image('rune', 'assets/spriteSheets/rune.png');
 
     this.load.audio('message_letter', 'assets/sounds/message_letter.wav');
     this.load.audio('arrow_shot', 'assets/sounds/arrow.wav');

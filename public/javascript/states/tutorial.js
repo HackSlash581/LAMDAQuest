@@ -17,6 +17,16 @@ LAMDAQuest.tutorial.prototype = {
     LAMDAQuest.TEXTBOX.createTextBox(this);
     LAMDAQuest.TEXTBOX.hideTextBox();
 
+    //set up rune pool
+    this.runePool = this.add.group();
+    this.runePool.enableBody = true;
+    this.runePool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.runePool.createMultiple(10, 'rune');
+    this.runePool.setAll('anchor.x', 0.5);
+    this.runePool.setAll('anchor.y', 0.5);
+    this.runePool.setAll('outOfBoundsKill', true);
+    this.runePool.setAll('checkWorldBounds', true);   
+
     //set up enemy pool
     this.enemyPool = this.add.group();
     this.enemyPool.enableBody = true;
@@ -60,6 +70,17 @@ LAMDAQuest.tutorial.prototype = {
     this.enemyCount = 0;
     this.maxEnemy = 10;
 
+    //scripting rune count and display
+    this.runeCount = 0;
+    this.runeLabel = this.game.add.text(50, 100, 'Scripting Runes: 0',
+      {font: '18px Arial', fill: '#000000'});
+
+
+    //health count and display
+    this.healthLabel = this.game.add.text(50, 150, 'Health: 100',
+      {font: '18px Arial', fill: '#000000'});
+
+
     //setTimeout(this.triggerMessage("intro"), 4000);
   },
 
@@ -72,10 +93,18 @@ LAMDAQuest.tutorial.prototype = {
       //call spawn enemy function
       this.spawnEnemy();
       //if player and enemy overlap, call playerDie function
-      this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerDie, null, this);
+      this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerHit, null, this);
 
       //if and arrow overlaps with an enemy, call enemyHit function
       this.game.physics.arcade.overlap(this.arrowPool, this.enemyPool, this.enemyHit, null, this);
+
+      //if player and rune overlap, take the rune
+      this.game.physics.arcade.overlap(this.player, this.runePool, this.takeRune, null, this);
+
+      if(this.player.health == 0)
+      {
+        this.playerDie();
+      }
     } else {
       //Scripting menu updates
     }
@@ -97,15 +126,17 @@ LAMDAQuest.tutorial.prototype = {
     return this.messageData.tutorial[key];
   },
 
-  playerDie: function(){
-    this.game.state.start('gameOver');
+  playerHit: function(player, enemy){
+    this.player.health -= 10;
+    this.healthLabel.text = "Health: " + this.player.health;
+    enemy.kill();
+    enemy.alive = false;
+    this.enemyCount -= 1;
   },
 
   playerDie: function(){
     this.player.animations.play('die');
     this.player.animating = true;
-    this.player.body.velocity.x = 0;
-    this.player.body.velocity.y = 0;
     this.player.events.onAnimationComplete.add(function(){
       this.player.animating = false;
       this.game.state.start('gameOver');
@@ -114,12 +145,19 @@ LAMDAQuest.tutorial.prototype = {
   },
 
   enemyHit: function(arrow, enemy){  
+    var dropchance = this.rnd.integerInRange(1,5)
+    if(dropchance == 1)
+    {
+      var rune = this.runePool.getFirstExists(false)
+      {
+        rune.reset(enemy.x, enemy.y);
+      }
+    }
     arrow.kill();
     this.explode(enemy);
     enemy.kill();  
     enemy.alive = false;
     this.enemyCount -= 1;
-    this.triggerMessage("beaver");
 
   },
 
@@ -144,10 +182,21 @@ LAMDAQuest.tutorial.prototype = {
     {
       this.nextEnemyAt = this.time.now + this.enemyDelay;
       var enemy = this.enemyPool.getFirstExists(false);
-      enemy.reset(this.rnd.integerInRange(700, 50), 200);
-      this.enemyCount += 1;        
+      enemy.reset(this.rnd.integerInRange(700, 50), 50);
+      this.enemyCount += 1;
+      this.enemyMovement(enemy);        
     }
- 
+  },
+
+  enemyMovement: function(enemy){
+
+    this.physics.arcade.moveToObject(enemy, this.player, 100);
+  },
+
+  takeRune: function(player, rune){
+    rune.kill();
+    this.runeCount += 1;
+    this.runeLabel.text = "Scripting Runes: " + this.runeCount;
   },
 
   explode: function(sprite) {

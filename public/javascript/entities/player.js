@@ -33,6 +33,7 @@ LAMDAQuest.PLAYER = (function() {
       //default facing direction is down
       mainGame.player.facing = "down";
       mainGame.player.animating = false;
+      mainGame.player.health = 100;
     },
 
     updatePlayer: function(mainGame) {
