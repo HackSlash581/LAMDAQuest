@@ -10,7 +10,7 @@ LAMDAQuest.PAUSE = (function() {
     darkRectangle = game.add.graphics(0, 0);
     darkRectangle.lineStyle(1, 0x000000, 0.3);
     darkRectangle.beginFill(0x000000, 0.3);
-    darkRectangle.drawRect(game.camera.x, game.camera.y, game.camera.width, game.camera.height);
+    darkRectangle.drawRect(game.world.x, game.world.y, game.world.width, game.world.height);
     darkRectangle.endFill();
   }
 

@@ -104,6 +104,8 @@ LAMDAQuest.tutorial.prototype = {
   playerDie: function(){
     this.player.animations.play('die');
     this.player.animating = true;
+    this.player.body.velocity.x = 0;
+    this.player.body.velocity.y = 0;
     this.player.events.onAnimationComplete.add(function(){
       this.player.animating = false;
       this.game.state.start('gameOver');

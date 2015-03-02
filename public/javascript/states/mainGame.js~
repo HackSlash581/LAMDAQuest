@@ -85,9 +85,12 @@ LAMDAQuest.mainGame.prototype = {
   },
 
   playerDie: function(){
+    this.input.keyboard.disable = false;
     this.player.animations.play('die');
+    this.player.animating = true;
     this.player.events.onAnimationComplete.add(function(){
       this.player.animating = false;
+      this.input.keyboard.disable = true;
       this.game.state.start('gameOver');
       }, this);
   },
