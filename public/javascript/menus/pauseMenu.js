@@ -19,12 +19,14 @@ LAMDAQuest.PAUSE = (function() {
     var mainGame = this;
     $('#scriptingModal').on('show.bs.modal', function(event) {
       $('.modal-title').text('Scripting Pane for ' + player.displayName);
+      $('#syntaxAlert').hide();
       game.paused = true;
       mainGame.modalUp = true;
     });
     $('#scriptingModal').on('hidden.bs.modal', function(event) {
       game.paused = false;
       mainGame.modalUp = false;
+      $('#scriptingModal').find("input").val('').end()
     });
     $("#scriptingModal").modal().find("#objectProperties").html(
       "<ul class='list-group'>" +
@@ -41,10 +43,21 @@ LAMDAQuest.PAUSE = (function() {
     function submitScript(event) {
       event.preventDefault();
       event.stopImmediatePropagation();
-      $.post('/scripting/' + $('#script-text').val(), function(data) {
-        var script = "player." + data;
-        eval(script);
-        $('#scriptingModal').find("input").val('').end().modal('toggle');
+      $.ajax({
+        type: 'POST',
+        url: '/scripting/' + $('#script-text').val(),
+
+        success: function(data, xhr) {
+          var script = "player." + data;
+          eval(script);
+          $('#syntaxAlert').hide();
+          $('#scriptingModal').find("input").val('').end().modal('toggle');
+        },
+
+        error: function(jqXHR) {
+          $('#syntaxAlert').html(jqXHR.responseText);
+          $('#syntaxAlert').show();
+        }
       });
     }
   }

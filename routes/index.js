@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var hackScript = require('hackscript/lib/hackScript.js');
+var newline = String.fromCharCode(13, 10);
 
 hackScript.compileLine = function(input) {
   var file = "placeholder";
@@ -20,7 +21,13 @@ router.get('/', function(req, res) {
 
 router.post('/scripting/:script', function(req, res) {
   var script = req.params.script;
-  var result = hackScript.compileLine(script);
+  try {
+    var result = hackScript.compileLine(script);
+  } catch(err) {
+    res.status(400);
+    res.send("HackScript syntax error: " + err.message);
+    return;
+  }
   res.status(200);
   res.send(result);
 });
