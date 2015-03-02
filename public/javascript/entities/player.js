@@ -10,6 +10,7 @@ LAMDAQuest.PLAYER = (function() {
       mainGame.player.displayName = "Steve";
       mainGame.player.speed = 75;
       mainGame.game.physics.arcade.enable(mainGame.player);
+	  mainGame.player.body.collideWorldBounds = true;
       mainGame.game.camera.follow(mainGame.player);
 
       //adding player animations
