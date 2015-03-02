@@ -23,6 +23,7 @@ LAMDAQuest.boot.prototype = {
     this.scale.setScreenSize(true);
 
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    
 
     this.state.start('preload');
   }

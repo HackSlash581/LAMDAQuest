@@ -50,8 +50,6 @@ LAMDAQuest.tutorial.prototype = {
       explosion.animations.add('boom');
     });
 
-
-
     this.nextShotAt = 0;
     this.shotDelay = 200;
 
