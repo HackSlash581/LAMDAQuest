@@ -42,7 +42,7 @@ LAMDAQuest.tutorial.prototype = {
     this.arrowPool = this.add.group();
     this.arrowPool.enableBody = true;
     this.arrowPool.physicsBodyType = Phaser.Physics.ARCADE;
-    this.arrowPool.createMultiple(100, 'arrow');
+    this.arrowPool.createMultiple(100, 'spear');
     this.arrowPool.setAll('anchor.x', 0.5);
     this.arrowPool.setAll('anchor.y', 0.5);
     this.arrowPool.setAll('outOfBoundsKill', true);
@@ -61,6 +61,9 @@ LAMDAQuest.tutorial.prototype = {
     });
 
 
+    //add spear
+    this.spear = this.game.add.sprite(500, 300, 'spear');
+    this.game.physics.arcade.enable(this.spear);
 
     this.nextShotAt = 0;
     this.shotDelay = 200;
@@ -72,13 +75,15 @@ LAMDAQuest.tutorial.prototype = {
 
     //scripting rune count and display
     this.runeCount = 0;
-    this.runeLabel = this.game.add.text(50, 100, 'Scripting Runes: 0',
+    this.runeLabel = this.game.add.text(25, 25, 'Scripting Runes: 0',
       {font: '18px Arial', fill: '#000000'});
+    this.runeLabel.fixedToCamera = true;
 
 
     //health count and display
-    this.healthLabel = this.game.add.text(50, 150, 'Health: 100',
+    this.healthLabel = this.game.add.text(25, 75, 'Health: 100',
       {font: '18px Arial', fill: '#000000'});
+    this.healthLabel.fixedToCamera = true;
 
 
     //setTimeout(this.triggerMessage("intro"), 4000);
@@ -86,28 +91,32 @@ LAMDAQuest.tutorial.prototype = {
 
   update: function() {
     
-    if(!LAMDAQuest.globals.paused) {
-      LAMDAQuest.PLAYER.updatePlayer(this);
-      LAMDAQuest.INPUT.checkInput(this);
-      this.game.physics.arcade.collide(this.player, this.environmentLayer);
-      //call spawn enemy function
-      this.spawnEnemy();
-      //if player and enemy overlap, call playerDie function
-      this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerHit, null, this);
+    if(!LAMDAQuest.globals.paused && !this.player.dying) {
+        LAMDAQuest.PLAYER.updatePlayer(this);
+        LAMDAQuest.INPUT.checkInput(this);
+        this.game.physics.arcade.collide(this.player, this.environmentLayer);
+        //call spawn enemy function
+      //  this.spawnEnemy();
 
-      //if and arrow overlaps with an enemy, call enemyHit function
-      this.game.physics.arcade.overlap(this.arrowPool, this.enemyPool, this.enemyHit, null, this);
+        //if player and enemy overlap, call playerHit function
+        this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerHit, null, this);
 
-      //if player and rune overlap, take the rune
-      this.game.physics.arcade.overlap(this.player, this.runePool, this.takeRune, null, this);
+        //if and arrow overlaps with an enemy, call enemyHit function
+        this.game.physics.arcade.overlap(this.arrowPool, this.enemyPool, this.enemyHit, null, this);
 
-      if(this.player.health == 0)
-      {
-        this.playerDie();
+        //if player and rune overlap, take the rune
+        this.game.physics.arcade.overlap(this.player, this.runePool, this.takeRune, null, this);
+
+        //if player and spear overlap, take the spear
+        this.game.physics.arcade.overlap(this.player, this.spear, this.takeSpear, null, this);
+
+        if(this.player.health <= 0)
+        {
+          this.playerDie();
+        }
+      } else {
+        //Scripting menu updates
       }
-    } else {
-      //Scripting menu updates
-    }
   },
 
   pauseUpdate: function() {
@@ -136,9 +145,11 @@ LAMDAQuest.tutorial.prototype = {
 
   playerDie: function(){
     this.player.animations.play('die');
-    this.player.animating = true;
+    this.player.dying = true;
+    this.player.body.velocity.x = 0;
+    this.player.body.velocity.y = 0;
     this.player.events.onAnimationComplete.add(function(){
-      this.player.animating = false;
+      this.player.dying = false;
       this.game.state.start('gameOver');
       }, this);
     
@@ -162,19 +173,26 @@ LAMDAQuest.tutorial.prototype = {
   },
 
   fireArrow: function(){
-    //check if able to shoot again yet
-    if(this.nextShotAt > this.time.now){
-      return;
+
+    //not allowed to fire if inside dying animation
+    if(this.player.dying == true){
+      return;          
+    }
+    else{
+      //check if able to shoot again yet
+      if(this.nextShotAt > this.time.now){
+        return;
+      }
+      this.arrow_shot.play();
+      this.nextShotAt = this.time.now + this.shotDelay;
+
+      var arrow = this.arrowPool.getFirstExists(false);
+      arrow.reset(this.player.x+25, this.player.y+25);
+      arrow.rotation = this.physics.arcade.angleToPointer(arrow);
+
+      this.physics.arcade.moveToPointer(arrow, 300);      
     }
 
-    this.arrow_shot.play();
-    this.nextShotAt = this.time.now + this.shotDelay;
-
-    var arrow = this.arrowPool.getFirstExists(false);
-    arrow.reset(this.player.x+25, this.player.y+25);
-    arrow.rotation = this.physics.arcade.angleToPointer(arrow);
-
-    this.physics.arcade.moveToPointer(arrow, 300);
   },
 
   spawnEnemy: function(){
@@ -189,7 +207,6 @@ LAMDAQuest.tutorial.prototype = {
   },
 
   enemyMovement: function(enemy){
-
     this.physics.arcade.moveToObject(enemy, this.player, 100);
   },
 
@@ -197,6 +214,11 @@ LAMDAQuest.tutorial.prototype = {
     rune.kill();
     this.runeCount += 1;
     this.runeLabel.text = "Scripting Runes: " + this.runeCount;
+  },
+
+  takeSpear: function(){
+    this.player.weapon = "spear";
+    this.spear.kill();
   },
 
   explode: function(sprite) {
