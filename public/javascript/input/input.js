@@ -39,13 +39,13 @@ LAMDAQuest.INPUT = (function() {
           if(x_diff > 0){
             mainGame.player.animations.play('shoot_right');
             mainGame.player.facing = "right";       
-            mainGame.fireArrow();
+            mainGame.throwSpear();
 
           }
           else if(x_diff < 0){
             mainGame.player.animations.play('shoot_left');
             mainGame.player.facing = "left";
-            mainGame.fireArrow();
+            mainGame.throwSpear();
           }
         }
         else
@@ -53,12 +53,12 @@ LAMDAQuest.INPUT = (function() {
           if(y_diff > 0){
             mainGame.player.animations.play('shoot_down');
             mainGame.player.facing = "down";
-            mainGame.fireArrow();
+            mainGame.throwSpear();
           }  
           else if(y_diff < 0){
             mainGame.player.animations.play('shoot_up');    
             mainGame.player.facing = "up"; 
-            mainGame.fireArrow();
+            mainGame.throwSpear();
           }
         }
         //when attack animation is finished set animating state back to false

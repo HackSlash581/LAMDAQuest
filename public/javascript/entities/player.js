@@ -6,11 +6,11 @@ LAMDAQuest.PLAYER = (function() {
   return {
     createPlayer: function(mainGame) {
       var result = mainGame.findObjectsByType('playerStart', mainGame.map, 'GameEntities');
-      mainGame.player = mainGame.game.add.sprite(result[0].x, result[0].y, 'player');
+      mainGame.player = mainGame.game.add.sprite(result[0].x, result[0].y, 'player_spear');
       mainGame.player.displayName = "Steve";
       mainGame.player.speed = 75;
       mainGame.game.physics.arcade.enable(mainGame.player);
-	  mainGame.player.body.collideWorldBounds = true;
+	    mainGame.player.body.collideWorldBounds = true;
       mainGame.game.camera.follow(mainGame.player);
 
       //adding player animations
@@ -35,11 +35,14 @@ LAMDAQuest.PLAYER = (function() {
       mainGame.player.facing = "down";
       mainGame.player.animating = false;
       mainGame.player.health = 100;
+      mainGame.player.dying = false;
+      mainGame.player.weapon = "unarmed";
     },
 
     updatePlayer: function(mainGame) {
       mainGame.player.body.velocity.y = 0;
       mainGame.player.body.velocity.x = 0;
+
     }
   };
 })();
