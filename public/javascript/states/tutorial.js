@@ -38,15 +38,15 @@ LAMDAQuest.tutorial.prototype = {
     this.enemyPool.setAll('checkWorldBounds', true);
 
 
-    //set up arrow group
-    this.arrowPool = this.add.group();
-    this.arrowPool.enableBody = true;
-    this.arrowPool.physicsBodyType = Phaser.Physics.ARCADE;
-    this.arrowPool.createMultiple(100, 'spear');
-    this.arrowPool.setAll('anchor.x', 0.5);
-    this.arrowPool.setAll('anchor.y', 0.5);
-    this.arrowPool.setAll('outOfBoundsKill', true);
-    this.arrowPool.setAll('checkWorldBounds', true);
+    //set up spear group
+    this.spearPool = this.add.group();
+    this.spearPool.enableBody = true;
+    this.spearPool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.spearPool.createMultiple(100, 'spear');
+    this.spearPool.setAll('anchor.x', 0.5);
+    this.spearPool.setAll('anchor.y', 0.5);
+    this.spearPool.setAll('outOfBoundsKill', true);
+    this.spearPool.setAll('checkWorldBounds', true);
 
 
     //set up explosion group
@@ -60,10 +60,6 @@ LAMDAQuest.tutorial.prototype = {
       explosion.animations.add('boom');
     });
 
-
-    //add spear
-    this.spear = this.game.add.sprite(500, 300, 'spear');
-    this.game.physics.arcade.enable(this.spear);
 
     this.nextShotAt = 0;
     this.shotDelay = 200;
@@ -96,19 +92,16 @@ LAMDAQuest.tutorial.prototype = {
         LAMDAQuest.INPUT.checkInput(this);
         this.game.physics.arcade.collide(this.player, this.environmentLayer);
         //call spawn enemy function
-      //  this.spawnEnemy();
+        this.spawnEnemy();
 
         //if player and enemy overlap, call playerHit function
         this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerHit, null, this);
 
-        //if and arrow overlaps with an enemy, call enemyHit function
-        this.game.physics.arcade.overlap(this.arrowPool, this.enemyPool, this.enemyHit, null, this);
+        //if and spear overlaps with an enemy, call enemyHit function
+        this.game.physics.arcade.overlap(this.spearPool, this.enemyPool, this.enemyHit, null, this);
 
         //if player and rune overlap, take the rune
         this.game.physics.arcade.overlap(this.player, this.runePool, this.takeRune, null, this);
-
-        //if player and spear overlap, take the spear
-        this.game.physics.arcade.overlap(this.player, this.spear, this.takeSpear, null, this);
 
         if(this.player.health <= 0)
         {
@@ -155,7 +148,7 @@ LAMDAQuest.tutorial.prototype = {
     
   },
 
-  enemyHit: function(arrow, enemy){  
+  enemyHit: function(spear, enemy){  
     var dropchance = this.rnd.integerInRange(1,5)
     if(dropchance == 1)
     {
@@ -164,7 +157,7 @@ LAMDAQuest.tutorial.prototype = {
         rune.reset(enemy.x, enemy.y);
       }
     }
-    arrow.kill();
+    spear.kill();
     this.explode(enemy);
     enemy.kill();  
     enemy.alive = false;
@@ -172,7 +165,7 @@ LAMDAQuest.tutorial.prototype = {
 
   },
 
-  fireArrow: function(){
+  throwSpear: function(){
 
     //not allowed to fire if inside dying animation
     if(this.player.dying == true){
@@ -183,14 +176,14 @@ LAMDAQuest.tutorial.prototype = {
       if(this.nextShotAt > this.time.now){
         return;
       }
-      this.arrow_shot.play();
+     // this.arrow_shot.play();
       this.nextShotAt = this.time.now + this.shotDelay;
 
-      var arrow = this.arrowPool.getFirstExists(false);
-      arrow.reset(this.player.x+25, this.player.y+25);
-      arrow.rotation = this.physics.arcade.angleToPointer(arrow);
+      var spear = this.spearPool.getFirstExists(false);
+      spear.reset(this.player.x+25, this.player.y+25);
+      spear.rotation = this.physics.arcade.angleToPointer(spear);
 
-      this.physics.arcade.moveToPointer(arrow, 300);      
+      this.physics.arcade.moveToPointer(spear, 300);      
     }
 
   },
@@ -214,11 +207,6 @@ LAMDAQuest.tutorial.prototype = {
     rune.kill();
     this.runeCount += 1;
     this.runeLabel.text = "Scripting Runes: " + this.runeCount;
-  },
-
-  takeSpear: function(){
-    this.player.weapon = "spear";
-    this.spear.kill();
   },
 
   explode: function(sprite) {
