@@ -76,7 +76,7 @@ LAMDAQuest.tutorial.prototype = {
     this.runeLabel.fixedToCamera = true;
 
 
-    //health count and display
+    //health count and display  
     this.healthLabel = this.game.add.text(25, 75, 'Health: 100',
       {font: '18px Arial', fill: '#000000'});
     this.healthLabel.fixedToCamera = true;
@@ -86,13 +86,14 @@ LAMDAQuest.tutorial.prototype = {
   },
 
   update: function() {
-    
     if(!LAMDAQuest.globals.paused && !this.player.dying) {
         LAMDAQuest.PLAYER.updatePlayer(this);
         LAMDAQuest.INPUT.checkInput(this);
         this.game.physics.arcade.collide(this.player, this.environmentLayer);
         //call spawn enemy function
         this.spawnEnemy();
+        this.enemyMovement();
+
 
         //if player and enemy overlap, call playerHit function
         this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerHit, null, this);
@@ -103,12 +104,14 @@ LAMDAQuest.tutorial.prototype = {
         //if player and rune overlap, take the rune
         this.game.physics.arcade.overlap(this.player, this.runePool, this.takeRune, null, this);
 
+
         if(this.player.health <= 0)
         {
           this.playerDie();
         }
       } else {
         //Scripting menu updates
+        this.pauseEnemy();
       }
   },
 
@@ -194,13 +197,23 @@ LAMDAQuest.tutorial.prototype = {
       this.nextEnemyAt = this.time.now + this.enemyDelay;
       var enemy = this.enemyPool.getFirstExists(false);
       enemy.reset(this.rnd.integerInRange(700, 50), 50);
-      this.enemyCount += 1;
-      this.enemyMovement(enemy);        
+      this.enemyCount += 1;     
     }
   },
 
-  enemyMovement: function(enemy){
-    this.physics.arcade.moveToObject(enemy, this.player, 100);
+  pauseEnemy: function(){
+    this.enemyPool.forEach(function(enemy){
+      enemy.body.velocity.x = 0;
+      enemy.body.velocity.y = 0;
+
+    }, this)
+  },
+
+  enemyMovement: function(){
+    this.enemyPool.forEach(function(enemy){
+      this.physics.arcade.moveToObject(enemy, this.player, 100);
+    }, this)
+    
   },
 
   takeRune: function(player, rune){
