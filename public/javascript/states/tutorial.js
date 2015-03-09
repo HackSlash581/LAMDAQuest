@@ -116,6 +116,8 @@ LAMDAQuest.tutorial.prototype = {
 
       this.game.physics.arcade.overlap(this.player, this.spear, this.pickupSpear, null, this);
 
+      //this.game.physics.arcade.overlap(this.player, this.blue_flame, this.finishTutorial, null, this);
+
       if(this.player.health <= 0) {
         this.playerDie();
       }
@@ -243,6 +245,13 @@ LAMDAQuest.tutorial.prototype = {
       explosion.reset(sprite.x, sprite.y);
       explosion.play('boom', 15, false, true);
       this.beaver_death.play();
+  },
+
+  finishTutorial: function() {
+    this.triggerMessage("win");
+    setTimeout(function() {
+      this.state.start("menuState");
+    }, 4000);
   },
 
   findObjectsByType: function(type, map, layer) {

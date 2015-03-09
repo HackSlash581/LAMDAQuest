@@ -16,12 +16,13 @@ LAMDAQuest.preload.prototype = {
 
     this.load.tilemap('level1', 'assets/tilemaps/tileMap.json', null, Phaser.Tilemap.TILED_JSON);
     
+    
     this.load.spritesheet('player_unarmed', 'assets/spriteSheets/player_sprite_unarmed.png', 48, 48);
     this.load.spritesheet('player_spear', 'assets/spriteSheets/player_sprite_spear.png', 48, 48);
     this.load.spritesheet('player_total', 'assets/spriteSheets/player_sprite_total.png', 48, 48);
-
     this.load.spritesheet('button', 'assets/spriteSheets/button_sprite_sheet.png', 193, 71);
     this.load.spritesheet('explosion', 'assets/spriteSheets/explosion_sprite_sheet.png', 32, 32);
+    this.load.spritesheet('blue_flame', 'assets/spriteSheets/flameball.png', 32, 32, 1);
 
     this.load.image('tiles', 'assets/tilesets/tiles.png');
     this.load.image('background_menu', 'assets/menus/background_menu.png');
