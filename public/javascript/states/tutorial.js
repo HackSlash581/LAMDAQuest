@@ -99,32 +99,6 @@ LAMDAQuest.tutorial.prototype = {
       this.game.physics.arcade.collide(this.player, this.environmentLayer);
 	     this.game.physics.arcade.collide(this.enemyPool, this.environmentLayer);
 	
-<<<<<<< HEAD
-        //enemies stop spawning after 10 have been killed... they won!
-        if(this.enemiesKilled < 10){
-          this.spawnEnemy();
-          this.enemyMovement();          
-        }
-
-        //if player and enemy overlap, call playerHit function
-        this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerHit, null, this);
-
-        //if and spear overlaps with an enemy, call enemyHit function
-        this.game.physics.arcade.overlap(this.spearPool, this.enemyPool, this.enemyHit, null, this);
-
-        //if player and rune overlap, take the rune
-        this.game.physics.arcade.overlap(this.player, this.runePool, this.takeRune, null, this);
-
-        this.game.physics.arcade.overlap(this.player, this.spear, this.pickupSpear, null, this);
-
-        if(this.player.health <= 0)
-        {
-          this.playerDie();mainGame.layer = mainGame.map.createLayer('Background');
-        }
-      } else {
-        //Scripting menu updates
-        this.pauseEnemy();
-=======
       //enemies stop spawning after 10 have been killed... they won!
       if(this.enemiesKilled < 10){
         this.spawnEnemy();
@@ -144,7 +118,6 @@ LAMDAQuest.tutorial.prototype = {
 
       if(this.player.health <= 0) {
         this.playerDie();
->>>>>>> c193d44007a05c654c5861d5ff1a53880bd71a75
       }
     } else {
       //Scripting menu updates
