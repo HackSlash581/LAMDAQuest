@@ -121,7 +121,7 @@ LAMDAQuest.tutorial.prototype = {
 
         if(this.player.health <= 0)
         {
-          this.playerDie();
+          this.playerDie();mainGame.layer = mainGame.map.createLayer('Background');
         }
       } else {
         //Scripting menu updates
@@ -206,7 +206,10 @@ LAMDAQuest.tutorial.prototype = {
     {
       this.nextEnemyAt = this.time.now + this.enemyDelay;
       var enemy = this.enemyPool.getFirstExists(false);
-      enemy.reset(this.rnd.integerInRange(300, 700), 100);
+      var xloc = [350,675];
+      var yloc = [150,475];
+      //enemy.reset(this.rnd.integerInRange(300, 700), 100);
+      enemy.reset(this.rnd.pick(xloc), this.rnd.pick(yloc));
       this.enemyCount += 1;     
     }
   },

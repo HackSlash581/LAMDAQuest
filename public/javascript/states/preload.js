@@ -24,6 +24,7 @@ LAMDAQuest.preload.prototype = {
     this.load.spritesheet('explosion', 'assets/spriteSheets/explosion_sprite_sheet.png', 32, 32);
 
     this.load.image('tiles', 'assets/tilesets/tiles.png');
+    this.load.image('Ground 2', 'assets/tilesets/Ground 2.png');
     this.load.image('background_menu', 'assets/menus/background_menu.png');
     this.load.image('background_gameover', 'assets/menus/background_gameover.jpg');
     this.load.image('enemy', 'assets/spriteSheets/beaver.png');
