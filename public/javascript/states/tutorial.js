@@ -68,7 +68,7 @@ LAMDAQuest.tutorial.prototype = {
     this.shotDelay = 200;
 
     this.nextEnemyAt = 0;
-    this.enemyDelay = 500;
+    this.enemyDelay = 1000;
     this.enemyCount = 0;
     this.maxEnemy = 3;
     this.enemiesKilled = 0;
@@ -98,6 +98,7 @@ LAMDAQuest.tutorial.prototype = {
       LAMDAQuest.INPUT.checkInput(this);
       this.game.physics.arcade.collide(this.player, this.environmentLayer);
 	     this.game.physics.arcade.collide(this.enemyPool, this.environmentLayer);
+	     this.game.physics.arcade.collide(this.enemyPool, this.enemyPool);
 	
       //enemies stop spawning after 10 have been killed... they won!
       if(this.enemiesKilled < 10){
@@ -204,7 +205,10 @@ LAMDAQuest.tutorial.prototype = {
     {
       this.nextEnemyAt = this.time.now + this.enemyDelay;
       var enemy = this.enemyPool.getFirstExists(false);
-      enemy.reset(this.rnd.integerInRange(300, 700), 100);
+      var xloc = [350,675];
+      var yloc = [150,475];
+      //enemy.reset(this.rnd.integerInRange(300, 700), 100);
+      enemy.reset(this.rnd.pick(xloc), this.rnd.pick(yloc));
       this.enemyCount += 1;     
     }
   },
@@ -219,7 +223,7 @@ LAMDAQuest.tutorial.prototype = {
 
   enemyMovement: function(){
     this.enemyPool.forEach(function(enemy){
-      this.physics.arcade.moveToObject(enemy, this.player, 50);
+      this.physics.arcade.moveToObject(enemy, this.player, 60);
     }, this)
     
   },
