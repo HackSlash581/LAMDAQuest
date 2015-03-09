@@ -100,7 +100,8 @@ LAMDAQuest.tutorial.prototype = {
         LAMDAQuest.PLAYER.updatePlayer(this);
         LAMDAQuest.INPUT.checkInput(this);
         this.game.physics.arcade.collide(this.player, this.environmentLayer);
-
+	this.game.physics.arcade.collide(this.enemyPool, this.environmentLayer);
+	
         //enemies stop spawning after 10 have been killed... they won!
         if(this.enemiesKilled < 10){
           this.spawnEnemy();
@@ -205,7 +206,7 @@ LAMDAQuest.tutorial.prototype = {
     {
       this.nextEnemyAt = this.time.now + this.enemyDelay;
       var enemy = this.enemyPool.getFirstExists(false);
-      enemy.reset(this.rnd.integerInRange(700, 50), 50);
+      enemy.reset(this.rnd.integerInRange(300, 700), 100);
       this.enemyCount += 1;     
     }
   },
