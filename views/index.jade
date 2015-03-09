@@ -6,21 +6,34 @@ block content
   #gameDiv
   #scriptingModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='scriptingModalLabel', aria-hidden='true')
     .modal-dialog
-        .modal-content
-          .modal-header
-            button.close(type='button', data-dismiss='modal', aria-label='Close') 
-              span(aria-hidden='true') &times;
-            h4#scriptingModalLabel.modal-title 
-          .modal-body
-            h5 Object Properties
-              #objectProperties
-            form
-              .form-group
-                label.control-label(for='script-text') HackScript:
-                input#script-text.form-control(type='text')
-                button.btn.btn-primary#submitScript(type='button') Compile Script
-          .alert.alert-danger.alert-dismissable#syntaxAlert
-          .modal-footer
-            button.btn.btn-primary.pull-left(type='button') HackScript Help
-            button.btn.btn-default(type='button', data-dismiss='modal') Cancel
-            
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close') 
+            span(aria-hidden='true') &times;
+          h4#scriptingModalLabel.modal-title 
+        .modal-body
+          h5 Object Properties
+            #objectProperties
+          form
+            .form-group
+              label.control-label(for='script-text') HackScript:
+              input#script-text.form-control(type='text')
+              button.btn.btn-primary#submitScript(type='button') Compile Script
+        .alert.alert-danger.alert-dismissable#syntaxAlert
+        .modal-footer
+          button.btn.btn-primary.pull-left(type='button' data-toggle="modal" data-target="#hackScriptHelpModal") HackScript Help
+          button.btn.btn-default(type='button', data-dismiss='modal') Cancel
+  #hackScriptHelpModal.modal.fade(tabindex='-1', role="dialog", aria-labelledby='hackScriptHelpModalLabel', aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+          h4#hackScriptHelpModalLabel.modal-title HackScript Basics
+        .modal-body
+          h5 Assignment
+            p You can assign values to properties of a scriptable entity using the following syntax:
+              h4
+                b &lt;property&gt;:&nbsp;&lt;new value&gt;
+            p Strings must be in double quotes.
+

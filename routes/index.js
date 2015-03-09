@@ -24,8 +24,10 @@ router.post('/scripting/:script', function(req, res) {
   try {
     var result = hackScript.compileLine(script);
   } catch(err) {
+    htmlErrorMessage = err.message.replace(/\\n/gm, "<br/>");
+    console.log(htmlErrorMessage);
     res.status(400);
-    res.send("HackScript syntax error: " + err.message);
+    res.send("HackScript syntax error: " + htmlErrorMessage);
     return;
   }
   res.status(200);

@@ -64,9 +64,6 @@ LAMDAQuest.tutorial.prototype = {
     this.spear = this.game.add.sprite(500, 300, 'spear');
     this.game.physics.arcade.enable(this.spear);
 
-
-
-
     this.nextShotAt = 0;
     this.shotDelay = 200;
 
@@ -97,11 +94,12 @@ LAMDAQuest.tutorial.prototype = {
 
   update: function() {
     if(!LAMDAQuest.globals.paused && !this.player.dying) {
-        LAMDAQuest.PLAYER.updatePlayer(this);
-        LAMDAQuest.INPUT.checkInput(this);
-        this.game.physics.arcade.collide(this.player, this.environmentLayer);
-	this.game.physics.arcade.collide(this.enemyPool, this.environmentLayer);
+      LAMDAQuest.PLAYER.updatePlayer(this);
+      LAMDAQuest.INPUT.checkInput(this);
+      this.game.physics.arcade.collide(this.player, this.environmentLayer);
+	     this.game.physics.arcade.collide(this.enemyPool, this.environmentLayer);
 	
+<<<<<<< HEAD
         //enemies stop spawning after 10 have been killed... they won!
         if(this.enemiesKilled < 10){
           this.spawnEnemy();
@@ -126,7 +124,32 @@ LAMDAQuest.tutorial.prototype = {
       } else {
         //Scripting menu updates
         this.pauseEnemy();
+=======
+      //enemies stop spawning after 10 have been killed... they won!
+      if(this.enemiesKilled < 10){
+        this.spawnEnemy();
+        this.enemyMovement();          
       }
+
+      //if player and enemy overlap, call playerHit function
+      this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerHit, null, this);
+
+      //if and spear overlaps with an enemy, call enemyHit function
+      this.game.physics.arcade.overlap(this.spearPool, this.enemyPool, this.enemyHit, null, this);
+
+      //if player and rune overlap, take the rune
+      this.game.physics.arcade.overlap(this.player, this.runePool, this.takeRune, null, this);
+
+      this.game.physics.arcade.overlap(this.player, this.spear, this.pickupSpear, null, this);
+
+      if(this.player.health <= 0) {
+        this.playerDie();
+>>>>>>> c193d44007a05c654c5861d5ff1a53880bd71a75
+      }
+    } else {
+      //Scripting menu updates
+      this.pauseEnemy();
+    }
   },
 
   pauseUpdate: function() {
@@ -161,7 +184,7 @@ LAMDAQuest.tutorial.prototype = {
     this.player.events.onAnimationComplete.add(function(){
       this.player.dying = false;
       this.game.state.start('gameOver');
-      }, this);
+    }, this);
     
   },
 

@@ -18,7 +18,7 @@ LAMDAQuest.PAUSE = (function() {
     var game = this.game;
     var mainGame = this;
     $('#scriptingModal').on('show.bs.modal', function(event) {
-      $('.modal-title').text('Scripting Pane for ' + player.displayName);
+      $('#scriptingModal .modal-title').text('Scripting Pane for ' + player.displayName);
       $('#syntaxAlert').hide();
       game.paused = true;
       mainGame.modalUp = true;
