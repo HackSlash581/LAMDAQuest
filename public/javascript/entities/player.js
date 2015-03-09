@@ -13,6 +13,9 @@ LAMDAQuest.PLAYER = (function() {
 	    mainGame.player.body.collideWorldBounds = true;
       mainGame.game.camera.follow(mainGame.player);
 
+      //adjust player bounding box
+      mainGame.player.body.setSize(24, 36, 12, 10);
+
       //adding player animations
       mainGame.player.animations.add('right_unarmed', [13,14,15,16,17,18,19,20,21], 8, true);
       mainGame.player.animations.add('left_unarmed', [26,27,28,29,30,31,32,33,34], 8, true);
