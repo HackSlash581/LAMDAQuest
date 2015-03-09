@@ -60,6 +60,12 @@ LAMDAQuest.tutorial.prototype = {
       explosion.animations.add('boom');
     });
 
+    //add spear to game
+    this.spear = this.game.add.sprite(500, 300, 'spear');
+    this.game.physics.arcade.enable(this.spear);
+
+
+
 
     this.nextShotAt = 0;
     this.shotDelay = 200;
@@ -67,20 +73,24 @@ LAMDAQuest.tutorial.prototype = {
     this.nextEnemyAt = 0;
     this.enemyDelay = 500;
     this.enemyCount = 0;
-    this.maxEnemy = 10;
-
-    //scripting rune count and display
-    this.runeCount = 0;
-    this.runeLabel = this.game.add.text(25, 25, 'Scripting Runes: 0',
-      {font: '18px Arial', fill: '#000000'});
-    this.runeLabel.fixedToCamera = true;
+    this.maxEnemy = 3;
+    this.enemiesKilled = 0;
 
 
     //health count and display  
-    this.healthLabel = this.game.add.text(25, 75, 'Health: 100',
+    this.healthLabel = this.game.add.text(25, 25, 'Health: 100',
       {font: '18px Arial', fill: '#000000'});
     this.healthLabel.fixedToCamera = true;
 
+    //scripting rune count and display
+    this.runeLabel = this.game.add.text(25, 50, 'Scripting Runes: 0',
+      {font: '18px Arial', fill: '#000000'});
+    this.runeLabel.fixedToCamera = true;
+
+    //ammo count and display
+    this.ammoLabel = this.game.add.text(25, 75, 'Ammo: 0',
+      {font: '18px Arial', fill: '#000000'});
+    this.ammoLabel.fixedToCamera = true;
 
     //setTimeout(this.triggerMessage("intro"), 4000);
   },
@@ -90,10 +100,12 @@ LAMDAQuest.tutorial.prototype = {
         LAMDAQuest.PLAYER.updatePlayer(this);
         LAMDAQuest.INPUT.checkInput(this);
         this.game.physics.arcade.collide(this.player, this.environmentLayer);
-        //call spawn enemy function
-        this.spawnEnemy();
-        this.enemyMovement();
 
+        //enemies stop spawning after 10 have been killed... they won!
+        if(this.enemiesKilled < 10){
+          this.spawnEnemy();
+          this.enemyMovement();          
+        }
 
         //if player and enemy overlap, call playerHit function
         this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerHit, null, this);
@@ -104,6 +116,7 @@ LAMDAQuest.tutorial.prototype = {
         //if player and rune overlap, take the rune
         this.game.physics.arcade.overlap(this.player, this.runePool, this.takeRune, null, this);
 
+        this.game.physics.arcade.overlap(this.player, this.spear, this.pickupSpear, null, this);
 
         if(this.player.health <= 0)
         {
@@ -152,7 +165,7 @@ LAMDAQuest.tutorial.prototype = {
   },
 
   enemyHit: function(spear, enemy){  
-    var dropchance = this.rnd.integerInRange(1,5)
+    var dropchance = this.rnd.integerInRange(1,2)
     if(dropchance == 1)
     {
       var rune = this.runePool.getFirstExists(false)
@@ -165,30 +178,26 @@ LAMDAQuest.tutorial.prototype = {
     enemy.kill();  
     enemy.alive = false;
     this.enemyCount -= 1;
+    this.enemiesKilled += 1;
 
   },
 
   throwSpear: function(){
-
-    //not allowed to fire if inside dying animation
-    if(this.player.dying == true){
-      return;          
+    //check if able to shoot again yet
+    if(this.nextShotAt > this.time.now || this.player.ammo <= 1){
+      return;
     }
-    else{
-      //check if able to shoot again yet
-      if(this.nextShotAt > this.time.now){
-        return;
-      }
-     // this.arrow_shot.play();
-      this.nextShotAt = this.time.now + this.shotDelay;
+    this.arrow_shot.play();
+    this.nextShotAt = this.time.now + this.shotDelay;
 
-      var spear = this.spearPool.getFirstExists(false);
-      spear.reset(this.player.x+25, this.player.y+25);
-      spear.rotation = this.physics.arcade.angleToPointer(spear);
+    var spear = this.spearPool.getFirstExists(false);
+    spear.reset(this.player.x+25, this.player.y+25);
+    spear.rotation = this.physics.arcade.angleToPointer(spear);
 
-      this.physics.arcade.moveToPointer(spear, 300);      
-    }
+    this.player.ammo -= 1;
+    this.ammoLabel.text = "Ammo: " + this.player.ammo;
 
+    this.physics.arcade.moveToPointer(spear, 300);      
   },
 
   spawnEnemy: function(){
@@ -211,15 +220,22 @@ LAMDAQuest.tutorial.prototype = {
 
   enemyMovement: function(){
     this.enemyPool.forEach(function(enemy){
-      this.physics.arcade.moveToObject(enemy, this.player, 100);
+      this.physics.arcade.moveToObject(enemy, this.player, 50);
     }, this)
     
   },
 
   takeRune: function(player, rune){
     rune.kill();
-    this.runeCount += 1;
-    this.runeLabel.text = "Scripting Runes: " + this.runeCount;
+    this.player.runeCount += 1;
+    this.runeLabel.text = "Scripting Runes: " + this.player.runeCount;
+  },
+
+  pickupSpear: function(player, spear){
+    spear.kill();
+    this.player.weapon = "spear";
+    this.player.ammo += 20;
+    this.ammoLabel.text = "Ammo: " + this.player.ammo;
   },
 
   explode: function(sprite) {

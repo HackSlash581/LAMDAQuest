@@ -18,6 +18,7 @@ LAMDAQuest.preload.prototype = {
     
     this.load.spritesheet('player_unarmed', 'assets/spriteSheets/player_sprite_unarmed.png', 48, 48);
     this.load.spritesheet('player_spear', 'assets/spriteSheets/player_sprite_spear.png', 48, 48);
+    this.load.spritesheet('player_total', 'assets/spriteSheets/player_sprite_total.png', 48, 48);
 
     this.load.spritesheet('button', 'assets/spriteSheets/button_sprite_sheet.png', 193, 71);
     this.load.spritesheet('explosion', 'assets/spriteSheets/explosion_sprite_sheet.png', 32, 32);

@@ -6,7 +6,7 @@ LAMDAQuest.PLAYER = (function() {
   return {
     createPlayer: function(mainGame) {
       var result = mainGame.findObjectsByType('playerStart', mainGame.map, 'GameEntities');
-      mainGame.player = mainGame.game.add.sprite(result[0].x, result[0].y, 'player_spear');
+      mainGame.player = mainGame.game.add.sprite(result[0].x, result[0].y, 'player_total');
       mainGame.player.displayName = "Steve";
       mainGame.player.speed = 75;
       mainGame.game.physics.arcade.enable(mainGame.player);
@@ -14,10 +14,16 @@ LAMDAQuest.PLAYER = (function() {
       mainGame.game.camera.follow(mainGame.player);
 
       //adding player animations
-      mainGame.player.animations.add('right', [143,144,145,146,147,148,149,150,151], 8, true);
-      mainGame.player.animations.add('left', [117,118,119,120,121,122,123,124,125], 8, true);
-      mainGame.player.animations.add('up', [104,105,106,107,108,109,110,111,112], 8, true);
-      mainGame.player.animations.add('down', [130,131,132,133,134,135,136,137,138], 8, true);
+      mainGame.player.animations.add('right_unarmed', [13,14,15,16,17,18,19,20,21], 8, true);
+      mainGame.player.animations.add('left_unarmed', [26,27,28,29,30,31,32,33,34], 8, true);
+      mainGame.player.animations.add('up_unarmed', [39,40,41,42,43,44,45,46,47], 8, true);
+      mainGame.player.animations.add('down_unarmed', [0,1,2,3,4,5,6,7,8], 8, true);
+
+      //walking with spear
+      mainGame.player.animations.add('right_spear', [143,144,145,146,147,148,149,150,151], 8, true);
+      mainGame.player.animations.add('left_spear', [117,118,119,120,121,122,123,124,125], 8, true);
+      mainGame.player.animations.add('up_spear', [104,105,106,107,108,109,110,111,112], 8, true);
+      mainGame.player.animations.add('down_spear', [130,131,132,133,134,135,136,137,138], 8, true);
 
       mainGame.player.animations.add('stab_right', [91,92,93,94,95,96,97,98], 12, false);
       mainGame.player.animations.add('stab_left', [65,66,67,68,69,70,71,72], 12, false);
@@ -37,6 +43,8 @@ LAMDAQuest.PLAYER = (function() {
       mainGame.player.health = 100;
       mainGame.player.dying = false;
       mainGame.player.weapon = "unarmed";
+      mainGame.player.runeCount = 0;
+      mainGame.player.ammo = 0;
     },
 
     updatePlayer: function(mainGame) {

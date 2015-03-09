@@ -9,56 +9,103 @@ LAMDAQuest.INPUT = (function() {
     checkInput: function(mainGame) {
       if(mainGame.wasd.up.isDown) {
         mainGame.player.body.velocity.y -= mainGame.player.speed;
-        mainGame.player.animations.play('up');
         mainGame.player.facing = "up";
+        if(mainGame.player.weapon == "unarmed"){
+          mainGame.player.animations.play('up_unarmed');         
+        }
+        else if(mainGame.player.weapon == "spear"){
+          mainGame.player.animations.play("up_spear");
+        }
+
+
       }
       else if(mainGame.wasd.down.isDown) {
         mainGame.player.body.velocity.y += mainGame.player.speed;
-        mainGame.player.animations.play('down');
         mainGame.player.facing = "down";
+        if(mainGame.player.weapon == "unarmed"){
+          mainGame.player.animations.play('down_unarmed');         
+        }
+        else if(mainGame.player.weapon == "spear"){
+          mainGame.player.animations.play("down_spear");
+        }
+
       }
       if(mainGame.wasd.left.isDown) {
         mainGame.player.body.velocity.x -= mainGame.player.speed;
-        mainGame.player.animations.play('left');
         mainGame.player.facing = "left";
+        if(mainGame.player.weapon == "unarmed"){
+          mainGame.player.animations.play('left_unarmed');         
+        }
+        else if(mainGame.player.weapon == "spear"){
+          mainGame.player.animations.play("left_spear");
+        }
       }
       else if(mainGame.wasd.right.isDown) {
         mainGame.player.body.velocity.x += mainGame.player.speed;
-        mainGame.player.animations.play('right');
         mainGame.player.facing = "right";
+
+        if(mainGame.player.weapon == "unarmed"){
+          mainGame.player.animations.play('right_unarmed');
+        }
+        else if(mainGame.player.weapon == "spear"){
+          mainGame.player.animations.play('right_spear');
+        } 
+
       }
 
       //attack function
       if(mainGame.input.activePointer.isDown){
+        if(mainGame.player.weapon == "unarmed")
+          return;
+
         mainGame.player.animating = true;
 
-        var x_diff = mainGame.input.activePointer.x - mainGame.player.x;
-        var y_diff = mainGame.input.activePointer.y - mainGame.player.y;
+        var x_diff = mainGame.input.activePointer.worldX - mainGame.player.x;
+        var y_diff = mainGame.input.activePointer.worldY - mainGame.player.y;
 
         if(Math.abs(x_diff) > Math.abs(y_diff)){
           if(x_diff > 0){
-            mainGame.player.animations.play('shoot_right');
-            mainGame.player.facing = "right";       
-            mainGame.throwSpear();
-
+            mainGame.player.facing = "right";
+            if(mainGame.player.ammo > 1){
+              mainGame.player.animations.play('shoot_right');       
+              mainGame.throwSpear();              
+            } 
+            else{
+              mainGame.player.animations.play('stab_right');
+            }
           }
           else if(x_diff < 0){
-            mainGame.player.animations.play('shoot_left');
             mainGame.player.facing = "left";
-            mainGame.throwSpear();
+            if(mainGame.player.ammo > 1){
+              mainGame.player.animations.play('shoot_left');       
+              mainGame.throwSpear();              
+            } 
+            else{
+              mainGame.player.animations.play('stab_left');
+            }
           }
         }
         else
         {
           if(y_diff > 0){
-            mainGame.player.animations.play('shoot_down');
             mainGame.player.facing = "down";
-            mainGame.throwSpear();
+            if(mainGame.player.ammo > 1){
+              mainGame.player.animations.play('shoot_down');       
+              mainGame.throwSpear();              
+            } 
+            else{
+              mainGame.player.animations.play('stab_down');
+            }            
           }  
           else if(y_diff < 0){
-            mainGame.player.animations.play('shoot_up');    
             mainGame.player.facing = "up"; 
-            mainGame.throwSpear();
+            if(mainGame.player.ammo > 1){
+              mainGame.player.animations.play('shoot_up');       
+              mainGame.throwSpear();              
+            } 
+            else{
+              mainGame.player.animations.play('stab_up');
+            }
           }
         }
         //when attack animation is finished set animating state back to false
@@ -76,14 +123,35 @@ LAMDAQuest.INPUT = (function() {
          !mainGame.player.animating)
       {
         mainGame.player.animations.stop();
-        if(mainGame.player.facing == "up")
-          mainGame.player.frame = 104;
-        if(mainGame.player.facing == "down")
-          mainGame.player.frame = 130;
-        if(mainGame.player.facing == "left")
-          mainGame.player.frame = 117;
-        if(mainGame.player.facing == "right")
-          mainGame.player.frame = 143;
+        if(mainGame.player.facing == "up"){
+          if(mainGame.player.weapon == "spear"){
+            mainGame.player.frame = 104;            
+          }
+          else
+            mainGame.player.frame = 39;
+        }
+
+        if(mainGame.player.facing == "down"){
+          if(mainGame.player.weapon == "spear"){
+            mainGame.player.frame = 130;            
+          }
+          else
+            mainGame.player.frame = 0;
+        }
+        if(mainGame.player.facing == "left"){
+          if(mainGame.player.weapon == "spear"){
+            mainGame.player.frame = 117;            
+          }
+          else
+            mainGame.player.frame = 26;
+        }
+        if(mainGame.player.facing == "right"){
+          if(mainGame.player.weapon == "spear"){
+            mainGame.player.frame = 143;            
+          }
+          else
+            mainGame.player.frame = 13;
+        }
       }
     },
 
