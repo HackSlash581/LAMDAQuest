@@ -6,7 +6,9 @@ LAMDAQuest.MAP = (function() {
     initMap: function(mainGame) {
       mainGame.map = mainGame.game.add.tilemap('level1');
       mainGame.map.addTilesetImage('tiles');
-      mainGame.layer = mainGame.map.createLayer('layer1');
+      mainGame.layer = mainGame.map.createLayer('Background');
+	  mainGame.environmentLayer = mainGame.map.createLayer('GameEntities');
+	  mainGame.map.setCollisionBetween(0, 220, true, mainGame.environmentLayer, false);
       mainGame.layer.resizeWorld();
     },
     

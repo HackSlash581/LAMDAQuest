@@ -16,7 +16,10 @@ LAMDAQuest.preload.prototype = {
 
     this.load.tilemap('level1', 'assets/tilemaps/tileMap.json', null, Phaser.Tilemap.TILED_JSON);
     
-    this.load.spritesheet('player', 'assets/spriteSheets/player_sprite_bow.png', 48, 48);
+    this.load.spritesheet('player_unarmed', 'assets/spriteSheets/player_sprite_unarmed.png', 48, 48);
+    this.load.spritesheet('player_spear', 'assets/spriteSheets/player_sprite_spear.png', 48, 48);
+    this.load.spritesheet('player_total', 'assets/spriteSheets/player_sprite_total.png', 48, 48);
+
     this.load.spritesheet('button', 'assets/spriteSheets/button_sprite_sheet.png', 193, 71);
     this.load.spritesheet('explosion', 'assets/spriteSheets/explosion_sprite_sheet.png', 32, 32);
 
@@ -26,7 +29,8 @@ LAMDAQuest.preload.prototype = {
     this.load.image('enemy', 'assets/spriteSheets/beaver.png');
     this.load.image('textSurface', 'assets/ui/panel_blue.png');
     this.load.image('textSurfaceInset', 'assets/ui/panelInset_blue.png');
-    this.load.image('arrow', 'assets/spriteSheets/arrow.png');
+    this.load.image('spear', 'assets/spriteSheets/spear.png');
+    this.load.image('rune', 'assets/spriteSheets/rune.png');
 
     this.load.audio('message_letter', 'assets/sounds/message_letter.wav');
     this.load.audio('arrow_shot', 'assets/sounds/arrow.wav');

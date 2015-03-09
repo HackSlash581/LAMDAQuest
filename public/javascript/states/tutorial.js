@@ -17,6 +17,16 @@ LAMDAQuest.tutorial.prototype = {
     LAMDAQuest.TEXTBOX.createTextBox(this);
     LAMDAQuest.TEXTBOX.hideTextBox();
 
+    //set up rune pool
+    this.runePool = this.add.group();
+    this.runePool.enableBody = true;
+    this.runePool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.runePool.createMultiple(10, 'rune');
+    this.runePool.setAll('anchor.x', 0.5);
+    this.runePool.setAll('anchor.y', 0.5);
+    this.runePool.setAll('outOfBoundsKill', true);
+    this.runePool.setAll('checkWorldBounds', true);   
+
     //set up enemy pool
     this.enemyPool = this.add.group();
     this.enemyPool.enableBody = true;
@@ -28,15 +38,15 @@ LAMDAQuest.tutorial.prototype = {
     this.enemyPool.setAll('checkWorldBounds', true);
 
 
-    //set up arrow group
-    this.arrowPool = this.add.group();
-    this.arrowPool.enableBody = true;
-    this.arrowPool.physicsBodyType = Phaser.Physics.ARCADE;
-    this.arrowPool.createMultiple(100, 'arrow');
-    this.arrowPool.setAll('anchor.x', 0.5);
-    this.arrowPool.setAll('anchor.y', 0.5);
-    this.arrowPool.setAll('outOfBoundsKill', true);
-    this.arrowPool.setAll('checkWorldBounds', true);
+    //set up spear group
+    this.spearPool = this.add.group();
+    this.spearPool.enableBody = true;
+    this.spearPool.physicsBodyType = Phaser.Physics.ARCADE;
+    this.spearPool.createMultiple(100, 'spear');
+    this.spearPool.setAll('anchor.x', 0.5);
+    this.spearPool.setAll('anchor.y', 0.5);
+    this.spearPool.setAll('outOfBoundsKill', true);
+    this.spearPool.setAll('checkWorldBounds', true);
 
 
     //set up explosion group
@@ -50,33 +60,70 @@ LAMDAQuest.tutorial.prototype = {
       explosion.animations.add('boom');
     });
 
+    //add spear to game
+    this.spear = this.game.add.sprite(500, 300, 'spear');
+    this.game.physics.arcade.enable(this.spear);
+
     this.nextShotAt = 0;
     this.shotDelay = 200;
 
     this.nextEnemyAt = 0;
     this.enemyDelay = 500;
     this.enemyCount = 0;
-    this.maxEnemy = 10;
+    this.maxEnemy = 3;
+    this.enemiesKilled = 0;
+
+
+    //health count and display  
+    this.healthLabel = this.game.add.text(25, 25, 'Health: 100',
+      {font: '18px Arial', fill: '#000000'});
+    this.healthLabel.fixedToCamera = true;
+
+    //scripting rune count and display
+    this.runeLabel = this.game.add.text(25, 50, 'Scripting Runes: 0',
+      {font: '18px Arial', fill: '#000000'});
+    this.runeLabel.fixedToCamera = true;
+
+    //ammo count and display
+    this.ammoLabel = this.game.add.text(25, 75, 'Ammo: 0',
+      {font: '18px Arial', fill: '#000000'});
+    this.ammoLabel.fixedToCamera = true;
 
     //setTimeout(this.triggerMessage("intro"), 4000);
   },
 
   update: function() {
-    
-    if(!LAMDAQuest.globals.paused) {
-      LAMDAQuest.PLAYER.updatePlayer(this);
-      LAMDAQuest.INPUT.checkInput(this);
-      this.game.physics.arcade.collide(this.player, this.environmentLayer);
-      //call spawn enemy function
-      this.spawnEnemy();
-      //if player and enemy overlap, call playerDie function
-      this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerDie, null, this);
+    if(!LAMDAQuest.globals.paused && !this.player.dying) {
+        LAMDAQuest.PLAYER.updatePlayer(this);
+        LAMDAQuest.INPUT.checkInput(this);
+        this.game.physics.arcade.collide(this.player, this.environmentLayer);
+	this.game.physics.arcade.collide(this.enemyPool, this.environmentLayer);
+	
+        //enemies stop spawning after 10 have been killed... they won!
+        if(this.enemiesKilled < 10){
+          this.spawnEnemy();
+          this.enemyMovement();          
+        }
 
-      //if and arrow overlaps with an enemy, call enemyHit function
-      this.game.physics.arcade.overlap(this.arrowPool, this.enemyPool, this.enemyHit, null, this);
-    } else {
-      //Scripting menu updates
-    }
+        //if player and enemy overlap, call playerHit function
+        this.game.physics.arcade.overlap(this.player, this.enemyPool, this.playerHit, null, this);
+
+        //if and spear overlaps with an enemy, call enemyHit function
+        this.game.physics.arcade.overlap(this.spearPool, this.enemyPool, this.enemyHit, null, this);
+
+        //if player and rune overlap, take the rune
+        this.game.physics.arcade.overlap(this.player, this.runePool, this.takeRune, null, this);
+
+        this.game.physics.arcade.overlap(this.player, this.spear, this.pickupSpear, null, this);
+
+        if(this.player.health <= 0)
+        {
+          this.playerDie();
+        }
+      } else {
+        //Scripting menu updates
+        this.pauseEnemy();
+      }
   },
 
   pauseUpdate: function() {
@@ -95,46 +142,60 @@ LAMDAQuest.tutorial.prototype = {
     return this.messageData.tutorial[key];
   },
 
-  playerDie: function(){
-    this.game.state.start('gameOver');
+  playerHit: function(player, enemy){
+    this.player.health -= 10;
+    this.healthLabel.text = "Health: " + this.player.health;
+    enemy.kill();
+    enemy.alive = false;
+    this.enemyCount -= 1;
   },
 
   playerDie: function(){
     this.player.animations.play('die');
-    this.player.animating = true;
+    this.player.dying = true;
     this.player.body.velocity.x = 0;
     this.player.body.velocity.y = 0;
     this.player.events.onAnimationComplete.add(function(){
-      this.player.animating = false;
+      this.player.dying = false;
       this.game.state.start('gameOver');
       }, this);
     
   },
 
-  enemyHit: function(arrow, enemy){  
-    arrow.kill();
+  enemyHit: function(spear, enemy){  
+    var dropchance = this.rnd.integerInRange(1,2)
+    if(dropchance == 1)
+    {
+      var rune = this.runePool.getFirstExists(false)
+      {
+        rune.reset(enemy.x, enemy.y);
+      }
+    }
+    spear.kill();
     this.explode(enemy);
     enemy.kill();  
     enemy.alive = false;
     this.enemyCount -= 1;
-    this.triggerMessage("beaver");
+    this.enemiesKilled += 1;
 
   },
 
-  fireArrow: function(){
+  throwSpear: function(){
     //check if able to shoot again yet
-    if(this.nextShotAt > this.time.now){
+    if(this.nextShotAt > this.time.now || this.player.ammo <= 1){
       return;
     }
-
     this.arrow_shot.play();
     this.nextShotAt = this.time.now + this.shotDelay;
 
-    var arrow = this.arrowPool.getFirstExists(false);
-    arrow.reset(this.player.x+25, this.player.y+25);
-    arrow.rotation = this.physics.arcade.angleToPointer(arrow);
+    var spear = this.spearPool.getFirstExists(false);
+    spear.reset(this.player.x+25, this.player.y+25);
+    spear.rotation = this.physics.arcade.angleToPointer(spear);
 
-    this.physics.arcade.moveToPointer(arrow, 300);
+    this.player.ammo -= 1;
+    this.ammoLabel.text = "Ammo: " + this.player.ammo;
+
+    this.physics.arcade.moveToPointer(spear, 300);      
   },
 
   spawnEnemy: function(){
@@ -142,10 +203,37 @@ LAMDAQuest.tutorial.prototype = {
     {
       this.nextEnemyAt = this.time.now + this.enemyDelay;
       var enemy = this.enemyPool.getFirstExists(false);
-      enemy.reset(this.rnd.integerInRange(700, 50), 200);
-      this.enemyCount += 1;        
+      enemy.reset(this.rnd.integerInRange(300, 700), 100);
+      this.enemyCount += 1;     
     }
- 
+  },
+
+  pauseEnemy: function(){
+    this.enemyPool.forEach(function(enemy){
+      enemy.body.velocity.x = 0;
+      enemy.body.velocity.y = 0;
+
+    }, this)
+  },
+
+  enemyMovement: function(){
+    this.enemyPool.forEach(function(enemy){
+      this.physics.arcade.moveToObject(enemy, this.player, 50);
+    }, this)
+    
+  },
+
+  takeRune: function(player, rune){
+    rune.kill();
+    this.player.runeCount += 1;
+    this.runeLabel.text = "Scripting Runes: " + this.player.runeCount;
+  },
+
+  pickupSpear: function(player, spear){
+    spear.kill();
+    this.player.weapon = "spear";
+    this.player.ammo += 20;
+    this.ammoLabel.text = "Ammo: " + this.player.ammo;
   },
 
   explode: function(sprite) {

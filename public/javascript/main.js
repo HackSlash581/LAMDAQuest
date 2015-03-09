@@ -2,7 +2,7 @@ var LAMDAQuest = LAMDAQuest || {};
 
 LAMDAQuest.globals = {
   "width": 800,
-  "height": 640,
+  "height": 600,
   "paused": false
 };
 
