@@ -16,8 +16,7 @@ LAMDAQuest.INPUT = (function() {
         else if(mainGame.player.weapon == "spear"){
           mainGame.player.animations.play("up_spear");
         }
-
-
+        mainGame.player.animating = false;
       }
       else if(mainGame.wasd.down.isDown) {
         mainGame.player.body.velocity.y += mainGame.player.speed;
@@ -28,6 +27,7 @@ LAMDAQuest.INPUT = (function() {
         else if(mainGame.player.weapon == "spear"){
           mainGame.player.animations.play("down_spear");
         }
+        mainGame.player.animating = false;
 
       }
       if(mainGame.wasd.left.isDown) {
@@ -39,6 +39,7 @@ LAMDAQuest.INPUT = (function() {
         else if(mainGame.player.weapon == "spear"){
           mainGame.player.animations.play("left_spear");
         }
+        mainGame.player.animating = false;
       }
       else if(mainGame.wasd.right.isDown) {
         mainGame.player.body.velocity.x += mainGame.player.speed;
@@ -50,7 +51,7 @@ LAMDAQuest.INPUT = (function() {
         else if(mainGame.player.weapon == "spear"){
           mainGame.player.animations.play('right_spear');
         } 
-
+        mainGame.player.animating = false;
       }
 
       //attack function
