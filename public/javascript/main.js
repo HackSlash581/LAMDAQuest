@@ -1,18 +1,37 @@
-var LAMDAQuest = LAMDAQuest || {};
+(function() {
+  'use strict';
 
-LAMDAQuest.globals = {
-  "width": 800,
-  "height": 600,
-  "paused": false
-};
+  requirejs.config({
+    baseUrl: "public/javascript",
 
-LAMDAQuest.game = new Phaser.Game(LAMDAQuest.globals.width, LAMDAQuest.globals.height, Phaser.AUTO, 'gameDiv');
+    paths: {
+      phaser: "3rdPary/Phaser/phaser.min"
+    },
 
-LAMDAQuest.game.state.add('boot', LAMDAQuest.boot);
-LAMDAQuest.game.state.add('preload', LAMDAQuest.preload);
-LAMDAQuest.game.state.add('menuState', LAMDAQuest.menuState);
-LAMDAQuest.game.state.add('mainGame', LAMDAQuest.mainGame);
-LAMDAQuest.game.state.add('tutorial', LAMDAQuest.tutorial);
-LAMDAQuest.game.state.add('gameOver', LAMDAQuest.gameOver);
+    shim: {
+      'phaser': {
+        exports: 'Phaser'
+      }
+    }
+  });
 
-LAMDAQuest.game.state.start('boot');
+  require([
+    'phaser', 
+    'LAMDAQuest',
+    'states/boot',
+    'states/gameOver',
+    'states/menuState',
+    'states/preload',
+    'states/tutorial'
+  ], function(Phaser, LAMDAQuest, boot, gameOver, menuState, preload, tutorial) {
+    
+    LAMDAQuest.game = new Phaser.Game(LAMDAQuest.globals.width, LAMDAQuest.globals.height, Phaser.AUTO, 'gameDiv');
+    var state = LAMDAQuest.game.state;
+    state.add('boot', boot);
+    state.add('preload', preload);
+    state.add('menuState', menuState);
+    state.add('tutorial', tutorial);
+    state.add('gameOver', gameOver);
+    state.start('boot');
+  });
+}());
