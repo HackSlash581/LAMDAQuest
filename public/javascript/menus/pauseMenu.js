@@ -85,7 +85,7 @@ define([
       pauseGame: function(event) {
         if(!LQ.globals.paused && !this.modalUp) {
           LQ.globals.paused = true;
-          input.clearInput(this);
+          input.clearInput();
           darkenScreen(this.game);
           
           // Pause everything else we eventually add (projectiles, etc.)

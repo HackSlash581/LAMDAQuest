@@ -2,8 +2,11 @@ define(['phaser',
   'LAMDAQuest', 
   'maps/map',
   'entities/player',
-  'input/input'
-], function(Phaser, LAMDAQuest, map, player, input) {
+  'input/input',
+  '../../assets/data/messages',
+  'audio/sounds',
+  'messages/textBox'
+], function(Phaser, LAMDAQuest, map, player, input, messages, sounds, textBox) {
   var LQ = LAMDAQuest.getLQ();
 
   var tutorial = function() {};
@@ -17,13 +20,12 @@ define(['phaser',
       map.initMap();
       player.createPlayer();
       input.initInput();
+      sounds.init();
 
-      LQ.messageData = LQ.data.loadMessages();
-
-      LQ.SOUNDS.init(LQ);
+      LQ.messageData = messages.loadMessages();
       
-      LQ.TEXTBOX.createTextBox(LQ);
-      LQ.TEXTBOX.hideTextBox();
+      textBox.createTextBox();
+      textBox.hideTextBox();
 
       //set up rune pool
       this.runePool = this.add.group();
@@ -107,8 +109,8 @@ define(['phaser',
     update: function() {
       var arcade;
       if(!LQ.globals.paused && !LQ.player.dying) {
-        LQ.PLAYER.updatePlayer(LQ);
-        LQ.INPUT.checkInput(LQ);
+        player.updatePlayer();
+        input.checkInput();
 
         arcade = this.game.physics.arcade;
         arcade.collide(LQ.player, this.environmentLayer);

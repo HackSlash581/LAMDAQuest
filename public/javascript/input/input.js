@@ -58,7 +58,7 @@ define([
         }
 
         //attack function
-        if(LQ.input.activePointer.isDown){
+        if(LQ.game.input.activePointer.isDown){
           if(LQ.player.weapon == "unarmed")
             return;
 
