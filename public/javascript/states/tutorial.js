@@ -1,4 +1,9 @@
-define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
+define(['phaser', 
+  'LAMDAQuest', 
+  'maps/map',
+  'entities/player',
+  'input/input'
+], function(Phaser, LAMDAQuest, map, player, input) {
   var LQ = LAMDAQuest.getLQ();
 
   var tutorial = function() {};
@@ -9,11 +14,9 @@ define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
           spearPool,
           explosionPool;
 
-      LQ.MAP.initMap(LQ);
-
-      LQ.PLAYER.createPlayer(LQ);
-
-      LQ.INPUT.initInput(LQ);
+      map.initMap();
+      player.createPlayer();
+      input.initInput();
 
       LQ.messageData = LQ.data.loadMessages();
 
@@ -269,17 +272,6 @@ define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
       setTimeout(function() {
         this.state.start("menuState");
       }, 4000);
-    },
-
-    findObjectsByType: function(type, map, layer) {
-      var result = [];
-      map.objects[layer].forEach(function(element){
-        if(element.properties.type === type) {
-          element.y -= map.tileHeight;
-          result.push(element);
-        }      
-      });
-      return result;
     }
   };
 

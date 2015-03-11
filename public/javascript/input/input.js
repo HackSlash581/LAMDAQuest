@@ -1,201 +1,215 @@
-var LAMDAQuest = LAMDAQuest || {};
+define([
+  'phaser', 
+  'LAMDAQuest',
+  'menus/pauseMenu'
+], function(Phaser, LAMDAQuest, pauseMenu) {
+  var LQ = LAMDAQuest.getLQ();
+  var input = (function() {
+    var wasdActive;
+    var spaceActive;
 
-LAMDAQuest.INPUT = (function() {
-  
-  var wasdActive;
-  var spaceActive;
-
-  return {
-    checkInput: function(mainGame) {
-      if(mainGame.wasd.up.isDown) {
-        mainGame.player.body.velocity.y -= mainGame.player.speed;
-        mainGame.player.facing = "up";
-        if(mainGame.player.weapon == "unarmed"){
-          mainGame.player.animations.play('up_unarmed');         
+    return {
+      checkInput: function() {
+        if(LQ.wasd.up.isDown) {
+          LQ.player.body.velocity.y -= LQ.player.speed;
+          LQ.player.facing = "up";
+          if(LQ.player.weapon == "unarmed"){
+            LQ.player.animations.play('up_unarmed');         
+          }
+          else if(LQ.player.weapon == "spear"){
+            LQ.player.animations.play("up_spear");
+          }
+          LQ.player.animating = false;
         }
-        else if(mainGame.player.weapon == "spear"){
-          mainGame.player.animations.play("up_spear");
-        }
-        mainGame.player.animating = false;
-      }
-      else if(mainGame.wasd.down.isDown) {
-        mainGame.player.body.velocity.y += mainGame.player.speed;
-        mainGame.player.facing = "down";
-        if(mainGame.player.weapon == "unarmed"){
-          mainGame.player.animations.play('down_unarmed');         
-        }
-        else if(mainGame.player.weapon == "spear"){
-          mainGame.player.animations.play("down_spear");
-        }
-        mainGame.player.animating = false;
+        else if(LQ.wasd.down.isDown) {
+          LQ.player.body.velocity.y += LQ.player.speed;
+          LQ.player.facing = "down";
+          if(LQ.player.weapon == "unarmed"){
+            LQ.player.animations.play('down_unarmed');         
+          }
+          else if(LQ.player.weapon == "spear"){
+            LQ.player.animations.play("down_spear");
+          }
+          LQ.player.animating = false;
 
-      }
-      if(mainGame.wasd.left.isDown) {
-        mainGame.player.body.velocity.x -= mainGame.player.speed;
-        mainGame.player.facing = "left";
-        if(mainGame.player.weapon == "unarmed"){
-          mainGame.player.animations.play('left_unarmed');         
         }
-        else if(mainGame.player.weapon == "spear"){
-          mainGame.player.animations.play("left_spear");
+        if(LQ.wasd.left.isDown) {
+          LQ.player.body.velocity.x -= LQ.player.speed;
+          LQ.player.facing = "left";
+          if(LQ.player.weapon == "unarmed"){
+            LQ.player.animations.play('left_unarmed');         
+          }
+          else if(LQ.player.weapon == "spear"){
+            LQ.player.animations.play("left_spear");
+          }
+          LQ.player.animating = false;
         }
-        mainGame.player.animating = false;
-      }
-      else if(mainGame.wasd.right.isDown) {
-        mainGame.player.body.velocity.x += mainGame.player.speed;
-        mainGame.player.facing = "right";
+        else if(LQ.wasd.right.isDown) {
+          LQ.player.body.velocity.x += LQ.player.speed;
+          LQ.player.facing = "right";
 
-        if(mainGame.player.weapon == "unarmed"){
-          mainGame.player.animations.play('right_unarmed');
+          if(LQ.player.weapon == "unarmed"){
+            LQ.player.animations.play('right_unarmed');
+          }
+          else if(LQ.player.weapon == "spear"){
+            LQ.player.animations.play('right_spear');
+          } 
+          LQ.player.animating = false;
         }
-        else if(mainGame.player.weapon == "spear"){
-          mainGame.player.animations.play('right_spear');
-        } 
-        mainGame.player.animating = false;
-      }
 
-      //attack function
-      if(mainGame.input.activePointer.isDown){
-        if(mainGame.player.weapon == "unarmed")
-          return;
+        //attack function
+        if(LQ.input.activePointer.isDown){
+          if(LQ.player.weapon == "unarmed")
+            return;
 
-        mainGame.player.animating = true;
+          LQ.player.animating = true;
 
-        var x_diff = mainGame.input.activePointer.worldX - mainGame.player.x;
-        var y_diff = mainGame.input.activePointer.worldY - mainGame.player.y;
+          var x_diff = LQ.input.activePointer.worldX - LQ.player.x;
+          var y_diff = LQ.input.activePointer.worldY - LQ.player.y;
 
-        if(Math.abs(x_diff) > Math.abs(y_diff)){
-          if(x_diff > 0){
-            mainGame.player.facing = "right";
-            if(mainGame.player.ammo > 1){
-              mainGame.player.animations.play('shoot_right');       
-              mainGame.throwSpear();              
-            } 
-            else{
-              mainGame.player.animations.play('stab_right');
+          if(Math.abs(x_diff) > Math.abs(y_diff)){
+            if(x_diff > 0){
+              LQ.player.facing = "right";
+              if(LQ.player.ammo > 1){
+                LQ.player.animations.play('shoot_right');       
+                LQ.throwSpear();              
+              } 
+              else{
+                LQ.player.animations.play('stab_right');
+              }
+            }
+            else if(x_diff < 0){
+              LQ.player.facing = "left";
+              if(LQ.player.ammo > 1){
+                LQ.player.animations.play('shoot_left');       
+                LQ.throwSpear();              
+              } 
+              else{
+                LQ.player.animations.play('stab_left');
+              }
             }
           }
-          else if(x_diff < 0){
-            mainGame.player.facing = "left";
-            if(mainGame.player.ammo > 1){
-              mainGame.player.animations.play('shoot_left');       
-              mainGame.throwSpear();              
-            } 
-            else{
-              mainGame.player.animations.play('stab_left');
+          else
+          {
+            if(y_diff > 0){
+              LQ.player.facing = "down";
+              if(LQ.player.ammo > 1){
+                LQ.player.animations.play('shoot_down');       
+                LQ.throwSpear();              
+              } 
+              else{
+                LQ.player.animations.play('stab_down');
+              }            
+            }  
+            else if(y_diff < 0){
+              LQ.player.facing = "up"; 
+              if(LQ.player.ammo > 1){
+                LQ.player.animations.play('shoot_up');       
+                LQ.throwSpear();              
+              } 
+              else{
+                LQ.player.animations.play('stab_up');
+              }
             }
           }
+          //when attack animation is finished set animating state back to false
+          LQ.player.events.onAnimationComplete.add(function(){
+            LQ.player.animating = false;
+          }, this);   
+
         }
-        else
+
+        //will need better logic here when adding attacks and other animations
+        if(!LQ.wasd.up.isDown &&
+           !LQ.wasd.down.isDown &&
+           !LQ.wasd.left.isDown &&
+           !LQ.wasd.right.isDown &&
+           !LQ.player.animating)
         {
-          if(y_diff > 0){
-            mainGame.player.facing = "down";
-            if(mainGame.player.ammo > 1){
-              mainGame.player.animations.play('shoot_down');       
-              mainGame.throwSpear();              
-            } 
-            else{
-              mainGame.player.animations.play('stab_down');
-            }            
-          }  
-          else if(y_diff < 0){
-            mainGame.player.facing = "up"; 
-            if(mainGame.player.ammo > 1){
-              mainGame.player.animations.play('shoot_up');       
-              mainGame.throwSpear();              
-            } 
-            else{
-              mainGame.player.animations.play('stab_up');
+          LQ.player.animations.stop();
+          if(LQ.player.facing == "up"){
+            if(LQ.player.weapon == "spear"){
+              LQ.player.frame = 104;            
             }
+            else
+              LQ.player.frame = 39;
+          }
+
+          if(LQ.player.facing == "down"){
+            if(LQ.player.weapon == "spear"){
+              LQ.player.frame = 130;            
+            }
+            else
+              LQ.player.frame = 0;
+          }
+          if(LQ.player.facing == "left"){
+            if(LQ.player.weapon == "spear"){
+              LQ.player.frame = 117;            
+            }
+            else
+              LQ.player.frame = 26;
+          }
+          if(LQ.player.facing == "right"){
+            if(LQ.player.weapon == "spear"){
+              LQ.player.frame = 143;            
+            }
+            else
+              LQ.player.frame = 13;
           }
         }
-        //when attack animation is finished set animating state back to false
-        mainGame.player.events.onAnimationComplete.add(function(){
-          mainGame.player.animating = false;
-        }, this);   
+      },
 
-      }
-
-      //will need better logic here when adding attacks and other animations
-      if(!mainGame.wasd.up.isDown &&
-         !mainGame.wasd.down.isDown &&
-         !mainGame.wasd.left.isDown &&
-         !mainGame.wasd.right.isDown &&
-         !mainGame.player.animating)
-      {
-        mainGame.player.animations.stop();
-        if(mainGame.player.facing == "up"){
-          if(mainGame.player.weapon == "spear"){
-            mainGame.player.frame = 104;            
-          }
-          else
-            mainGame.player.frame = 39;
+      // We have to do this so typing w a s or d inputs the corresponding
+      // characters during the pause screen
+      toggleWASDCapture: function() {
+        if(wasdActive) {
+          LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.W);
+          LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.S);
+          LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.A);
+          LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.D);
+          wasdActive = false;
+        } else {
+          LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.W);
+          LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.S);
+          LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.A);
+          LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.D);
+          wasdActive = true;
         }
+      },
 
-        if(mainGame.player.facing == "down"){
-          if(mainGame.player.weapon == "spear"){
-            mainGame.player.frame = 130;            
-          }
-          else
-            mainGame.player.frame = 0;
+      toggleSpaceCapture: function() {
+        if(spaceActive) {
+          LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
+          spaceActive = false;
+        } else {
+          LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
+          spaceActive = true;
         }
-        if(mainGame.player.facing == "left"){
-          if(mainGame.player.weapon == "spear"){
-            mainGame.player.frame = 117;            
-          }
-          else
-            mainGame.player.frame = 26;
-        }
-        if(mainGame.player.facing == "right"){
-          if(mainGame.player.weapon == "spear"){
-            mainGame.player.frame = 143;            
-          }
-          else
-            mainGame.player.frame = 13;
-        }
-      }
-    },
-
-    // We have to do this so typing w a s or d inputs the corresponding
-    // characters during the pause screen
-    toggleWASDCapture: function(mainGame) {
-      if(wasdActive) {
-        mainGame.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.W);
-        mainGame.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.S);
-        mainGame.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.A);
-        mainGame.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.D);
-        wasdActive = false;
-      } else {
-        mainGame.game.input.keyboard.addKeyCapture(Phaser.Keyboard.W);
-        mainGame.game.input.keyboard.addKeyCapture(Phaser.Keyboard.S);
-        mainGame.game.input.keyboard.addKeyCapture(Phaser.Keyboard.A);
-        mainGame.game.input.keyboard.addKeyCapture(Phaser.Keyboard.D);
-        wasdActive = true;
-      }
-    },
-
-    toggleSpaceCapture: function(mainGame) {
-      if(spaceActive) {
-        mainGame.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
-        spaceActive = false;
-      } else {
-        mainGame.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
-        spaceActive = true;
-      }
-    },
-    
-    initInput: function(mainGame) {
-      mainGame.wasd = {
-        up: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.W),
-        down: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.S),
-        left: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.A),
-        right: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.D),
-        space: mainGame.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
-      };
+      },
       
-      wasdActive = true;
-      spaceActive = true;
-      mainGame.wasd.space.onDown.add(LAMDAQuest.PAUSE.pauseGame, mainGame);
-    }
-  };
-})();
+      initInput: function() {
+        LQ.wasd = {
+          up: LQ.game.input.keyboard.addKey(Phaser.Keyboard.W),
+          down: LQ.game.input.keyboard.addKey(Phaser.Keyboard.S),
+          left: LQ.game.input.keyboard.addKey(Phaser.Keyboard.A),
+          right: LQ.game.input.keyboard.addKey(Phaser.Keyboard.D),
+          space: LQ.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
+        };
+        
+        wasdActive = true;
+        spaceActive = true;
+        LQ.wasd.space.onDown.add(pauseMenu.pauseGame, LQ);
+      },
+
+      clearInput: function() {
+        LQ.wasd.up.isDown = false;
+        LQ.wasd.down.isDown = false;
+        LQ.wasd.right.isDown = false;
+        LQ.wasd.left.isDown = false;
+      }
+    };
+  }());
+
+  return input;
+});
+
