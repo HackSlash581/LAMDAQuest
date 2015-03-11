@@ -2,10 +2,10 @@
   'use strict';
 
   requirejs.config({
-    baseUrl: "public/javascript",
+    baseUrl: "javascript",
 
     paths: {
-      phaser: "3rdPary/Phaser/phaser.min"
+      phaser: "3rdParty/Phaser/phaser.min"
     },
 
     shim: {
@@ -15,23 +15,8 @@
     }
   });
 
-  require([
-    'phaser', 
-    'LAMDAQuest',
-    'states/boot',
-    'states/gameOver',
-    'states/menuState',
-    'states/preload',
-    'states/tutorial'
-  ], function(Phaser, LAMDAQuest, boot, gameOver, menuState, preload, tutorial) {
-    
-    LAMDAQuest.game = new Phaser.Game(LAMDAQuest.globals.width, LAMDAQuest.globals.height, Phaser.AUTO, 'gameDiv');
-    var state = LAMDAQuest.game.state;
-    state.add('boot', boot);
-    state.add('preload', preload);
-    state.add('menuState', menuState);
-    state.add('tutorial', tutorial);
-    state.add('gameOver', gameOver);
-    state.start('boot');
+  require(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
+    var LQ = new LAMDAQuest();
+    LQ.start();
   });
 }());

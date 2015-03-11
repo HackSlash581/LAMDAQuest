@@ -1,4 +1,4 @@
-define(['phaser'], function(Phaser) {
+define(['phaser', 'states/boot'], function(Phaser, boot) {
   'use strict';
 
   function LAMDAQuest() {
@@ -11,6 +11,20 @@ define(['phaser'], function(Phaser) {
 
   LAMDAQuest.prototype = {
     
+    start: function() {
+      var state;
+
+      this.game = new Phaser.Game(this.globals.width, this.globals.height,
+        Phaser.AUTO, 'gameDiv');
+
+      state = this.game.state;
+      state.add('boot', boot);
+      state.add('preload', preload);
+      state.add('menuState', menuState);
+      state.add('tutorial', tutorial);
+      state.add('gameOver', gameOver);
+      state.start('boot');
+    }
   }
 
   LAMDAQuest.prototype.constructor = LAMDAQuest;
