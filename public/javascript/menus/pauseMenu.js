@@ -2,10 +2,10 @@ define([
   'phaser', 
   'LAMDAQuest',
   'input/input'
-], function(Phaser, LAMDAQuest, input) {
+], function(Phaser, LAMDAQuest, Input) {
   var LQ = LAMDAQuest.getLQ();
   var pause = (function() {
-    // private variable  
+    // private variables
     var darkRectangle;
 
     // private methods
@@ -18,17 +18,17 @@ define([
     }
 
     function testPausedInput(player) {
-      var game = this.game;
-      var mainGame = this;
+      var game = LQ.game;
+      
       $('#scriptingModal').on('show.bs.modal', function(event) {
         $('#scriptingModal .modal-title').text('Scripting Pane for ' + player.displayName);
         $('#syntaxAlert').hide();
         game.paused = true;
-        mainGame.modalUp = true;
+        LQ.modalUp = true;
       });
       $('#scriptingModal').on('hidden.bs.modal', function(event) {
         game.paused = false;
-        mainGame.modalUp = false;
+        LQ.modalUp = false;
         $('#scriptingModal').find("input").val('').end()
       });
       $("#scriptingModal").modal().find("#objectProperties").html(
@@ -65,11 +65,17 @@ define([
       }
     }
 
+    function clearInput() {
+      LQ.wasd.up.isDown = false;
+      LQ.wasd.down.isDown = false;
+      LQ.wasd.right.isDown = false;
+      LQ.wasd.left.isDown = false;
+    }
     // TODO: This should be in player.js
-    function freezePlayer(player) {
-      player.animations.stop();
-      player.body.velocity.x = 0;
-      player.body.velocity.y = 0;
+    function freezePlayer() {
+      LQ.player.animations.stop();
+      LQ.player.body.velocity.x = 0;
+      LQ.player.body.velocity.y = 0;
     }
     
     // TODO: Move to player.js
@@ -83,35 +89,38 @@ define([
     return {
       // public methods
       pauseGame: function(event) {
-        if(!LQ.globals.paused && !this.modalUp) {
+        var player = LQ.player;
+        var input = Input;
+
+        if(!LQ.globals.paused && !LQ.modalUp) {
           LQ.globals.paused = true;
-          input.clearInput();
+          clearInput();
           darkenScreen(this.game);
           
           // Pause everything else we eventually add (projectiles, etc.)
 
           /********Need to do this for each scriptable entity*********/
-          freezePlayer(this.player);
-          this.player.bringToTop();
-          this.player.alpha = 0;
-          this.player.pauseTween = this.game.add.tween(this.player).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true, 0, 1000, true);
-          this.player.inputEnabled = true;
-          LAMDAQuest.INPUT.toggleWASDCapture(this);
-          LAMDAQuest.INPUT.toggleSpaceCapture(this);
-          LAMDAQuest.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.C);
-          this.player.events.onInputDown.add(testPausedInput, this);
-          this.player.events.onInputOver.add(showName, this);
+          freezePlayer();
+          player.bringToTop();
+          player.alpha = 0;
+          player.pauseTween = LQ.game.add.tween(player).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true, 0, 1000, true);
+          player.inputEnabled = true;
+          input.toggleWASDCapture();
+          input.toggleSpaceCapture();
+          LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.C);
+          player.events.onInputDown.add(testPausedInput, LQ);
+          player.events.onInputOver.add(showName, LQ);
           /***********************************************************/
-        } else if(!this.modalUp) {
+        } else if(!LQ.modalUp) {
           LQ.globals.paused = false;
           darkRectangle.destroy();
           //Stop the tweens for each entity
-          this.player.pauseTween.stop();
-          this.player.inputEnabled = false;
-          this.player.events.onInputDown.remove(testPausedInput, this);
-          this.player.alpha = 1;
-          input.toggleWASDCapture(this);
-          input.toggleSpaceCapture(this);
+          player.pauseTween.stop();
+          player.inputEnabled = false;
+          player.events.onInputDown.remove(testPausedInput, LQ);
+          player.alpha = 1;
+          input.toggleWASDCapture();
+          input.toggleSpaceCapture();
           LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.C);
         }
       }

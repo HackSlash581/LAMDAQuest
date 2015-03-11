@@ -199,13 +199,6 @@ define([
         wasdActive = true;
         spaceActive = true;
         LQ.wasd.space.onDown.add(pauseMenu.pauseGame, LQ);
-      },
-
-      clearInput: function() {
-        LQ.wasd.up.isDown = false;
-        LQ.wasd.down.isDown = false;
-        LQ.wasd.right.isDown = false;
-        LQ.wasd.left.isDown = false;
       }
     };
   }());
