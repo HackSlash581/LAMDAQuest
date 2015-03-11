@@ -1,45 +1,43 @@
-var LAMDAQuest = LAMDAQuest || {};
+define(['phaser'], function(Phaser) {
+  var preload = function() {};
+  preload.prototype = {
+    preload: function() {
+      var load = this.game.load;
+      
+      var loadingLabel = this.game.add.text(this.game.world.centerX, 150, 'Loading ...',
+        {font: '30px Courier New', fill: '#ffffff'}
+      );
+      loadingLabel.anchor.setTo(0.5, 0.5);
+      var progressBar = this.game.add.image(this.game.world.centerX, 200, 'progressBar');
+      progressBar.anchor.setTo(0.5, 0.5);
+      this.game.load.setPreloadSprite(progressBar);
 
-LAMDAQuest.preload = function() {
+      this.game.load.tilemap('level1', 'assets/tilemaps/tileMap.json', null, Phaser.Tilemap.TILED_JSON);
+      
+      load.spritesheet('player_unarmed', 'assets/spriteSheets/player_sprite_unarmed.png', 48, 48);
+      load.spritesheet('player_spear', 'assets/spriteSheets/player_sprite_spear.png', 48, 48);
+      load.spritesheet('player_total', 'assets/spriteSheets/player_sprite_total.png', 48, 48);
+      load.spritesheet('button', 'assets/spriteSheets/button_sprite_sheet.png', 193, 71);
+      load.spritesheet('explosion', 'assets/spriteSheets/explosion_sprite_sheet.png', 32, 32);
+      load.spritesheet('blue_flame', 'assets/spriteSheets/flameball.png', 32, 32, 1);
+      load.image('tiles', 'assets/tilesets/tiles.png');
+      load.image('Ground 2', 'assets/tilesets/Ground 2.png');
+      load.image('background_menu', 'assets/menus/background_menu.png');
+      load.image('background_gameover', 'assets/menus/background_gameover.jpg');
+      load.image('enemy', 'assets/spriteSheets/beaver.png');
+      load.image('textSurface', 'assets/ui/panel_blue.png');
+      load.image('textSurfaceInset', 'assets/ui/panelInset_blue.png');
+      load.image('spear', 'assets/spriteSheets/spear.png');
+      load.image('rune', 'assets/spriteSheets/rune.png');
+      load.audio('message_letter', 'assets/sounds/message_letter.wav');
+      load.audio('arrow_shot', 'assets/sounds/arrow.wav');
+      load.audio('beaver_death', 'assets/sounds/beaver_death.wav');
+    },
 
-};
+    create: function() {
+      this.game.state.start('menuState');
+    }
+  };
 
-LAMDAQuest.preload.prototype = {
-  preload: function() {
-    var loadingLabel = this.game.add.text(this.game.world.centerX, 150, 'Loading ...',
-      {font: '30px Courier New', fill: '#ffffff'}
-    );
-    loadingLabel.anchor.setTo(0.5, 0.5);
-    var progressBar = this.game.add.sprite(this.game.world.centerX, 200, 'progressBar');
-    progressBar.anchor.setTo(0.5, 0.5);
-    this.game.load.setPreloadSprite(progressBar);
-
-    this.load.tilemap('level1', 'assets/tilemaps/tileMap.json', null, Phaser.Tilemap.TILED_JSON);
-    
-    
-    this.load.spritesheet('player_unarmed', 'assets/spriteSheets/player_sprite_unarmed.png', 48, 48);
-    this.load.spritesheet('player_spear', 'assets/spriteSheets/player_sprite_spear.png', 48, 48);
-    this.load.spritesheet('player_total', 'assets/spriteSheets/player_sprite_total.png', 48, 48);
-    this.load.spritesheet('button', 'assets/spriteSheets/button_sprite_sheet.png', 193, 71);
-    this.load.spritesheet('explosion', 'assets/spriteSheets/explosion_sprite_sheet.png', 32, 32);
-    this.load.spritesheet('blue_flame', 'assets/spriteSheets/flameball.png', 32, 32, 1);
-
-    this.load.image('tiles', 'assets/tilesets/tiles.png');
-    this.load.image('Ground 2', 'assets/tilesets/Ground 2.png');
-    this.load.image('background_menu', 'assets/menus/background_menu.png');
-    this.load.image('background_gameover', 'assets/menus/background_gameover.jpg');
-    this.load.image('enemy', 'assets/spriteSheets/beaver.png');
-    this.load.image('textSurface', 'assets/ui/panel_blue.png');
-    this.load.image('textSurfaceInset', 'assets/ui/panelInset_blue.png');
-    this.load.image('spear', 'assets/spriteSheets/spear.png');
-    this.load.image('rune', 'assets/spriteSheets/rune.png');
-
-    this.load.audio('message_letter', 'assets/sounds/message_letter.wav');
-    this.load.audio('arrow_shot', 'assets/sounds/arrow.wav');
-    this.load.audio('beaver_death', 'assets/sounds/beaver_death.wav');
-  },
-
-  create: function() {
-    this.state.start('menuState');
-  }
-};
+  return preload;
+});

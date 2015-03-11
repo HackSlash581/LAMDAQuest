@@ -1,32 +1,34 @@
-define(['phaser', 'LAMDAQuest'], function(Phaser, LQ) {
+define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
+  var LQ = LAMDAQuest.getLQ();
+  
   var boot = function() {};
   boot.prototype = {
     init: function() {
       //We don't need to support multi-touch
-      LQ.input.maxPointers = 1;
+      this.input.maxPointers = 1;
     },
 
     preload: function() {
-      LQ.game.load.image('progressBar', 'assets/menus/progressBar.png');
+      this.game.load.image('progressBar', 'assets/menus/progressBar.png');
     },
 
     create: function() {
-      var scale = LQ.scale;
+      var scale = this.game.scale;
 
-      LQ.game.stage.backgroundColor = '#003366';
+      this.game.stage.backgroundColor = '#003366';
 
       scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-      scale.maxWidth = LAMDAQuest.globals.width;
-      scale.maxHeight = LAMDAQuest.globals.height;
+      scale.maxWidth = LQ.globals.width;
+      scale.maxHeight = LQ.globals.height;
       scale.pageAlignHorizontally = true;
       scale.pageAlignVertically = true;
       scale.setScreenSize(true);
 
-      LQ.game.physics.startSystem(Phaser.Physics.ARCADE);
+      this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-      LQ.state.start('preload');
+      this.state.start('preload');
     }
-  }
-  
+  };
+
   return boot;
 });

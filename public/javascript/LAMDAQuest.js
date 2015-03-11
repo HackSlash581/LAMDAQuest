@@ -1,33 +1,45 @@
-define(['phaser', 'states/boot'], function(Phaser, boot) {
+define(['phaser'], function(Phaser) {
   'use strict';
 
-  function LAMDAQuest() {
-    this.globals = {
-      "width": 800,
-      "height": 600,
-      "paused": false
-    };
-  };
+  //Create a singleton LAMDAQuest object that can be accessed from anywhere
+  var LQ = (function() {
+    var LQinstance;
 
-  LAMDAQuest.prototype = {
-    
-    start: function() {
-      var state;
-
-      this.game = new Phaser.Game(this.globals.width, this.globals.height,
-        Phaser.AUTO, 'gameDiv');
-
-      state = this.game.state;
-      state.add('boot', boot);
-      state.add('preload', preload);
-      state.add('menuState', menuState);
-      state.add('tutorial', tutorial);
-      state.add('gameOver', gameOver);
-      state.start('boot');
+    function createInstance() {
+      var instance = new LAMDAQuest();
+      return instance;
     }
-  }
 
-  LAMDAQuest.prototype.constructor = LAMDAQuest;
+    return {
+      getLQ: function() {
+        if(!LQinstance) {
+          LQinstance = createInstance();
+        }
+        return LQinstance;
+      }
+    };
 
-  return LAMDAQuest;
+    function LAMDAQuest() {
+      this.globals = {
+        "width": 800,
+        "height": 600,
+        "paused": false
+      };
+
+      this.game = new Phaser.Game(
+        this.globals.width,
+        this.globals.height,
+        Phaser.AUTO, 'gameDiv'
+      );
+    }
+
+    LAMDAQuest.prototype = {
+      
+    };
+
+    LAMDAQuest.prototype.constructor = LAMDAQuest;
+
+  }());
+
+  return LQ;
 });
