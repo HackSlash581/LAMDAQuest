@@ -90,7 +90,7 @@ define([
       // public methods
       pauseGame: function(event) {
         var player = LQ.player;
-        var input = Input;
+       
 
         if(!LQ.globals.paused && !LQ.modalUp) {
           LQ.globals.paused = true;
@@ -105,11 +105,11 @@ define([
           player.alpha = 0;
           player.pauseTween = LQ.game.add.tween(player).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true, 0, 1000, true);
           player.inputEnabled = true;
-          input.toggleWASDCapture();
-          input.toggleSpaceCapture();
+          Input.toggleWASDCapture();
+          Input.toggleSpaceCapture();
           LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.C);
-          player.events.onInputDown.add(testPausedInput, LQ);
-          player.events.onInputOver.add(showName, LQ);
+          player.events.onInputDown.add(this.testPausedInput, LQ);
+          player.events.onInputOver.add(this.showName, LQ);
           /***********************************************************/
         } else if(!LQ.modalUp) {
           LQ.globals.paused = false;
@@ -117,10 +117,10 @@ define([
           //Stop the tweens for each entity
           player.pauseTween.stop();
           player.inputEnabled = false;
-          player.events.onInputDown.remove(testPausedInput, LQ);
+          player.events.onInputDown.remove(this.testPausedInput, LQ);
           player.alpha = 1;
-          input.toggleWASDCapture();
-          input.toggleSpaceCapture();
+          Input.toggleWASDCapture();
+          Input.toggleSpaceCapture();
           LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.C);
         }
       }
