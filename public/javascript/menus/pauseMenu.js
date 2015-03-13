@@ -1,12 +1,13 @@
 define([
   'phaser', 
-  'LAMDAQuest',
-  'input/input'
-], function(Phaser, LAMDAQuest, Input) {
+  'LAMDAQuest'
+], function(Phaser, LAMDAQuest) {
   var LQ = LAMDAQuest.getLQ();
   var pause = (function() {
     // private variables
     var darkRectangle;
+    var wasdActive = true;
+    var spaceActive = true;
 
     // private methods
     function darkenScreen(game) {
@@ -86,6 +87,32 @@ define([
       console.log(player.displayName);
     }
 
+    function toggleWASDCapture() {
+      if(wasdActive) {
+        LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.W);
+        LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.S);
+        LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.A);
+        LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.D);
+        wasdActive = false;
+      } else {
+        LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.W);
+        LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.S);
+        LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.A);
+        LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.D);
+        wasdActive = true;
+      }
+    }
+
+    function toggleSpaceCapture() {
+      if(spaceActive) {
+        LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
+        spaceActive = false;
+      } else {
+        LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
+        spaceActive = true;
+      }
+    }
+
     return {
       // public methods
       pauseGame: function(event) {
@@ -105,11 +132,11 @@ define([
           player.alpha = 0;
           player.pauseTween = LQ.game.add.tween(player).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true, 0, 1000, true);
           player.inputEnabled = true;
-          Input.toggleWASDCapture();
-          Input.toggleSpaceCapture();
+          toggleWASDCapture();
+          toggleSpaceCapture();
           LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.C);
-          player.events.onInputDown.add(this.testPausedInput, LQ);
-          player.events.onInputOver.add(this.showName, LQ);
+          player.events.onInputDown.add(testPausedInput, LQ);
+          player.events.onInputOver.add(showName, LQ);
           /***********************************************************/
         } else if(!LQ.modalUp) {
           LQ.globals.paused = false;
@@ -117,10 +144,10 @@ define([
           //Stop the tweens for each entity
           player.pauseTween.stop();
           player.inputEnabled = false;
-          player.events.onInputDown.remove(this.testPausedInput, LQ);
+          player.events.onInputDown.remove(testPausedInput, LQ);
           player.alpha = 1;
-          Input.toggleWASDCapture();
-          Input.toggleSpaceCapture();
+          toggleWASDCapture();
+          toggleSpaceCapture();
           LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.C);
         }
       }

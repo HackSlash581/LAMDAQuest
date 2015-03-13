@@ -5,8 +5,9 @@ define(['phaser',
   'input/input',
   '../../assets/data/messages',
   'audio/sounds',
-  'messages/textBox'
-], function(Phaser, LAMDAQuest, map, player, input, messages, sounds, textBox) {
+  'messages/textBox',
+  'entities/spearPool'
+], function(Phaser, LAMDAQuest, map, player, input, messages, sounds, textBox, spearPool) {
   var LQ = LAMDAQuest.getLQ();
 
   var tutorial = function() {};
@@ -14,9 +15,8 @@ define(['phaser',
     create: function() {
       var runePool,
           enemyPool,
-          spearPool,
           explosionPool;
-
+          
       map.initMap();
       player.createPlayer();
       input.initInput();
@@ -49,19 +49,6 @@ define(['phaser',
       enemyPool.setAll('outOfBoundsKill', true);
       enemyPool.setAll('checkWorldBounds', true);
 
-
-      //set up spear group
-      this.spearPool = this.add.group();
-      spearPool = this.spearPool;
-      spearPool.enableBody = true;
-      spearPool.physicsBodyType = Phaser.Physics.ARCADE;
-      spearPool.createMultiple(100, 'spear');
-      spearPool.setAll('anchor.x', 0.5);
-      spearPool.setAll('anchor.y', 0.5);
-      spearPool.setAll('outOfBoundsKill', true);
-      spearPool.setAll('checkWorldBounds', true);
-
-
       //set up explosion group
       this.explosionPool = this.add.group();
       explosionPool = this.explosionPool;
@@ -74,12 +61,13 @@ define(['phaser',
         explosion.animations.add('boom');
       });
 
+      LQ.spearPool = spearPool;
+
       //add spear to game
       this.spear = this.game.add.sprite(500, 300, 'spear');
       this.game.physics.arcade.enable(this.spear);
 
-      this.nextShotAt = 0;
-      this.shotDelay = 200;
+      
 
       this.nextEnemyAt = 0;
       this.enemyDelay = 1000;
@@ -112,7 +100,7 @@ define(['phaser',
         player.updatePlayer();
         input.checkInput();
 
-        arcade = this.game.physics.arcade;
+        arcade = LQ.game.physics.arcade;
         arcade.collide(LQ.player, this.environmentLayer);
         arcade.collide(this.enemyPool, this.environmentLayer);
         arcade.collide(this.enemyPool, this.enemyPool);

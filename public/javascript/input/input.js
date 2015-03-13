@@ -1,8 +1,9 @@
 define([
   'phaser', 
   'LAMDAQuest',
-  'menus/pauseMenu'
-], function(Phaser, LAMDAQuest, pauseMenu) {
+  'menus/pauseMenu',
+  'entities/player'
+], function(Phaser, LAMDAQuest, pauseMenu, player) {
   var LQ = LAMDAQuest.getLQ();
   var input = (function() {
     var wasdActive;
@@ -64,15 +65,15 @@ define([
 
           LQ.player.animating = true;
 
-          var x_diff = LQ.input.activePointer.worldX - LQ.player.x;
-          var y_diff = LQ.input.activePointer.worldY - LQ.player.y;
+          var x_diff = LQ.game.input.activePointer.worldX - LQ.player.x;
+          var y_diff = LQ.game.input.activePointer.worldY - LQ.player.y;
 
           if(Math.abs(x_diff) > Math.abs(y_diff)){
             if(x_diff > 0){
               LQ.player.facing = "right";
               if(LQ.player.ammo > 1){
                 LQ.player.animations.play('shoot_right');       
-                LQ.throwSpear();              
+                player.throwSpear();              
               } 
               else{
                 LQ.player.animations.play('stab_right');
@@ -82,7 +83,7 @@ define([
               LQ.player.facing = "left";
               if(LQ.player.ammo > 1){
                 LQ.player.animations.play('shoot_left');       
-                LQ.throwSpear();              
+                player.throwSpear();              
               } 
               else{
                 LQ.player.animations.play('stab_left');
@@ -95,7 +96,7 @@ define([
               LQ.player.facing = "down";
               if(LQ.player.ammo > 1){
                 LQ.player.animations.play('shoot_down');       
-                LQ.throwSpear();              
+                player.throwSpear();              
               } 
               else{
                 LQ.player.animations.play('stab_down');
@@ -105,7 +106,7 @@ define([
               LQ.player.facing = "up"; 
               if(LQ.player.ammo > 1){
                 LQ.player.animations.play('shoot_up');       
-                LQ.throwSpear();              
+                player.throwSpear();              
               } 
               else{
                 LQ.player.animations.play('stab_up');
