@@ -1,11 +1,10 @@
-<<<<<<< HEAD
 define(['phaser'], function(Phaser) {
 	var gameOver = function() {};
 	gameOver.prototype = {
 		create: function(){
 			//add a background image
 
-			this.game.add.image(130, 100, 'background_gameover');
+			this.game.add.image(0, 0, 'background_gameover');
 
 			var nameLabel = this.game.add.text(400, 170,
 							 'You Dead!!!... dont mess with the beaver',
