@@ -3,7 +3,7 @@ define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
   var spearPool = createSpearPool();
     
   function createSpearPool() {
-    var pool = LQ.game.add.group();
+    var pool = LQ.game.state.states.tutorial.add.group();
     pool.enableBody = true;
     pool.physicsBodyType = Phaser.Physics.ARCADE;
     pool.createMultiple(100, 'spear');

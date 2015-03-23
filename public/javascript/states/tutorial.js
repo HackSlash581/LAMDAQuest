@@ -5,9 +5,8 @@ define(['phaser',
   'input/input',
   '../../assets/data/messages',
   'audio/sounds',
-  'messages/textBox',
-  'entities/spearPool'
-], function(Phaser, LAMDAQuest, map, player, input, messages, sounds, textBox, spearPool) {
+  'messages/textBox'
+], function(Phaser, LAMDAQuest, map, player, input, messages, sounds, textBox) {
   var LQ = LAMDAQuest.getLQ();
 
   var tutorial = function() {};
@@ -15,7 +14,8 @@ define(['phaser',
     create: function() {
       var runePool,
           enemyPool,
-          explosionPool;
+          explosionPool,
+          spearPool;
           
       map.initMap();
       player.createPlayer();
@@ -61,8 +61,17 @@ define(['phaser',
         explosion.animations.add('boom');
       });
 
-      LQ.spearPool = spearPool;
-
+      //LQ.spearPool = spearPool;
+      this.spearPool = this.add.group();
+      spearPool = this.spearPool;
+      spearPool.enableBody = true;
+      spearPool.physicsBodyType = Phaser.Physics.ARCADE;
+      spearPool.createMultiple(100, 'spear');
+      spearPool.setAll('anchor.x', 0.5);
+      spearPool.setAll('anchor.y', 0.5);
+      spearPool.setAll('outOfBoundsKill', true);
+      spearPool.setAll('checkWorldBounds', true);
+      
       //add spear to game
       this.spear = this.game.add.sprite(500, 300, 'spear');
       this.game.physics.arcade.enable(this.spear);
@@ -254,7 +263,7 @@ define(['phaser',
         var explosion = this.explosionPool.getFirstExists(false);
         explosion.reset(sprite.x, sprite.y);
         explosion.play('boom', 15, false, true);
-        this.beaver_death.play();
+        LQ.beaver_death.play();
     },
 
     finishTutorial: function() {

@@ -62,13 +62,15 @@ define([
       },
 
       throwSpear: function(){
+        spearPool = LQ.game.state.states.tutorial.spearPool;
+
         //check if able to shoot again yet
         if(nextShotAt > LQ.game.time.now || LQ.player.ammo <= 1){
           return;
         }
         LQ.arrow_shot.play();
         nextShotAt = LQ.game.time.now + shotDelay;
-        var spear = LQ.spearPool.getFirstExists(false);
+        var spear = spearPool.getFirstExists(false);
         spear.reset(LQ.player.x+25, LQ.player.y+25);
         spear.rotation = LQ.game.physics.arcade.angleToPointer(spear);
         LQ.player.ammo -= 1;
