@@ -40,14 +40,13 @@ define(['phaser',
 
       //set up enemy pool
       this.enemyPool = this.add.group();
-      enemyPool = this.enemyPool;
-      enemyPool.enableBody = true;
-      enemyPool.physicsBodyType = Phaser.Physics.ARCADE;
-      enemyPool.createMultiple(10, 'enemy');
-      enemyPool.setAll('anchor.x', 0.5);
-      enemyPool.setAll('anchor.y', 0.5);
-      enemyPool.setAll('outOfBoundsKill', true);
-      enemyPool.setAll('checkWorldBounds', true);
+      this.enemyPool.enableBody = true;
+      this.enemyPool.physicsBodyType = Phaser.Physics.ARCADE;
+      this.enemyPool.createMultiple(10, 'enemy');
+      this.enemyPool.setAll('anchor.x', 0.5);
+      this.enemyPool.setAll('anchor.y', 0.5);
+      this.enemyPool.setAll('outOfBoundsKill', true);
+      this.enemyPool.setAll('checkWorldBounds', true);
 
       //set up explosion group
       this.explosionPool = this.add.group();
@@ -110,8 +109,9 @@ define(['phaser',
         input.checkInput();
 
         arcade = LQ.game.physics.arcade;
-        arcade.collide(LQ.player, this.environmentLayer);
-        arcade.collide(this.enemyPool, this.environmentLayer);
+
+        arcade.collide(LQ.player, LQ.environmentLayer);
+        arcade.collide(LQ.enemyPool, LQ.environmentLayer);
         arcade.collide(this.enemyPool, this.enemyPool);
     
         //enemies stop spawning after 10 have been killed... they won!
