@@ -70,12 +70,24 @@ define(['phaser',
       spearPool.setAll('anchor.y', 0.5);
       spearPool.setAll('outOfBoundsKill', true);
       spearPool.setAll('checkWorldBounds', true);
+
+      this.arrowPool = this.add.group();
+      arrowPool = this.arrowPool;
+      arrowPool.enableBody = true;
+      arrowPool.physicsBodyType = Phaser.Physics.ARCADE;
+      arrowPool.createMultiple(100, 'arrow');
+      arrowPool.setAll('anchor.x', 0.5);
+      arrowPool.setAll('anchor.y', 0.5);
+      arrowPool.setAll('outOfBoundsKill', true);
+      arrowPool.setAll('checkWorldBounds', true);
       
       //add spear to game
       this.spear = this.game.add.sprite(500, 300, 'spear');
       this.game.physics.arcade.enable(this.spear);
 
-      
+      //add bow to game
+      this.bow = this.game.add.sprite(800, 400, 'bow');
+      this.game.physics.arcade.enable(this.bow);      
 
       this.nextEnemyAt = 0;
       this.enemyDelay = 1000;
@@ -85,19 +97,23 @@ define(['phaser',
 
 
       //health count and display  
-      this.healthLabel = this.game.add.text(25, 25, 'Health: 100',
+      LQ.healthLabel = LQ.game.add.text(25, 25, 'Health: 100',
         {font: '18px Arial', fill: '#000000'});
-      this.healthLabel.fixedToCamera = true;
+      LQ.healthLabel.fixedToCamera = true;
 
       //scripting rune count and display
-      this.runeLabel = this.game.add.text(25, 50, 'Scripting Runes: 0',
+      LQ.runeLabel = LQ.game.add.text(25, 50, 'Scripting Runes: 0',
         {font: '18px Arial', fill: '#000000'});
-      this.runeLabel.fixedToCamera = true;
+      LQ.runeLabel.fixedToCamera = true;
 
       //ammo count and display
-      this.ammoLabel = this.game.add.text(25, 75, 'Ammo: 0',
+      LQ.spearsLabel = LQ.game.add.text(25, 75, 'Spears: 0',
         {font: '18px Arial', fill: '#000000'});
-      this.ammoLabel.fixedToCamera = true;
+      LQ.spearsLabel.fixedToCamera = true;
+
+      LQ.arrowsLabel = LQ.game.add.text(25, 100, 'Arrows: 0',
+        {font: '18px Arial', fill: '#000000'});
+      LQ.arrowsLabel.fixedToCamera = true;
 
       //setTimeout(this.triggerMessage("intro"), 4000);
     },
@@ -117,7 +133,7 @@ define(['phaser',
         //enemies stop spawning after 10 have been killed... they won!
         if(this.enemiesKilled < 10){
           this.spawnEnemy();
-          this.enemyMovement();          
+       //   this.enemyMovement();          
         }
 
         //if player and enemy overlap, call playerHit function
@@ -125,11 +141,13 @@ define(['phaser',
 
         //if and spear overlaps with an enemy, call enemyHit function
         arcade.overlap(this.spearPool, this.enemyPool, this.enemyHit, null, this);
+        arcade.overlap(this.arrowPool, this.enemyPool, this.enemyHit, null, this);
 
         //if player and rune overlap, take the rune
         arcade.overlap(LQ.player, this.runePool, this.takeRune, null, this);
 
         arcade.overlap(LQ.player, this.spear, this.pickupSpear, null, this);
+        arcade.overlap(LQ.player, this.bow, this.pickupBow, null, this);
 
         //this.game.physics.arcade.overlap(LQ.player, this.blue_flame, this.finishTutorial, null, this);
 
@@ -160,7 +178,7 @@ define(['phaser',
 
     playerHit: function(player, enemy){
       LQ.player.health -= 10;
-      this.healthLabel.text = "Health: " + LQ.player.health;
+      LQ.healthLabel.text = "Health: " + LQ.player.health;
       enemy.kill();
       enemy.alive = false;
       this.enemyCount -= 1;
@@ -179,7 +197,7 @@ define(['phaser',
       
     },
 
-    enemyHit: function(spear, enemy){  
+    enemyHit: function(item, enemy){  
       var dropchance = this.rnd.integerInRange(1,2)
       if(dropchance == 1)
       {
@@ -188,31 +206,13 @@ define(['phaser',
           rune.reset(enemy.x, enemy.y);
         }
       }
-      spear.kill();
+      item.kill();
       this.explode(enemy);
       enemy.kill();  
       enemy.alive = false;
       this.enemyCount -= 1;
       this.enemiesKilled += 1;
 
-    },
-
-    throwSpear: function(){
-      //check if able to shoot again yet
-      if(this.nextShotAt > this.time.now || LQ.player.ammo <= 1){
-        return;
-      }
-      this.arrow_shot.play();
-      this.nextShotAt = this.time.now + this.shotDelay;
-
-      var spear = this.spearPool.getFirstExists(false);
-      spear.reset(LQ.player.x+25, LQ.player.y+25);
-      spear.rotation = this.physics.arcade.angleToPointer(spear);
-
-      LQ.player.ammo -= 1;
-      this.ammoLabel.text = "Ammo: " + LQ.player.ammo;
-
-      this.physics.arcade.moveToPointer(spear, 300);      
     },
 
     spawnEnemy: function(){
@@ -246,14 +246,23 @@ define(['phaser',
     takeRune: function(player, rune){
       rune.kill();
       LQ.player.runeCount += 1;
-      this.runeLabel.text = "Scripting Runes: " + LQ.player.runeCount;
+      LQ.runeLabel.text = "Scripting Runes: " + LQ.player.runeCount;
     },
 
     pickupSpear: function(player, spear){
       spear.kill();
+      LQ.player.hasSpear = true;
       LQ.player.weapon = "spear";
-      LQ.player.ammo += 20;
-      this.ammoLabel.text = "Ammo: " + LQ.player.ammo;
+      LQ.player.spears += 20;
+      LQ.spearsLabel.text = "Spears: " + LQ.player.spears;
+    },
+
+    pickupBow: function(player, bow){
+      bow.kill();
+      LQ.player.hasBow = true;
+      LQ.player.weapon = "bow";
+      LQ.player.arrows += 100;
+      LQ.arrowsLabel.text = "Arrows: " + LQ.player.arrows;
     },
 
     explode: function(sprite) {

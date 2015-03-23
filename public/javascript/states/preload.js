@@ -14,8 +14,6 @@ define(['phaser'], function(Phaser) {
 
       this.game.load.tilemap('level1', 'assets/tilemaps/tileMap.json', null, Phaser.Tilemap.TILED_JSON);
       
-      load.spritesheet('player_unarmed', 'assets/spriteSheets/player_sprite_unarmed.png', 48, 48);
-      load.spritesheet('player_spear', 'assets/spriteSheets/player_sprite_spear.png', 48, 48);
       load.spritesheet('player_total', 'assets/spriteSheets/player_sprite_total.png', 48, 48);
       load.spritesheet('button', 'assets/spriteSheets/button_sprite_sheet.png', 193, 71);
       load.spritesheet('explosion', 'assets/spriteSheets/explosion_sprite_sheet.png', 32, 32);
@@ -28,6 +26,8 @@ define(['phaser'], function(Phaser) {
       load.image('textSurface', 'assets/ui/panel_blue.png');
       load.image('textSurfaceInset', 'assets/ui/panelInset_blue.png');
       load.image('spear', 'assets/spriteSheets/spear.png');
+      load.image('bow', 'assets/spriteSheets/bow.png');
+      load.image('arrow', 'assets/spriteSheets/arrow.png');
       load.image('rune', 'assets/spriteSheets/rune.png');
       load.audio('message_letter', 'assets/sounds/message_letter.wav');
       load.audio('arrow_shot', 'assets/sounds/arrow.wav');

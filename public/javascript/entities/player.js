@@ -34,6 +34,13 @@ define([
         animations.add('up_spear', [104,105,106,107,108,109,110,111,112], 8, true);
         animations.add('down_spear', [130,131,132,133,134,135,136,137,138], 8, true);
 
+         //walking with bow
+        animations.add('right_bow', [195,196,197,198,199,200,201,202,203], 8, true);
+        animations.add('left_bow', [169,170,171,172,173,174,175,176,177], 8, true);
+        animations.add('up_bow', [156,157,158,159,160,161,162,163,164], 8, true);
+        animations.add('down_bow', [182,183,184,185,186,187,188,189,190], 8, true);
+
+
         animations.add('stab_right', [91,92,93,94,95,96,97,98], 12, false);
         animations.add('stab_left', [65,66,67,68,69,70,71,72], 12, false);
         animations.add('stab_up', [52,53,54,55,56,57,58,59], 12, false);
@@ -52,8 +59,11 @@ define([
         LQ.player.health = 100;
         LQ.player.dying = false;
         LQ.player.weapon = "unarmed";
+        LQ.player.hasBow = false;
+        LQ.player.hasSpear = false;
         LQ.player.runeCount = 0;
-        LQ.player.ammo = 0;
+        LQ.player.arrows = 0;
+        LQ.player.spears = 0;
       },
 
       updatePlayer: function() {
@@ -65,7 +75,7 @@ define([
         spearPool = LQ.game.state.states.tutorial.spearPool;
 
         //check if able to shoot again yet
-        if(nextShotAt > LQ.game.time.now || LQ.player.ammo <= 1){
+        if(nextShotAt > LQ.game.time.now || LQ.player.spears <= 1){
           return;
         }
         LQ.arrow_shot.play();
@@ -73,10 +83,53 @@ define([
         var spear = spearPool.getFirstExists(false);
         spear.reset(LQ.player.x+25, LQ.player.y+25);
         spear.rotation = LQ.game.physics.arcade.angleToPointer(spear);
-        LQ.player.ammo -= 1;
-        //this.ammoLabel.text = "Ammo: " + LQ.player.ammo;
+        LQ.player.spears -= 1;
+        LQ.spearsLabel.text = "Spears: " + LQ.player.spears;
         LQ.game.physics.arcade.moveToPointer(spear, 300);      
-      }
+      },
+
+      shootBow: function(){
+        arrowPool = LQ.game.state.states.tutorial.arrowPool;
+
+        //check if able to shoot again yet
+        if(nextShotAt > LQ.game.time.now || LQ.player.arrows < 1){
+          return;
+        }
+        LQ.arrow_shot.play();
+        nextShotAt = LQ.game.time.now + shotDelay;
+        var arrow = arrowPool.getFirstExists(false);
+        arrow.reset(LQ.player.x+25, LQ.player.y+25);
+        arrow.rotation = LQ.game.physics.arcade.angleToPointer(arrow);
+        LQ.player.arrows -= 1;
+        LQ.arrowsLabel.text = "Arrows: " + LQ.player.arrows;
+        LQ.game.physics.arcade.moveToPointer(arrow, 300);      
+      },
+
+      attack: function(){
+        if(LQ.player.weapon == "bow"){
+          if(LQ.player.facing == "right")
+            LQ.player.animations.play('shoot_right');
+          else if(LQ.player.facing == "left")
+            LQ.player.animations.play('shoot_left');
+          else if(LQ.player.facing == "up")
+            LQ.player.animations.play('shoot_up');
+          else if(LQ.player.facing == "down")
+            LQ.player.animations.play('shoot_down');
+          player.shootBow();
+        }
+        else if(LQ.player.weapon == "spear"){
+          if(LQ.player.facing == "right")
+            LQ.player.animations.play('stab_right');
+          else if(LQ.player.facing == "left")
+            LQ.player.animations.play('stab_left');
+          else if(LQ.player.facing == "up")
+            LQ.player.animations.play('stab_up');
+          else if(LQ.player.facing == "down")
+            LQ.player.animations.play('stab_down');
+          player.throwSpear();        
+        }
+      },
+
 
     };
   }());
