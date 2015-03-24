@@ -11,7 +11,7 @@ define([
       createPlayer: function() {
         var animations; 
         var result = map.findObjectsByType('playerStart', LQ.map, 'GameEntities');
-        LQ.player = LQ.game.add.sprite(result[0].x, result[0].y, 'player_total');
+        LQ.player = LQ.game.add.sprite(result[0].x, result[0].y, 'player');
         LQ.player.displayName = "Steve";
         LQ.player.speed = 75;
         LQ.game.physics.arcade.enable(LQ.player);

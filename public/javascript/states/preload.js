@@ -14,7 +14,7 @@ define(['phaser'], function(Phaser) {
 
       this.game.load.tilemap('level1', 'assets/tilemaps/tileMap.json', null, Phaser.Tilemap.TILED_JSON);
       
-      load.spritesheet('player_total', 'assets/spriteSheets/player_sprite_total.png', 48, 48);
+      load.spritesheet('player', 'assets/spriteSheets/player_sprite_total.png', 48, 48);
       load.spritesheet('button', 'assets/spriteSheets/button_sprite_sheet.png', 193, 71);
       load.spritesheet('explosion', 'assets/spriteSheets/explosion_sprite_sheet.png', 32, 32);
       load.spritesheet('blue_flame', 'assets/spriteSheets/flameball.png', 32, 32, 1);
