@@ -6,8 +6,6 @@ define([
 ], function(Phaser, LAMDAQuest, pauseMenu, player) {
   var LQ = LAMDAQuest.getLQ();
   var input = (function() {
-    var wasdActive;
-    var spaceActive;
 
     return {
       checkInput: function() {
@@ -163,34 +161,6 @@ define([
         }
         }
       },
-
-      // We have to do this so typing w a s or d inputs the corresponding
-      // characters during the pause screen
-      toggleWASDCapture: function() {
-        if(wasdActive) {
-          LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.W);
-          LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.S);
-          LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.A);
-          LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.D);
-          wasdActive = false;
-        } else {
-          LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.W);
-          LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.S);
-          LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.A);
-          LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.D);
-          wasdActive = true;
-        }
-      },
-
-      toggleSpaceCapture: function() {
-        if(spaceActive) {
-          LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
-          spaceActive = false;
-        } else {
-          LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
-          spaceActive = true;
-        }
-      },
       
       initInput: function() {
         LQ.wasd = {
@@ -201,12 +171,11 @@ define([
           space: LQ.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
         };
 
-      LQ.items = {
-        bow: LQ.game.input.keyboard.addKey(Phaser.Keyboard.ONE),
-        spear: LQ.game.input.keyboard.addKey(Phaser.Keyboard.TWO),
-      };
-        wasdActive = true;
-        spaceActive = true;
+        LQ.items = {
+          bow: LQ.game.input.keyboard.addKey(Phaser.Keyboard.ONE),
+          spear: LQ.game.input.keyboard.addKey(Phaser.Keyboard.TWO),
+        };
+
         LQ.wasd.space.onDown.add(pauseMenu.pauseGame, LQ);
       }
     };

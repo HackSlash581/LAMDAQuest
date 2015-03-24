@@ -8,6 +8,7 @@ define([
     var darkRectangle;
     var wasdActive = true;
     var spaceActive = true;
+    var numbersActive = true;
 
     // private methods
     function darkenScreen(game) {
@@ -103,6 +104,18 @@ define([
       }
     }
 
+    function toggleNumbersCapture() {
+      if(numbersActive) {
+        LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.ONE);
+        LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.TWO);
+        numbersActive = false;
+      } else {
+        LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.ONE);
+        LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.TWO);
+        numbersActive = true;
+      }
+    }
+
     function toggleSpaceCapture() {
       if(spaceActive) {
         LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.SPACEBAR);
@@ -134,6 +147,7 @@ define([
           player.inputEnabled = true;
           toggleWASDCapture();
           toggleSpaceCapture();
+          toggleNumbersCapture();
           LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.C);
           player.events.onInputDown.add(testPausedInput, LQ);
           player.events.onInputOver.add(showName, LQ);
@@ -148,6 +162,7 @@ define([
           player.alpha = 1;
           toggleWASDCapture();
           toggleSpaceCapture();
+          toggleNumbersCapture();
           LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.C);
         }
       }
