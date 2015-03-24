@@ -127,13 +127,13 @@ define(['phaser',
         arcade = LQ.game.physics.arcade;
 
         arcade.collide(LQ.player, LQ.environmentLayer);
-        arcade.collide(LQ.enemyPool, LQ.environmentLayer);
+        arcade.collide(this.enemyPool, LQ.environmentLayer);
         arcade.collide(this.enemyPool, this.enemyPool);
     
         //enemies stop spawning after 10 have been killed... they won!
         if(this.enemiesKilled < 10){
           this.spawnEnemy();
-       //   this.enemyMovement();          
+          this.enemyMovement();          
         }
 
         //if player and enemy overlap, call playerHit function
