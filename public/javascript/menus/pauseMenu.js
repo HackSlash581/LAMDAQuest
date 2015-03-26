@@ -34,15 +34,8 @@ define([
         LQ.modalUp = false;
         $('#scriptingModal').find("input").val('').end()
       });
-      $("#scriptingModal").modal().find("#objectProperties").html(
-        "<ul class='list-group'>" +
-          "<li class='list-group-item'>objectId: " + "<span class='badge'>player</span></li>" +
-          "<li class='list-group-item'>x:" + "<span class='badge'>" + player.x + "</span></li>" +
-          "<li class='list-group-item'>y:" + "<span class='badge'>" + player.y + "</span></li>" +
-          "<li class='list-group-item'>speed:" + "<span class='badge'>" + player.speed + "</span></li>" +
-          "<li class='list-group-item'>displayName:" + "<span class='badge'>" + player.displayName + "</span></li>" +
-        "</ul>"
-      );
+      
+      $("#scriptingModal").modal().find("#objectProperties").html(createHtmlForProperties(player));
 
       $('#submitScript').click({objectRef: player}, submitScript);
 
@@ -70,6 +63,19 @@ define([
         });
       }
     }
+
+    function createHtmlForProperties(objectRef) {
+      var html = "<ul class='list-group'>";
+      for(var prop in objectRef) {
+        if(objectRef.hasOwnProperty(prop)) {
+          html += "<li class='list-group-item'>" + prop +
+                  ":<span class='badge'>" + objectRef[prop] + 
+                  "</span></li>";
+        }
+      }
+      html += "</ul>";
+      return html;
+    } 
 
     function clearInput() {
       LQ.wasd.up.isDown = false;
