@@ -1,7 +1,8 @@
 define([
   'phaser', 
-  'LAMDAQuest'
-], function(Phaser, LAMDAQuest) {
+  'LAMDAQuest',
+  'scripting/script'
+], function(Phaser, LAMDAQuest, Script) {
   var LQ = LAMDAQuest.getLQ();
   var pause = (function() {
     // private variables
@@ -43,18 +44,21 @@ define([
         "</ul>"
       );
 
-      $('#submitScript').click(submitScript);
+      $('#submitScript').click({objectRef: player}, submitScript);
 
       function submitScript(event) {
         event.preventDefault();
         event.stopImmediatePropagation();
+
+        var hackscript = new Script($('#script-text').val(), event.data.objectRef);
         $.ajax({
           type: 'POST',
-          url: '/scripting/' + $('#script-text').val(),
+          url: '/scripting/' + hackscript.hackscriptText,
 
           success: function(data, xhr) {
-            var script = "player." + data;
-            eval(script);
+            var compiledHackScript = data;
+            var assignmentFunction = eval(compiledHackScript);
+            assignmentFunction.call(hackscript.callOn);
             $('#syntaxAlert').hide();
             $('#scriptingModal').find("input").val('').end().modal('toggle');
           },

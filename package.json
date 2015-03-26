@@ -15,7 +15,7 @@
     "jade": "~1.6.0",
     "phaser": "~2.2.2",
     "mongodb": "~2.0",
-    "hackscript": "~0.0.1"
+    "hackscript": "~0.0.2"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
