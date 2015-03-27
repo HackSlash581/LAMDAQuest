@@ -3,11 +3,16 @@ define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
 
   function Script(hackScriptText, objectRef) {
     this.hackscriptText = hackScriptText;
-    this.callOn = objectRef;
+    this.callingObject = objectRef;
+    this.scriptType = this.determineScriptType(hackScriptText);
   }
 
   Script.prototype = {
-
+    determineScriptType: function(scriptText) {
+      var typeRegex = /^if |^every /;
+      var scriptType = scriptText.match(typeRegex);
+      return scriptType ? scriptType[0].trim() : 'assignment';
+    }
   };
 
   Script.prototype.constructor = Script;

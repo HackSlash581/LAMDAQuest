@@ -9,11 +9,15 @@ define([
 
     return {
       createPlayer: function() {
-        var animations; 
         var result = map.findObjectsByType('playerStart', LQ.map, 'GameEntities');
         LQ.player = LQ.game.add.sprite(result[0].x, result[0].y, 'player');
         LQ.player.displayName = "Steve";
         LQ.player.speed = 75;
+
+        LQ.player.ifScript = null;
+        LQ.player.intervalScript = null;
+        LQ.player.timeBetweenIntervalScriptCalls = null;
+
         LQ.game.physics.arcade.enable(LQ.player);
         LQ.player.body.collideWorldBounds = true;
         LQ.game.camera.follow(LQ.player);
@@ -21,8 +25,23 @@ define([
         //adjust player bounding box
         LQ.player.body.setSize(24, 36, 12, 10);
 
-        //adding player animations
-        animations = LQ.player.animations;
+        this.addPlayerAnimations();
+        
+        //default facing direction is down
+        LQ.player.facing = "down";
+        LQ.player.animating = false;
+        LQ.player.health = 100;
+        LQ.player.dying = false;
+        LQ.player.weapon = "unarmed";
+        LQ.player.hasBow = false;
+        LQ.player.hasSpear = false;
+        LQ.player.runeCount = 0;
+        LQ.player.arrows = 0;
+        LQ.player.spears = 0;
+      },
+
+      addPlayerAnimations: function() {
+        var animations = LQ.player.animations;
         animations.add('right_unarmed', [13,14,15,16,17,18,19,20,21], 8, true);
         animations.add('left_unarmed', [26,27,28,29,30,31,32,33,34], 8, true);
         animations.add('up_unarmed', [39,40,41,42,43,44,45,46,47], 8, true);
@@ -52,18 +71,15 @@ define([
         animations.add('shoot_down', [234,235,236,237,238,239,240,241,242,243,244,245,246], 25, false);
      
         animations.add('die', [260,261,262,263,264,265], 4, false);
+      },
 
-        //default facing direction is down
-        LQ.player.facing = "down";
-        LQ.player.animating = false;
-        LQ.player.health = 100;
-        LQ.player.dying = false;
-        LQ.player.weapon = "unarmed";
-        LQ.player.hasBow = false;
-        LQ.player.hasSpear = false;
-        LQ.player.runeCount = 0;
-        LQ.player.arrows = 0;
-        LQ.player.spears = 0;
+      callScripts: function() {
+        if(LQ.player.ifScript) {
+          LQ.player.ifScript();
+        }
+        if(LQ.player.intervalScript) {
+          LQ.player.intervalScript();
+        }
       },
 
       updatePlayer: function() {

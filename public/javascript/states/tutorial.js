@@ -122,6 +122,8 @@ define(['phaser',
       var arcade;
       if(!LQ.globals.paused && !LQ.player.dying) {
         player.updatePlayer();
+        player.callScripts();
+
         input.checkInput();
 
         arcade = LQ.game.physics.arcade;

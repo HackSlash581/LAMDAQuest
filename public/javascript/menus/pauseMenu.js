@@ -20,11 +20,11 @@ define([
       darkRectangle.endFill();
     }
 
-    function testPausedInput(player) {
+    function testPausedInput(scriptedEntity) {
       var game = LQ.game;
       
       $('#scriptingModal').on('show.bs.modal', function(event) {
-        $('#scriptingModal .modal-title').text('Scripting Pane for ' + player.displayName);
+        $('#scriptingModal .modal-title').text('Scripting Pane for ' + scriptedEntity.displayName);
         $('#syntaxAlert').hide();
         game.paused = true;
         LQ.modalUp = true;
@@ -35,9 +35,9 @@ define([
         $('#scriptingModal').find("input").val('').end()
       });
       
-      $("#scriptingModal").modal().find("#objectProperties").html(createHtmlForProperties(player));
+      $("#scriptingModal").modal().find("#objectProperties").html(createHtmlForProperties(scriptedEntity));
 
-      $('#submitScript').click({objectRef: player}, submitScript);
+      $('#submitScript').click({objectRef: scriptedEntity}, submitScript);
 
       function submitScript(event) {
         event.preventDefault();
@@ -50,8 +50,21 @@ define([
 
           success: function(data, xhr) {
             var compiledHackScript = data;
-            var assignmentFunction = eval(compiledHackScript);
-            assignmentFunction.call(hackscript.callOn);
+            
+            switch(hackscript.scriptType) {
+              case 'assignment':
+                var assignmentFunction = eval(compiledHackScript);
+                assignmentFunction.call(hackscript.callingObject);
+                break;
+              case 'every':
+                //TODO
+                break;
+              case 'if':
+                //TODO
+                break;
+              default:
+            }
+
             $('#syntaxAlert').hide();
             $('#scriptingModal').find("input").val('').end().modal('toggle');
           },
@@ -83,14 +96,13 @@ define([
       LQ.wasd.right.isDown = false;
       LQ.wasd.left.isDown = false;
     }
-    // TODO: This should be in player.js
+   
     function freezePlayer() {
       LQ.player.animations.stop();
       LQ.player.body.velocity.x = 0;
       LQ.player.body.velocity.y = 0;
     }
     
-    // TODO: Move to player.js
     //Called when the player is moused over in the pause menu.
     //It would be cool to float a little text box with the entity's 
     //name to make it more obvious that this entity is scriptable.
