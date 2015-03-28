@@ -32,13 +32,6 @@ define(['phaser'], function(Phaser) {
         Phaser.AUTO, 'gameDiv'
       );
     }
-
-    LAMDAQuest.prototype = {
-      
-    };
-
-    LAMDAQuest.prototype.constructor = LAMDAQuest;
-
   }());
 
   return LQ;

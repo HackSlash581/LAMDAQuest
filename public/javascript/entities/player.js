@@ -14,6 +14,7 @@ define([
         LQ.player.displayName = "Steve";
         LQ.player.speed = 75;
 
+        LQ.player.scriptableProperties = ['x', 'y', 'displayName', 'speed'];
         LQ.player.ifScript = null;
         LQ.player.intervalScript = null;
         LQ.player.timeBetweenIntervalScriptCalls = null;

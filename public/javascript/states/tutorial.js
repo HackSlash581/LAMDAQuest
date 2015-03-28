@@ -1,4 +1,5 @@
-define(['phaser', 
+define([
+  'phaser', 
   'LAMDAQuest', 
   'maps/map',
   'entities/player',

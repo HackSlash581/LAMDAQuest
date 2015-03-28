@@ -78,9 +78,12 @@ define([
     }
 
     function createHtmlForProperties(objectRef) {
-      var html = "<ul class='list-group'>";
-      for(var prop in objectRef) {
-        if(objectRef.hasOwnProperty(prop)) {
+      var html = "<ul class='list-group'>",
+          prop;
+      for(var i = 0, len = objectRef.scriptableProperties.length; i < len; ++i) {
+        prop = objectRef.scriptableProperties[i];
+        console.log(prop);
+        if(prop in objectRef) {
           html += "<li class='list-group-item'>" + prop +
                   ":<span class='badge'>" + objectRef[prop] + 
                   "</span></li>";
