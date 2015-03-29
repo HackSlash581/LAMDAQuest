@@ -1,7 +1,8 @@
 define([
   'LAMDAQuest', 
-  'maps/map'
-], function(LAMDAQuest, map) {
+  'maps/map',
+  'util/util'
+], function(LAMDAQuest, map, util) {
   var LQ = LAMDAQuest.getLQ();
   var player = (function() {
     var nextShotAt = 0;
@@ -11,13 +12,14 @@ define([
       createPlayer: function() {
         var result = map.findObjectsByType('playerStart', LQ.map, 'GameEntities');
         LQ.player = LQ.game.add.sprite(result[0].x, result[0].y, 'player');
+        //util.extend(LQ.player.prototype, new Scriptable().prototype);
         LQ.player.displayName = "Steve";
         LQ.player.speed = 75;
 
         LQ.player.scriptableProperties = ['x', 'y', 'displayName', 'speed'];
         LQ.player.ifScript = null;
         LQ.player.intervalScript = null;
-        LQ.player.timeBetweenIntervalScriptCalls = null;
+        LQ.player.intervalDelta = null;
 
         LQ.game.physics.arcade.enable(LQ.player);
         LQ.player.body.collideWorldBounds = true;
