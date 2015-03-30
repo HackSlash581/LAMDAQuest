@@ -82,7 +82,6 @@ define([
           prop;
       for(var i = 0, len = objectRef.scriptableProperties.length; i < len; ++i) {
         prop = objectRef.scriptableProperties[i];
-        console.log(prop);
         if(prop in objectRef) {
           html += "<li class='list-group-item'>" + prop +
                   ":<span class='badge'>" + objectRef[prop] + 

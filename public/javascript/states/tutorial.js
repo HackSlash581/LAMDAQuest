@@ -20,6 +20,7 @@ define([
           
       map.initMap();
       player.createPlayer();
+      player.addScriptingCapabilities();
       input.initInput();
       sounds.init();
 

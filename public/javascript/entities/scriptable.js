@@ -1,17 +1,21 @@
 define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
   var game = LAMDAQuest.getLQ().game;
 
-  var Scriptable = function() {
-    this.scriptableProperties = [];
-    this.ifScript = null;
-    this.intervalScript = null;
-    this.intervalDelta = null;
-    this.intervalEvent = null;
-    this.displayName = null;
-    this.intervalTimer = new Phaser.Timer(game, false);
-  };
+  var scriptable = {
+    scriptableProperties: [],
 
-  Scriptable.prototype = {
+    ifScript: null,
+
+    intervalScript: null,
+
+    intervalDelta: null,
+
+    intervalEvent: null,
+
+    displayName: null,
+
+    intervalTimer: new Phaser.Timer(game, false),
+
     callScripts: function() {
       if(this.ifScript) {
         this.ifScript();
@@ -24,7 +28,7 @@ define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
     },
 
     intervalDeltaHasEllapsed: function() {
-
+      
     },
 
     addIntervalScript: function(script, delta) {
@@ -41,7 +45,5 @@ define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
     }
   };
 
-  Scriptable.prototype.constructor = Scriptable;
-
-  return Scriptable;
+  return scriptable;
 });
