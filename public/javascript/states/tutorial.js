@@ -142,7 +142,7 @@ define([
         //enemies stop spawning after 10 have been killed... they won!
         if(this.enemiesKilled < 10){
           this.spawnEnemy();
-          this.enemyMovement();          
+        //  this.enemyMovement();          
         }
 
         // ******** ALLY updates ******

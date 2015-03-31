@@ -21,8 +21,17 @@ define([
         LQ.ally.facing = "down";
         LQ.ally.attacking = false;
         LQ.player.hasAlly = true;
+        LQ.ally.displayName = "Shelly";
         LQ.ally.speed = 75
+        LQ.ally.attackSpeed = 300;
       },
+
+      addScriptingCapabilities: function() {
+        util.extend(LQ.ally, scriptable);
+        LQ.ally.scriptableProperties.push('displayName');
+        LQ.ally.scriptableProperties.push('speed');
+      },
+
 
       moveCloser: function(){
         var speed = LQ.ally.speed;
@@ -37,7 +46,7 @@ define([
         }
         nextAttackAt = LQ.game.time.now + attackDelay;
 
-        var closestDistance = 10000;
+        var closestDistance = 100000;
         var index;
 
         enemyPool.forEachAlive(function(enemy){
@@ -49,7 +58,9 @@ define([
           }
         }, this)
 
-        LQ.game.physics.arcade.moveToObject(LQ.ally, enemyPool.getChildAt(index), 300);
+        var attackSpeed = LQ.ally.attackSpeed;
+
+        LQ.game.physics.arcade.moveToObject(LQ.ally, enemyPool.getChildAt(index), attackSpeed);
         LQ.ally.attacking = true;
       },
 

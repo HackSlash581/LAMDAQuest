@@ -132,10 +132,12 @@ define([
       if(numbersActive) {
         LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.ONE);
         LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.TWO);
+        LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.R);
         numbersActive = false;
       } else {
         LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.ONE);
         LQ.game.input.keyboard.addKeyCapture(Phaser.Keyboard.TWO);
+        LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.R);
         numbersActive = true;
       }
     }

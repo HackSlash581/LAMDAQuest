@@ -77,7 +77,7 @@ define([
       }
 
       //ally attack
-      if(LQ.wasd.attack.isDown && LQ.player.hasAlly)
+      if(LQ.items.allyAttack.isDown && LQ.player.hasAlly)
       {
         ally.attack();
       }
@@ -176,12 +176,12 @@ define([
           left: LQ.game.input.keyboard.addKey(Phaser.Keyboard.A),
           right: LQ.game.input.keyboard.addKey(Phaser.Keyboard.D),
           space: LQ.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
-          attack: LQ.game.input.keyboard.addKey(Phaser.Keyboard.R),
         };
 
         LQ.items = {
           bow: LQ.game.input.keyboard.addKey(Phaser.Keyboard.ONE),
           spear: LQ.game.input.keyboard.addKey(Phaser.Keyboard.TWO),
+          allyAttack: LQ.game.input.keyboard.addKey(Phaser.Keyboard.R),
         };
 
         LQ.wasd.space.onDown.add(pauseMenu.pauseGame, LQ);
