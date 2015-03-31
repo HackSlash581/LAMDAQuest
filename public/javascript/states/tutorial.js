@@ -3,11 +3,12 @@ define([
   'LAMDAQuest', 
   'maps/map',
   'entities/player',
+  'entities/ally',
   'input/input',
   '../../assets/data/messages',
   'audio/sounds',
   'messages/textBox'
-], function(Phaser, LAMDAQuest, map, player, input, messages, sounds, textBox) {
+], function(Phaser, LAMDAQuest, map, player, ally, input, messages, sounds, textBox) {
   var LQ = LAMDAQuest.getLQ();
 
   var tutorial = function() {};
@@ -89,7 +90,11 @@ define([
 
       //add bow to game
       this.bow = this.game.add.sprite(800, 400, 'bow');
-      this.game.physics.arcade.enable(this.bow);      
+      this.game.physics.arcade.enable(this.bow);
+
+      //add ally image to game
+      this.allyImage = this.game.add.sprite(900, 300, 'ally');
+      this.game.physics.arcade.enable(this.allyImage);      
 
       this.nextEnemyAt = 0;
       this.enemyDelay = 1000;
@@ -140,6 +145,20 @@ define([
           this.enemyMovement();          
         }
 
+        // ******** ALLY updates ******
+        if(LQ.player.hasAlly == true)
+        {
+          if(LQ.ally.attacking == true){
+
+          }
+          else{
+            if(arcade.distanceBetween(LQ.player, LQ.ally) > 50.0)
+            {
+              ally.moveCloser();
+            }
+          }
+        }
+
         //if player and enemy overlap, call playerHit function
         arcade.overlap(LQ.player, this.enemyPool, this.playerHit, null, this);
 
@@ -152,6 +171,14 @@ define([
 
         arcade.overlap(LQ.player, this.spear, this.pickupSpear, null, this);
         arcade.overlap(LQ.player, this.bow, this.pickupBow, null, this);
+        //gain ally
+        arcade.overlap(LQ.player, this.allyImage, ally.createAlly, null, this);
+
+        //if player and ally overlap
+        arcade.overlap(LQ.player, LQ.ally, ally.atRest, null, this);
+        //if ally and enemy overlap
+        arcade.overlap(LQ.ally, this.enemyPool, this.allyHitsEnemy, null, this);
+
 
         //this.game.physics.arcade.overlap(LQ.player, this.blue_flame, this.finishTutorial, null, this);
 
@@ -161,6 +188,9 @@ define([
       } else {
         //Scripting menu updates
         this.pauseEnemy();
+         if(LQ.player.hasAlly == true){
+          ally.pauseAlly();          
+        }       
       }
     },
 
@@ -201,7 +231,7 @@ define([
       
     },
 
-    enemyHit: function(item, enemy){  
+    killEnemy: function(enemy){
       var dropchance = this.rnd.integerInRange(1,2)
       if(dropchance == 1)
       {
@@ -210,13 +240,23 @@ define([
           rune.reset(enemy.x, enemy.y);
         }
       }
-      item.kill();
       this.explode(enemy);
       enemy.kill();  
       enemy.alive = false;
       this.enemyCount -= 1;
-      this.enemiesKilled += 1;
+      this.enemiesKilled += 1;     
+    },
 
+    enemyHit: function(item, enemy){  
+      item.kill();
+      this.killEnemy(enemy);
+    },
+
+    allyHitsEnemy: function(ally, enemy){
+      this.killEnemy(enemy);
+      ally.body.velocity.x = 0;
+      ally.body.velocity.y = 0;
+      LQ.ally.attacking = false;
     },
 
     spawnEnemy: function(){

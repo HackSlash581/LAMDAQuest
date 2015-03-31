@@ -2,8 +2,9 @@ define([
   'phaser', 
   'LAMDAQuest',
   'menus/pauseMenu',
-  'entities/player'
-], function(Phaser, LAMDAQuest, pauseMenu, player) {
+  'entities/player',
+  'entities/ally'
+], function(Phaser, LAMDAQuest, pauseMenu, player, ally) {
   var LQ = LAMDAQuest.getLQ();
   var input = (function() {
 
@@ -73,6 +74,12 @@ define([
       }
       else if(LQ.items.spear.isDown && LQ.player.hasSpear){
         LQ.player.weapon = "spear";
+      }
+
+      //ally attack
+      if(LQ.wasd.attack.isDown && LQ.player.hasAlly)
+      {
+        ally.attack();
       }
 
       //attack function
@@ -169,6 +176,7 @@ define([
           left: LQ.game.input.keyboard.addKey(Phaser.Keyboard.A),
           right: LQ.game.input.keyboard.addKey(Phaser.Keyboard.D),
           space: LQ.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
+          attack: LQ.game.input.keyboard.addKey(Phaser.Keyboard.R),
         };
 
         LQ.items = {

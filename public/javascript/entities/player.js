@@ -36,6 +36,7 @@ define([
         LQ.player.runeCount = 0;
         LQ.player.arrows = 0;
         LQ.player.spears = 0;
+        LQ.player.hasAlly = false;
       },
 
       addScriptingCapabilities: function() {
