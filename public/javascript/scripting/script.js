@@ -1,7 +1,7 @@
 define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
   var LQ = LAMDAQuest.getLQ();
 
-  function Script(hackScriptText, objectRef) {
+  var Script = function(hackScriptText, objectRef) {
     this.hackscriptText = hackScriptText;
     this.callingObject = objectRef;
     this.scriptType = this.determineScriptType(hackScriptText);
