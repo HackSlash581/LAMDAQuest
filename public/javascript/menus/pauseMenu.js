@@ -57,12 +57,16 @@ define([
                 assignmentFunction.call(hackscript.callingObject);
                 break;
               case 'every':
-                //TODO
+                var everyFunction = eval(compiledHackScript);
+                scriptedEntity.intervalScript = everyFunction;
+                scriptedEntity.intervalDelta = hackscript.getEveryInterval();
                 break;
               case 'if':
-                //TODO
+                var ifFunction = eval(compiledHackScript);
+                scriptedEntity.ifScript = ifFunction;
                 break;
               default:
+                console.log("Invalid script type");
             }
 
             $('#syntaxAlert').hide();
