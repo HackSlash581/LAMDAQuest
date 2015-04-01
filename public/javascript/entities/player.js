@@ -82,7 +82,7 @@ define([
 
       callScripts: function() {
         if(LQ.player.ifScript) {
-          LQ.player.ifScript();
+          LQ.player.ifScript.call(LQ.player);
         }
         if(LQ.player.intervalScript) {
           LQ.player.intervalScript();
