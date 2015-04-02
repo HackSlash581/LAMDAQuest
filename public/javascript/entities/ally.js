@@ -14,9 +14,11 @@ define([
     return {
       createAlly: function(player, allyImage) {
         allyImage.kill();
-        LQ.ally = LQ.game.add.sprite(LQ.player.x + 50, LQ.player.y + 10, 'ally');
+        LQ.ally = LQ.game.add.sprite(LQ.player.x + 50, LQ.player.y + 10, 'ally_image');
         LQ.game.physics.arcade.enable(LQ.ally);
         LQ.ally.body.collideWorldBounds = true;
+
+        ally.addAllyAnimations();
 
         LQ.ally.facing = "down";
         LQ.ally.attacking = false;
@@ -32,6 +34,9 @@ define([
         LQ.ally.scriptableProperties.push('speed');
       },
 
+      addAllyAnimations: function(){
+
+      },
 
       moveCloser: function(){
         var speed = LQ.ally.speed;

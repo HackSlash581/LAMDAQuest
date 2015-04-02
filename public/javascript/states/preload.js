@@ -15,6 +15,7 @@ define(['phaser'], function(Phaser) {
       this.game.load.tilemap('level1', 'assets/tilemaps/tileMap.json', null, Phaser.Tilemap.TILED_JSON);
       
       load.spritesheet('player', 'assets/spriteSheets/player_sprite_total.png', 48, 48);
+      load.spritesheet('ally', 'assets/spriteSheets/turtle_spritesheet.png', 50, 34);
       load.spritesheet('button', 'assets/spriteSheets/button_sprite_sheet.png', 193, 71);
       load.spritesheet('explosion', 'assets/spriteSheets/explosion_sprite_sheet.png', 32, 32);
       load.spritesheet('blue_flame', 'assets/spriteSheets/flameball.png', 32, 32, 1);
@@ -29,7 +30,7 @@ define(['phaser'], function(Phaser) {
       load.image('bow', 'assets/spriteSheets/bow.png');
       load.image('arrow', 'assets/spriteSheets/arrow.png');
       load.image('rune', 'assets/spriteSheets/rune.png');
-      load.image('ally', 'assets/spriteSheets/turtle.png');
+      load.image('ally_image', 'assets/spriteSheets/turtle.png');
       load.audio('message_letter', 'assets/sounds/message_letter.wav');
       load.audio('arrow_shot', 'assets/sounds/arrow.wav');
       load.audio('beaver_death', 'assets/sounds/beaver_death.wav');

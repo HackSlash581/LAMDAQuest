@@ -37,6 +37,10 @@ define([
         LQ.player.arrows = 0;
         LQ.player.spears = 0;
         LQ.player.hasAlly = false;
+        LQ.player.level = 1;
+        LQ.player.xp = 0;
+        LQ.player.xpToNext = 100;
+        LQ.player.xpNeeded = [0, 100, 500, 1000, 2000, 3500, 5000, 10000];
       },
 
       addScriptingCapabilities: function() {
@@ -151,7 +155,12 @@ define([
             LQ.player.animations.play('stab_down');
           player.throwSpear();        
         }
-      }
+      },
+
+      levelUp: function(){
+        LQ.player.level += 1;
+        LQ.levelLabel.text = "Level: " + LQ.player.level;
+      },
     };
   }());
 

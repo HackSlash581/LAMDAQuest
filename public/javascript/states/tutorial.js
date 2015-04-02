@@ -35,7 +35,7 @@ define([
       runePool = this.runePool;
       runePool.enableBody = true;
       runePool.physicsBodyType = Phaser.Physics.ARCADE;
-      runePool.createMultiple(10, 'rune');
+      runePool.createMultiple(100, 'rune');
       runePool.setAll('anchor.x', 0.5);
       runePool.setAll('anchor.y', 0.5);
       runePool.setAll('outOfBoundsKill', true);
@@ -93,9 +93,8 @@ define([
       this.game.physics.arcade.enable(this.bow);
 
       //add ally image to game
-      this.allyImage = this.game.add.sprite(900, 300, 'ally');
+      this.allyImage = this.game.add.sprite(900, 300, 'ally_image');
       this.game.physics.arcade.enable(this.allyImage);      
-
       this.nextEnemyAt = 0;
       this.enemyDelay = 1000;
       this.enemyCount = 0;
@@ -122,6 +121,14 @@ define([
         {font: '18px Arial', fill: '#000000'});
       LQ.arrowsLabel.fixedToCamera = true;
 
+      LQ.levelLabel = LQ.game.add.text(700, 25, 'Level: 1',
+        {font: '18px Arial', fill: '#000000'});
+      LQ.levelLabel.fixedToCamera = true;
+
+      LQ.nextLevelLabel = LQ.game.add.text(650, 50, 'XP to Next: 100',
+        {font: '18px Arial', fill: '#000000'});
+      LQ.nextLevelLabel.fixedToCamera = true;
+
       //setTimeout(this.triggerMessage("intro"), 4000);
     },
 
@@ -140,9 +147,9 @@ define([
         arcade.collide(this.enemyPool, this.enemyPool);
     
         //enemies stop spawning after 10 have been killed... they won!
-        if(this.enemiesKilled < 10){
+        if(this.enemiesKilled < 15){
           this.spawnEnemy();
-        //  this.enemyMovement();          
+         // this.enemyMovement();          
         }
 
         // ******** ALLY updates ******
@@ -244,7 +251,15 @@ define([
       enemy.kill();  
       enemy.alive = false;
       this.enemyCount -= 1;
-      this.enemiesKilled += 1;     
+      this.enemiesKilled += 1;
+      LQ.player.xp += 100;
+      if(LQ.player.xp >= LQ.player.xpNeeded[LQ.player.level])
+        player.levelUp();
+
+      LQ.player.xpToNext = LQ.player.xpNeeded[LQ.player.level] - LQ.player.xp;      
+      LQ.nextLevelLabel.text = "XP to Next: " + LQ.player.xpToNext;
+
+
     },
 
     enemyHit: function(item, enemy){  
