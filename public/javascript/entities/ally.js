@@ -32,6 +32,7 @@ define([
         util.extend(LQ.ally, scriptable);
         LQ.ally.scriptableProperties.push('displayName');
         LQ.ally.scriptableProperties.push('speed');
+        LQ.ally.scriptableProperties.push('attackSpeed');
       },
 
       addAllyAnimations: function(){

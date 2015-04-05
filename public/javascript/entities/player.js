@@ -37,6 +37,7 @@ define([
         LQ.player.arrows = 0;
         LQ.player.spears = 0;
         LQ.player.hasAlly = false;
+        LQ.player.closestEnemy = 100000;
         LQ.player.level = 1;
         LQ.player.xp = 0;
         LQ.player.xpToNext = 100;
@@ -155,6 +156,19 @@ define([
             LQ.player.animations.play('stab_down');
           player.throwSpear();        
         }
+      },
+
+      findClosestEnemy: function(){
+        var enemyPool = LQ.game.state.states.tutorial.enemyPool;
+        var closestDistance = 100000;
+        enemyPool.forEachAlive(function(enemy){
+          distance = LQ.game.physics.arcade.distanceBetween(enemy, LQ.player);
+          if(distance < closestDistance)
+          {
+            closestDistance = distance;
+          }
+        }, this)
+        return closestDistance;
       },
 
       levelUp: function(){

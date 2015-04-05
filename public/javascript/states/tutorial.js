@@ -166,6 +166,9 @@ define([
           }
         }
 
+        //find closest enemy distance    
+        LQ.player.closestEnemy = player.findClosestEnemy();
+
         //if player and enemy overlap, call playerHit function
         arcade.overlap(LQ.player, this.enemyPool, this.playerHit, null, this);
 
