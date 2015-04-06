@@ -11,8 +11,8 @@ define([
 
     return {
       createPlayer: function() {
-        var result = map.findObjectsByType('playerStart', LQ.map, 'GameEntities');
-        LQ.player = LQ.game.add.sprite(result[0].x, result[0].y, 'player');
+        var result = map.findObjectsByType('playerStart', LQ.map, 'Objects');
+        LQ.player = LQ.game.add.sprite(529, 943, 'player');
         LQ.player.displayName = "Steve";
         LQ.player.speed = 75;
 

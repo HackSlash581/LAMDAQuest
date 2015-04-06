@@ -22,8 +22,9 @@
     'states/preload',
     'states/menuState',
     'states/tutorial',
-    'states/gameOver'
-  ], function(Phaser, LAMDAQuest, boot, preload, menuState, tutorial, gameOver) {
+    'states/gameOver',
+    'states/dungeon1'
+  ], function(Phaser, LAMDAQuest, boot, preload, menuState, tutorial, gameOver, dungeon1) {
     var state;
     var LQ = LAMDAQuest.getLQ();
     state = LQ.game.state;
@@ -32,6 +33,7 @@
     state.add('menuState', menuState);
     state.add('tutorial', tutorial);
     state.add('gameOver', gameOver);
+    state.add('dungeon1', dungeon1);
     state.start('boot');
   });
 }());
