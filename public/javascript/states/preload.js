@@ -22,6 +22,7 @@ define(['phaser'], function(Phaser) {
       load.spritesheet('blue_flame', 'assets/spriteSheets/flameball.png', 32, 32, 1);
       
       load.image('tiles', 'assets/tilesets/tiles.png');
+      load.image('Ground 2', 'assets/tilesets/Ground 2.png');
       load.image('Ground 3', 'assets/tilesets/Ground 3.png');
       load.image('Ground_1', 'assets/tilesets/Ground_1.png');
 

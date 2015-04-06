@@ -11,10 +11,10 @@ define([
 
     return {
       createPlayer: function() {
-        var result = map.findObjectsByType('playerStart', LQ.map, 'Objects');
+        //var result = map.findObjectsByType('playerStart', LQ.map, 'GameEntities');
         LQ.player = LQ.game.add.sprite(529, 943, 'player');
         LQ.player.displayName = "Steve";
-        LQ.player.speed = 75;
+        LQ.player.speed = 500;
 
         LQ.game.physics.arcade.enable(LQ.player);
         LQ.player.body.collideWorldBounds = true;

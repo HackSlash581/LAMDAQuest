@@ -144,6 +144,7 @@ define([
 
         arcade.collide(LQ.player, LQ.environmentLayer);
         arcade.collide(this.enemyPool, LQ.environmentLayer);
+        arcade.collide(LQ.player, LQ.doors, this.enterDungeon1);
         arcade.collide(this.enemyPool, this.enemyPool);
     
         //enemies stop spawning after 10 have been killed... they won!
@@ -335,6 +336,16 @@ define([
         explosion.reset(sprite.x, sprite.y);
         explosion.play('boom', 15, false, true);
         LQ.beaver_death.play();
+    },
+
+    enterDungeon1: function() {
+      //this.saveState();
+      LQ.game.state.start('dungeon1');
+
+    },
+
+    saveState: function() {
+
     },
 
     finishTutorial: function() {

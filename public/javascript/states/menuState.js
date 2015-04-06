@@ -25,7 +25,7 @@ define(['phaser'], function(Phaser) {
     start: function(){
       //start the actual game
       //this.state.start('tutorial');
-      this.state.start('dungeon1');
+      this.state.start('tutorial');
     }
   };
 

@@ -9,9 +9,11 @@ define(['LAMDAQuest'], function(LAMDAQuest) {
         LQ.layer = LQ.map.createLayer('Background');
         LQ.blue_flame = LQ.game.add.sprite(3120, 1568, 'blue_flame');
         LQ.game.physics.arcade.enable(LQ.blue_flame);
-        LQ.layer = LQ.map.createLayer('Doors');
+        LQ.doors = LQ.map.createLayer('Doors');
         LQ.environmentLayer = LQ.map.createLayer('GameEntities');
         LQ.map.setCollisionBetween(0, 220, true, LQ.environmentLayer, false);
+        LQ.map.setCollisionBetween(392, 393, true, LQ.doors, false);
+        LQ.map.setCollisionBetween(408, 409, true, LQ.doors, false);
         LQ.layer.resizeWorld();
       },
 
