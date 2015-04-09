@@ -340,8 +340,17 @@ define([
 
     enterDungeon1: function() {
       //this.saveState();
-      LQ.game.state.start('dungeon1');
-
+      var blackRect = LQ.game.add.graphics(0, 0);
+      blackRect.beginFill(0x000000, 0.5);
+      blackRect.lineStyle(1, 0x000000, 0);
+      blackRect.drawRect(LQ.game.world.x, LQ.game.world.y, LQ.game.world.width, LQ.game.world.height);
+      blackRect.endFill();
+      var fadeoutTween = LQ.game.add.tween(blackRect).to({alpha: 1.0}, 2000);
+      fadeoutTween.onComplete.add(function() {
+         LQ.game.state.start('dungeon1');
+      }, LQ);
+      
+      fadeoutTween.start();
     },
 
     saveState: function() {
