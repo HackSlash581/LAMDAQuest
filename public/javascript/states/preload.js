@@ -37,6 +37,9 @@ define(['phaser'], function(Phaser) {
       load.image('arrow', 'assets/spriteSheets/arrow.png');
       load.image('rune', 'assets/spriteSheets/rune.png');
       load.image('ally_image', 'assets/spriteSheets/turtle.png');
+      load.image('boss_image', 'assets/spriteSheets/boss.png');
+      load.image('fireball', 'assets/spriteSheets/fireball.png');
+      load.image('blueFlame', 'assets/spriteSheets/blueFlame.png');
       
       load.audio('message_letter', 'assets/sounds/message_letter.wav');
       load.audio('arrow_shot', 'assets/sounds/arrow.wav');

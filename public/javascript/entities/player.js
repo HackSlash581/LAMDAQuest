@@ -11,8 +11,8 @@ define([
 
     return {
       createPlayer: function() {
-        //var result = map.findObjectsByType('playerStart', LQ.map, 'GameEntities');
-        LQ.player = LQ.game.add.sprite(529, 943, 'player');
+        var result = map.findObjectsByType('playerStart', LQ.map, 'GameEntities');
+        LQ.player = LQ.game.add.sprite(result[0].x, result[0].y, 'player');
         LQ.player.displayName = "Steve";
         LQ.player.speed = 600;
 
@@ -42,6 +42,7 @@ define([
         LQ.player.xp = 0;
         LQ.player.xpToNext = 100;
         LQ.player.xpNeeded = [0, 100, 500, 1000, 2000, 3500, 5000, 10000];
+        LQ.player.spawnBoss = false;
       },
 
       addScriptingCapabilities: function() {

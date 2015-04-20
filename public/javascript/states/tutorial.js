@@ -4,11 +4,12 @@ define([
   'maps/map',
   'entities/player',
   'entities/ally',
+  'entities/boss',
   'input/input',
   '../../assets/data/messages',
   'audio/sounds',
   'messages/textBox'
-], function(Phaser, LAMDAQuest, map, player, ally, input, messages, sounds, textBox) {
+], function(Phaser, LAMDAQuest, map, player, ally, boss, input, messages, sounds, textBox) {
   var LQ = LAMDAQuest.getLQ();
 
   var tutorial = function() {};
@@ -92,6 +93,10 @@ define([
       this.bow = this.game.add.sprite(800, 400, 'bow');
       this.game.physics.arcade.enable(this.bow);
 
+      //add boss trigger (blue flame) to game
+      this.blueFlame = this.game.add.sprite(2500, 2770, 'blueFlame');
+      this.game.physics.arcade.enable(this.blueFlame);
+
       //add ally image to game
       this.allyImage = this.game.add.sprite(900, 300, 'ally_image');
       this.game.physics.arcade.enable(this.allyImage);      
@@ -167,11 +172,18 @@ define([
           }
         }
 
+        // ******** boss updates *******
+        if(LQ.player.spawnBoss == true){
+          boss.updateBoss();
+          arcade.collide(LQ.boss, LQ.environmentLayer);
+        }
+
         //find closest enemy distance    
         LQ.player.closestEnemy = player.findClosestEnemy();
 
         //if player and enemy overlap, call playerHit function
         arcade.overlap(LQ.player, this.enemyPool, this.playerHit, null, this);
+        arcade.overlap(LQ.player, LQ.fireballPool, this.playerHit, null, this);
 
         //if and spear overlaps with an enemy, call enemyHit function
         arcade.overlap(this.spearPool, this.enemyPool, this.enemyHit, null, this);
@@ -189,6 +201,9 @@ define([
         arcade.overlap(LQ.player, LQ.ally, ally.atRest, null, this);
         //if ally and enemy overlap
         arcade.overlap(LQ.ally, this.enemyPool, this.allyHitsEnemy, null, this);
+
+        //if player overlaps with blue flame, spawn boss
+        arcade.overlap(LQ.player, this.blueFlame, this.spawnBoss, null, this);
 
 
         //this.game.physics.arcade.overlap(LQ.player, this.blue_flame, this.finishTutorial, null, this);
@@ -268,7 +283,21 @@ define([
 
     enemyHit: function(item, enemy){  
       item.kill();
-      this.killEnemy(enemy);
+      enemy.health -= 100;
+      if(LQ.player.spawnBoss == true){
+          if(LQ.boss.alive == true){
+            LQ.bossLabel.text = "Boss Health: " + LQ.boss.health;
+          }
+      }    
+      if(enemy.health <= 0){
+        this.killEnemy(enemy);
+        if(LQ.player.spawnBoss == true){
+          if(LQ.boss.alive == false){
+            LQ.bossLabel.destroy();
+          }          
+        } 
+
+      }
     },
 
     allyHitsEnemy: function(ally, enemy){
@@ -336,6 +365,13 @@ define([
         explosion.reset(sprite.x, sprite.y);
         explosion.play('boom', 15, false, true);
         LQ.beaver_death.play();
+    },
+
+    spawnBoss: function(player, item){
+      item.kill();
+      boss.createBoss();
+      this.enemyPool.add(LQ.boss);
+      LQ.player.spawnBoss = true;
     },
 
     enterDungeon1: function() {
