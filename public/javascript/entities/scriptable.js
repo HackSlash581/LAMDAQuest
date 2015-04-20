@@ -16,19 +16,20 @@ define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
 
     intervalTimer: new Phaser.Timer(game, false),
 
-    callScripts: function() {
-      if(this.ifScript) {
-        this.ifScript();
-      }
-      if(this.intervalScript) {
-        if(intervalDeltaHasEllapsed) {
-          this.intervalScript();
-        }
-      }
-    },
+    // callScripts: function() {
+    //   if(this.ifScript) {
+    //     this.ifScript.call(this);
+    //   }
+    //   if(this.intervalScript) {
+    //     if(intervalDeltaHasEllapsed) {
+    //       this.intervalScript();
+    //     }
+    //   }
+    // },
 
     intervalDeltaHasEllapsed: function() {
-      
+      //TODO(Chris): implement
+      return false;
     },
 
     addIntervalScript: function(script, delta) {
