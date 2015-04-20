@@ -30,7 +30,7 @@ define([
       	fireballPool = LQ.fireballPool;
 		    fireballPool.enableBody = true;
 		    fireballPool.physicsBodyType = Phaser.Physics.ARCADE;
-		    fireballPool.createMultiple(100, 'fireball');
+		    fireballPool.createMultiple(500, 'fireball');
 		    fireballPool.setAll('anchor.x', 0.5);
 		    fireballPool.setAll('anchor.y', 0.5);
 		    fireballPool.setAll('outOfBoundsKill', true);

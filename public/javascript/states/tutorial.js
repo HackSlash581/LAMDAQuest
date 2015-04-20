@@ -106,34 +106,6 @@ define([
       this.maxEnemy = 3;
       this.enemiesKilled = 0;
 
-
-      //health count and display  
-      LQ.healthLabel = LQ.game.add.text(25, 25, 'Health: 100',
-        {font: '18px Arial', fill: '#000000'});
-      LQ.healthLabel.fixedToCamera = true;
-
-      //scripting rune count and display
-      LQ.runeLabel = LQ.game.add.text(25, 50, 'Scripting Runes: 0',
-        {font: '18px Arial', fill: '#000000'});
-      LQ.runeLabel.fixedToCamera = true;
-
-      //ammo count and display
-      LQ.spearsLabel = LQ.game.add.text(25, 75, 'Spears: 0',
-        {font: '18px Arial', fill: '#000000'});
-      LQ.spearsLabel.fixedToCamera = true;
-
-      LQ.arrowsLabel = LQ.game.add.text(25, 100, 'Arrows: 0',
-        {font: '18px Arial', fill: '#000000'});
-      LQ.arrowsLabel.fixedToCamera = true;
-
-      LQ.levelLabel = LQ.game.add.text(700, 25, 'Level: 1',
-        {font: '18px Arial', fill: '#000000'});
-      LQ.levelLabel.fixedToCamera = true;
-
-      LQ.nextLevelLabel = LQ.game.add.text(650, 50, 'XP to Next: 100',
-        {font: '18px Arial', fill: '#000000'});
-      LQ.nextLevelLabel.fixedToCamera = true;
-
       //setTimeout(this.triggerMessage("intro"), 4000);
     },
 
@@ -237,11 +209,17 @@ define([
     },
 
     playerHit: function(player, enemy){
-      LQ.player.health -= 10;
-      LQ.healthLabel.text = "Health: " + LQ.player.health;
-      enemy.kill();
-      enemy.alive = false;
-      this.enemyCount -= 1;
+      if(enemy == LQ.boss){
+        this.playerDie();
+      }
+      else{
+        LQ.player.health -= 10;
+        LQ.healthLabel.text = "Health: " + LQ.player.health;
+        enemy.kill();
+        enemy.alive = false;
+        this.enemyCount -= 1;       
+      }
+
     },
 
     playerDie: function(){
