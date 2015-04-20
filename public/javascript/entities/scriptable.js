@@ -14,7 +14,7 @@ define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
 
     displayName: null,
 
-    intervalTimer: new Phaser.Timer(game, false),
+    timer: null,
 
     // callScripts: function() {
     //   if(this.ifScript) {
@@ -32,18 +32,18 @@ define(['phaser', 'LAMDAQuest'], function(Phaser, LAMDAQuest) {
       return false;
     },
 
-    addIntervalScript: function(script, delta) {
-      this.intervalDelta = delta;
-      this.intervalScript = script;
-      this.intervalEvent = this.intervalTimer.add(delta, script, this);
-    },
+    // addIntervalScript: function(script, delta) {
+    //   this.intervalDelta = delta;
+    //   this.intervalScript = script;
+    //   this.intervalEvent = this.intervalTimer.add(delta, script, this);
+    // },
 
-    removeIntervalScript: function() {
-      this.intervalDelta = null;
-      this.intervalScript = null;
-      this.intervalTimer.remove(this.intervalEvent);
-      this.intervalEvent = null;
-    }
+    // removeIntervalScript: function() {
+    //   this.intervalDelta = null;
+    //   this.intervalScript = null;
+    //   this.intervalTimer.remove(this.intervalEvent);
+    //   this.intervalEvent = null;
+    // }
   };
 
   return scriptable;

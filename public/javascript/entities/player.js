@@ -118,8 +118,19 @@ define([
           LQ.player.ifScript.call(LQ.player);
         }
         if(LQ.player.intervalScript) {
-          LQ.player.intervalScript();
+          LQ.player.timer = LQ.player.intervalScript.call(LQ.player);
+          LQ.player.intervalScript = null;
+          LQ.game.time.events.add(10000, LQ.player.cullIntervalScript, LQ.player);
         }
+      },
+
+      cullIntervalScript: function() {
+        clearTimeout(LQ.player.timer);
+        LQ.player.timer = 0;
+      },
+
+      heal: function() {
+        LQ.player.health += 10;
       },
 
       updatePlayer: function() {
