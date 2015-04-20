@@ -52,6 +52,28 @@ define([
           {font: '18px Arial', fill: '#000000'});
         LQ.nextLevelLabel.fixedToCamera = true;
 
+
+        LQ.spearPool = LQ.game.add.group();
+        spearPool = LQ.spearPool;
+        spearPool.enableBody = true;
+        spearPool.physicsBodyType = Phaser.Physics.ARCADE;
+        spearPool.createMultiple(100, 'spear');
+        spearPool.setAll('anchor.x', 0.5);
+        spearPool.setAll('anchor.y', 0.5);
+        spearPool.setAll('outOfBoundsKill', true);
+        spearPool.setAll('checkWorldBounds', true);
+
+        LQ.arrowPool = LQ.game.add.group();
+        arrowPool = LQ.arrowPool;
+        arrowPool.enableBody = true;
+        arrowPool.physicsBodyType = Phaser.Physics.ARCADE;
+        arrowPool.createMultiple(100, 'arrow');
+        arrowPool.setAll('anchor.x', 0.5);
+        arrowPool.setAll('anchor.y', 0.5);
+        arrowPool.setAll('outOfBoundsKill', true);
+        arrowPool.setAll('checkWorldBounds', true);
+
+
         //default facing direction is down
         LQ.player.facing = "down";
         LQ.player.animating = false;
@@ -128,8 +150,6 @@ define([
       },
 
       throwSpear: function(){
-        spearPool = LQ.game.state.states.tutorial.spearPool;
-
         //check if able to shoot again yet
         if(nextShotAt > LQ.game.time.now || LQ.player.spears <= 1){
           return;
@@ -145,8 +165,6 @@ define([
       },
 
       shootBow: function(){
-        arrowPool = LQ.game.state.states.tutorial.arrowPool;
-
         //check if able to shoot again yet
         if(nextShotAt > LQ.game.time.now || LQ.player.arrows < 1){
           return;

@@ -18,7 +18,8 @@ define([
       var runePool,
           enemyPool,
           explosionPool,
-          spearPool;
+          spearPool,
+          arrowPool;
           
       map.initMap();
       player.createPlayer();
@@ -64,26 +65,6 @@ define([
         explosion.animations.add('boom');
       });
 
-      //LQ.spearPool = spearPool;
-      this.spearPool = this.add.group();
-      spearPool = this.spearPool;
-      spearPool.enableBody = true;
-      spearPool.physicsBodyType = Phaser.Physics.ARCADE;
-      spearPool.createMultiple(100, 'spear');
-      spearPool.setAll('anchor.x', 0.5);
-      spearPool.setAll('anchor.y', 0.5);
-      spearPool.setAll('outOfBoundsKill', true);
-      spearPool.setAll('checkWorldBounds', true);
-
-      this.arrowPool = this.add.group();
-      arrowPool = this.arrowPool;
-      arrowPool.enableBody = true;
-      arrowPool.physicsBodyType = Phaser.Physics.ARCADE;
-      arrowPool.createMultiple(100, 'arrow');
-      arrowPool.setAll('anchor.x', 0.5);
-      arrowPool.setAll('anchor.y', 0.5);
-      arrowPool.setAll('outOfBoundsKill', true);
-      arrowPool.setAll('checkWorldBounds', true);
       
       //add spear to game
       this.spear = this.game.add.sprite(500, 300, 'spear');
@@ -106,7 +87,7 @@ define([
       this.maxEnemy = 3;
       this.enemiesKilled = 0;
 
-      //setTimeout(this.triggerMessage("intro"), 4000);
+     // setTimeout(this.triggerMessage("intro"), 4000);
     },
 
     update: function() {
@@ -125,8 +106,8 @@ define([
         arcade.collide(this.enemyPool, this.enemyPool);
     
         //enemies stop spawning after 10 have been killed... they won!
-        if(this.enemiesKilled < 15){
-          this.spawnEnemy();
+        if(this.enemiesKilled < 10){
+          this.spawnBeaver();
          // this.enemyMovement();          
         }
 
@@ -158,8 +139,8 @@ define([
         arcade.overlap(LQ.player, LQ.fireballPool, this.playerHit, null, this);
 
         //if and spear overlaps with an enemy, call enemyHit function
-        arcade.overlap(this.spearPool, this.enemyPool, this.enemyHit, null, this);
-        arcade.overlap(this.arrowPool, this.enemyPool, this.enemyHit, null, this);
+        arcade.overlap(LQ.spearPool, this.enemyPool, this.enemyHit, null, this);
+        arcade.overlap(LQ.arrowPool, this.enemyPool, this.enemyHit, null, this);
 
         //if player and rune overlap, take the rune
         arcade.overlap(LQ.player, this.runePool, this.takeRune, null, this);
@@ -285,7 +266,7 @@ define([
       LQ.ally.attacking = false;
     },
 
-    spawnEnemy: function(){
+    spawnBeaver: function(){
       if(this.nextEnemyAt < this.time.now && this.enemyCount < this.maxEnemy)
       {
         this.nextEnemyAt = this.time.now + this.enemyDelay;
