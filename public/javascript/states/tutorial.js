@@ -11,11 +11,11 @@ define([
   'messages/textBox'
 ], function(Phaser, LAMDAQuest, map, player, ally, boss, input, messages, sounds, textBox) {
   var LQ = LAMDAQuest.getLQ();
-
+  
   var tutorial = function() {};
   tutorial.prototype = {
     create: function() {
-      var runePool,
+      var runePool, 
           enemyPool,
           explosionPool,
           spearPool,
@@ -47,7 +47,7 @@ define([
       this.enemyPool = this.add.group();
       this.enemyPool.enableBody = true;
       this.enemyPool.physicsBodyType = Phaser.Physics.ARCADE;
-      this.enemyPool.createMultiple(10, 'enemy');
+      this.enemyPool.createMultiple(100, 'enemy');
       this.enemyPool.setAll('anchor.x', 0.5);
       this.enemyPool.setAll('anchor.y', 0.5);
       this.enemyPool.setAll('outOfBoundsKill', true);
@@ -65,7 +65,18 @@ define([
         explosion.animations.add('boom');
       });
 
-      
+      //set up bullet pool for mages
+      this.bulletPool = this.add.group();
+      bulletPool = this.bulletPool;
+      bulletPool.enableBody = true;
+      bulletPool.physicsBodyType = Phaser.Physics.ARCADE;
+      bulletPool.createMultiple(500, 'mage_bullet');
+      bulletPool.setAll('anchor.x', 0.5);
+      bulletPool.setAll('anchor.y', 0.5);
+      bulletPool.setAll('outOfBoundsKill', true);
+      bulletPool.setAll('checkWorldBounds', true);
+
+     
       //add spear to game
       this.spear = this.game.add.sprite(500, 300, 'spear');
       this.game.physics.arcade.enable(this.spear);
@@ -87,6 +98,15 @@ define([
       this.maxEnemy = 3;
       this.enemiesKilled = 0;
 
+
+      //spawn mages in dungeon
+
+      this.spawnMage(450, 2800);
+      this.spawnMage(360, 3090);
+      this.spawnMage(1060, 2685);
+      this.spawnMage(1475, 3075);
+      this.spawnMage(2280, 2800);
+
      // setTimeout(this.triggerMessage("intro"), 4000);
     },
 
@@ -105,10 +125,12 @@ define([
         //arcade.collide(LQ.player, LQ.doors, this.enterDungeon1);
         arcade.collide(this.enemyPool, this.enemyPool);
     
+        // **** Enemy updates ******
+        this.updateEnemies();
+
         //enemies stop spawning after 10 have been killed... they won!
         if(this.enemiesKilled < 10){
-          this.spawnBeaver();
-         // this.enemyMovement();          
+          this.spawnBeaver();      
         }
 
         // ******** ALLY updates ******
@@ -137,6 +159,7 @@ define([
         //if player and enemy overlap, call playerHit function
         arcade.overlap(LQ.player, this.enemyPool, this.playerHit, null, this);
         arcade.overlap(LQ.player, LQ.fireballPool, this.playerHit, null, this);
+        arcade.overlap(LQ.player, this.bulletPool, this.playerHit, null, this);
 
         //if and spear overlaps with an enemy, call enemyHit function
         arcade.overlap(LQ.spearPool, this.enemyPool, this.enemyHit, null, this);
@@ -157,7 +180,6 @@ define([
 
         //if player overlaps with blue flame, spawn boss
         arcade.overlap(LQ.player, this.blueFlame, this.spawnBoss, null, this);
-
 
         //this.game.physics.arcade.overlap(LQ.player, this.blue_flame, this.finishTutorial, null, this);
 
@@ -270,13 +292,27 @@ define([
       if(this.nextEnemyAt < this.time.now && this.enemyCount < this.maxEnemy)
       {
         this.nextEnemyAt = this.time.now + this.enemyDelay;
-        var enemy = this.enemyPool.getFirstExists(false);
         var xloc = [350,675];
         var yloc = [150,475];
         //enemy.reset(this.rnd.integerInRange(300, 700), 100);
-        enemy.reset(this.rnd.pick(xloc), this.rnd.pick(yloc));
+
+        var beaver = LQ.game.add.sprite(this.rnd.pick(xloc), this.rnd.pick(yloc), 'enemy');
+        beaver.alive = true;
+       // enemy.reset(this.rnd.pick(xloc), this.rnd.pick(yloc));
+        beaver.category = "beaver";
+        this.enemyPool.add(beaver);
         this.enemyCount += 1;     
       }
+    },
+
+    spawnMage: function(x_loc, y_loc){
+       var mage = LQ.game.add.sprite(x_loc, y_loc, 'mage');
+       this.enemyPool.add(mage);
+       mage.attackDelay = 750;
+       mage.nextAttack = 0;
+       mage.category = "mage";
+       mage.health = 100;
+       mage.alive = true;
     },
 
     pauseEnemy: function(){
@@ -287,11 +323,30 @@ define([
       }, this)
     },
 
-    enemyMovement: function(){
-      this.enemyPool.forEach(function(enemy){
-        this.physics.arcade.moveToObject(enemy, LQ.player, 60);
+    updateEnemies: function(){
+      this.enemyPool.forEachAlive(function(enemy){
+        if(enemy.category == "beaver"){
+          this.physics.arcade.moveToObject(enemy, LQ.player, 60);         
+        }
+        if(enemy.category == "mage"){
+          this.mageAttack(enemy);
+        }
       }, this)
       
+    },
+
+    mageAttack: function(mage){
+          if(mage.nextAttack > LQ.game.time.now){
+            return;
+          }
+          mage.nextAttack = LQ.game.time.now + mage.attackDelay;
+          var bullet = this.bulletPool.getFirstExists(false);
+          bullet.reset(mage.x + 20, mage.y + 30);
+          bullet.body.velocity.x = -300;         
+    },
+
+    destroyItem: function(item){
+      item.kill();
     },
 
     takeRune: function(player, rune){
