@@ -124,6 +124,12 @@ define([
         arcade.collide(this.enemyPool, LQ.environmentLayer);
         //arcade.collide(LQ.player, LQ.doors, this.enterDungeon1);
         arcade.collide(this.enemyPool, this.enemyPool);
+
+        //destroy bullets/arrows/spears/fireballs if they hit environment
+        arcade.overlap(this.bulletPool, LQ.environmentLayer, this.destroyItem, null, this);
+        arcade.overlap(LQ.arrowPool, LQ.environmentLayer, this.destroyItem, null, this);
+        arcade.overlap(LQ.spearPool, LQ.environmentLayer, this.destroyItem, null, this);
+        arcade.overlap(LQ.fireballPool, LQ.environmentLayer, this.destroyItem, null, this);
     
         // **** Enemy updates ******
         this.updateEnemies();
