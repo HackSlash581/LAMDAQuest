@@ -163,29 +163,43 @@ define([
           clearInput();
           darkenScreen(this.game);
           
-          // Pause everything else we eventually add (projectiles, etc.)
+          for(var i = 0; i < LQ.scriptables.length; ++i) {
+            LQ.scriptables[i].bringToTop();
+            LQ.scriptables[i].alpha = 0;
+            LQ.scriptables[i].pauseTween = LQ.game.add.tween(LQ.scriptables[i]).to(
+              {alpha: 1}, 
+              1000, 
+              Phaser.Easing.Linear.None, 
+              true, 
+              0, 
+              1000, 
+              true
+            );
 
-          /********Need to do this for each scriptable entity*********/
+            LQ.scriptables[i].events.onInputDown.add(testPausedInput, pause);
+            LQ.scriptables[i].events.onInputOver.add(function() {
+              console.log("Hi");
+            }, LQ); 
+          }
+
           freezePlayer();
-          player.bringToTop();
-          player.alpha = 0;
-          player.pauseTween = LQ.game.add.tween(player).to({alpha: 1}, 1000, Phaser.Easing.Linear.None, true, 0, 1000, true);
-          player.inputEnabled = true;
+
           toggleWASDCapture();
           toggleSpaceCapture();
           toggleNumbersCapture();
           LQ.game.input.keyboard.removeKeyCapture(Phaser.Keyboard.C);
-          player.events.onInputDown.add(testPausedInput, LQ);
-          player.events.onInputOver.add(showName, LQ);
-          /***********************************************************/
-        } else if(!LQ.modalUp) {
+        } 
+        else if(!LQ.modalUp) {
           LQ.globals.paused = false;
           darkRectangle.destroy();
-          //Stop the tweens for each entity
-          player.pauseTween.stop();
-          player.inputEnabled = false;
-          player.events.onInputDown.remove(testPausedInput, LQ);
-          player.alpha = 1;
+
+          for(var i = 0; i < LQ.scriptables.length; ++i) {
+            LQ.scriptables[i].pauseTween.stop();
+            LQ.scriptables[i].inputEnabled = false;
+            LQ.scriptables[i].events.onInputDown.remove(testPausedInput, LQ);
+            LQ.scriptables[i].alpha = 1;
+          }
+          
           toggleWASDCapture();
           toggleSpaceCapture();
           toggleNumbersCapture();

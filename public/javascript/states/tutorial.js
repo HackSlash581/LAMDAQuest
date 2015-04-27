@@ -5,11 +5,13 @@ define([
   'entities/player',
   'entities/ally',
   'entities/boss',
+  'entities/scriptable',
   'input/input',
   '../../assets/data/messages',
   'audio/sounds',
-  'messages/textBox'
-], function(Phaser, LAMDAQuest, map, player, ally, boss, input, messages, sounds, textBox) {
+  'messages/textBox',
+  'util/util'
+], function(Phaser, LAMDAQuest, map, player, ally, boss, scriptable, input, messages, sounds, textBox, util) {
   var LQ = LAMDAQuest.getLQ();
   
   var tutorial = function() {};
@@ -28,7 +30,10 @@ define([
       sounds.init();
 
       LQ.messageData = messages.loadMessages();
-      
+      LQ.scriptables = [];
+      LQ.scriptables.push(LQ.player);
+
+
       textBox.createTextBox();
       textBox.hideTextBox();
 
@@ -306,6 +311,15 @@ define([
         beaver.alive = true;
        // enemy.reset(this.rnd.pick(xloc), this.rnd.pick(yloc));
         beaver.category = "beaver";
+        util.extend(beaver, scriptable);
+        beaver.scriptableProperties.push('x');
+        beaver.scriptableProperties.push('y');
+        beaver.scriptableProperties.push('health');
+        beaver.scriptableProperties.push('rotation');
+        beaver.scriptableProperties.push('category');
+
+        LQ.scriptables.push(beaver);
+
         this.enemyPool.add(beaver);
         this.enemyCount += 1;     
       }
