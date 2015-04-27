@@ -106,6 +106,18 @@ define([
       this.spawnMage(1060, 2685);
       this.spawnMage(1475, 3075);
       this.spawnMage(2280, 2800);
+      
+      //spawn tanks across the map
+      this.spawnTank(1000, 1000);
+      //this.spawnTank();
+      //this.spawnTank();
+      //this.spawnTank();
+      //this.spawnTank();
+      //this.spawnTank();
+      //this.spawnTank();
+      //this.spawnTank();
+      //this.spawnTank();
+      //this.spawnTank();
 
      // setTimeout(this.triggerMessage("intro"), 4000);
     },
@@ -224,9 +236,14 @@ define([
       else{
         LQ.player.health -= 10;
         LQ.healthLabel.text = "Health: " + LQ.player.health;
-        enemy.kill();
-        enemy.alive = false;
-        this.enemyCount -= 1;       
+	if(enemy.category == "tank"){
+	  
+	}
+	else{
+	  enemy.kill();
+	  enemy.alive = false;
+	  this.enemyCount -= 1;       
+	}
       }
 
     },
@@ -253,7 +270,9 @@ define([
           rune.reset(enemy.x, enemy.y);
         }
       }
-      this.explode(enemy);
+      if(enemy.category != "tank"){
+	this.explode(enemy);
+      }
       enemy.kill();  
       enemy.alive = false;
       this.enemyCount -= 1;
@@ -270,28 +289,59 @@ define([
 
     enemyHit: function(item, enemy){  
       item.kill();
-      enemy.health -= 100;
+      if(enemy.category == "tank"){
+	if(enemy.hittable == true){
+	  enemy.health -= 100;
+	}
+	else{
+	  //play dink
+	}
+      }
+      else
+      {
+	enemy.health -= 100;
+      }
       if(LQ.player.spawnBoss == true){
           if(LQ.boss.alive == true){
             LQ.bossLabel.text = "Boss Health: " + LQ.boss.health;
           }
       }    
       if(enemy.health <= 0){
-        this.killEnemy(enemy);
-        if(LQ.player.spawnBoss == true){
-          if(LQ.boss.alive == false){
-            LQ.bossLabel.destroy();
-          }          
-        } 
+	if(enemy.category == "tank"){
+	  enemy.body.velocity.setTo(0, 0);
+	  enemy.animations.play('tankdie');
+	  enemy.events.onAnimationComplete.add(function(){
+	    this.killEnemy(enemy);
+	  }, this);
+	}
+	else{
+	  this.killEnemy(enemy);
+	  if(LQ.player.spawnBoss == true){
+	    if(LQ.boss.alive == false){
+	      LQ.bossLabel.destroy();
+	    }          
+	  }
+	}
 
       }
     },
 
+
     allyHitsEnemy: function(ally, enemy){
-      this.killEnemy(enemy);
-      ally.body.velocity.x = 0;
-      ally.body.velocity.y = 0;
-      LQ.ally.attacking = false;
+      if(enemy.category == "tank" && enemy.hittable == true)
+      {
+	enemy.body.velocity.setTo(0, 0);
+	enemy.animations.play('tankdie');
+	enemy.events.onAnimationComplete.add(function(){
+	  this.killEnemy(enemy);
+	}, this);
+      }
+      if(enemy.category != "tank"){
+	this.killEnemy(enemy);
+	ally.body.velocity.x = 0;
+	ally.body.velocity.y = 0;
+	LQ.ally.attacking = false;
+      }
     },
 
     spawnBeaver: function(){
@@ -320,6 +370,19 @@ define([
        mage.health = 100;
        mage.alive = true;
     },
+    
+    spawnTank: function(x_loc, y_loc){
+       var tank = LQ.game.add.sprite(x_loc, y_loc, 'tank');
+       tank.frame = 0;
+       tank.animations.add('tankdie', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 12, false);
+       this.enemyPool.add(tank);
+       tank.category = "tank";
+       tank.health = 100;
+       tank.alive = true;
+       tank.hittable = true;
+       tank.moveDelay = 1000;
+       tank.nextMove = 0;
+    },
 
     pauseEnemy: function(){
       this.enemyPool.forEach(function(enemy){
@@ -337,8 +400,25 @@ define([
         if(enemy.category == "mage"){
           this.mageAttack(enemy);
         }
+        if(enemy.category == "tank" && enemy.health >= 1){
+          this.moveTank(enemy);       
+        }
       }, this)
       
+    },
+    
+    moveTank: function(tank){
+      var rnd = [-1, 0, 1];
+      if(this.physics.arcade.distanceBetween(tank, LQ.player) > 170){
+	if(tank.nextMove > LQ.game.time.now){
+	  return;
+        }
+        tank.nextMove = LQ.game.time.now + tank.moveDelay;
+	tank.body.velocity.setTo(this.rnd.pick(rnd) * 30, this.rnd.pick(rnd) * 30);
+      }
+      else{
+	this.physics.arcade.moveToObject(tank, LQ.player, 120);
+      }
     },
 
     mageAttack: function(mage){
