@@ -100,7 +100,6 @@ define([
 
 
       //spawn mages in dungeon
-
       this.spawnMage(450, 2800);
       this.spawnMage(360, 3090);
       this.spawnMage(1060, 2685);
@@ -131,6 +130,7 @@ define([
 
         arcade.collide(LQ.player, LQ.environmentLayer);
         arcade.collide(this.enemyPool, LQ.environmentLayer);
+	arcade.collide(LQ.ally, LQ.environmentLayer);
         //arcade.collide(LQ.player, LQ.doors, this.enterDungeon1);
         arcade.collide(this.enemyPool, this.enemyPool);
 
@@ -152,7 +152,6 @@ define([
         if(LQ.player.hasAlly == true)
         {
           if(LQ.ally.attacking == true){
-
           }
           else{
             if(arcade.distanceBetween(LQ.player, LQ.ally) > 50.0)
@@ -281,8 +280,6 @@ define([
 
       LQ.player.xpToNext = LQ.player.xpNeeded[LQ.player.level] - LQ.player.xp;      
       LQ.nextLevelLabel.text = "XP to Next: " + LQ.player.xpToNext;
-
-
     },
 
     enemyHit: function(item, enemy){  
@@ -320,7 +317,6 @@ define([
 	    }          
 	  }
 	}
-
       }
     },
 
