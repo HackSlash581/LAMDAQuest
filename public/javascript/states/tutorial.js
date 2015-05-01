@@ -109,15 +109,12 @@ define([
       
       //spawn tanks across the map
       this.spawnTank(1000, 1000);
-      //this.spawnTank();
-      //this.spawnTank();
-      //this.spawnTank();
-      //this.spawnTank();
-      //this.spawnTank();
-      //this.spawnTank();
-      //this.spawnTank();
-      //this.spawnTank();
-      //this.spawnTank();
+      this.spawnTank(2700, 300);
+      this.spawnTank(2800, 1450);
+      this.spawnTank(2800, 2000);
+      this.spawnTank(1530, 1930);
+      this.spawnTank(400, 1337);
+      this.spawnTank(1337, 1337);
 
      // setTimeout(this.triggerMessage("intro"), 4000);
     },
@@ -377,7 +374,7 @@ define([
        tank.animations.add('tankdie', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 12, false);
        this.enemyPool.add(tank);
        tank.category = "tank";
-       tank.health = 100;
+       tank.health = 300;
        tank.alive = true;
        tank.hittable = true;
        tank.moveDelay = 1000;
