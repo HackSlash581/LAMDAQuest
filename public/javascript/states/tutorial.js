@@ -234,7 +234,8 @@ define([
         LQ.player.health -= 10;
         LQ.healthLabel.text = "Health: " + LQ.player.health;
 	if(enemy.category == "tank"){
-	  
+	  enemy.body.x -= (enemy.body.velocity.x / 2);
+	  enemy.body.y -= (enemy.body.velocity.y / 2);
 	}
 	else{
 	  enemy.kill();
