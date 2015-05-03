@@ -47,7 +47,7 @@ define([
       attack: function(){
         enemyCount = LQ.game.state.states.tutorial.enemyCount;
         enemyPool = LQ.game.state.states.tutorial.enemyPool;
-        if(nextAttackAt > LQ.game.time.now || enemyCount == 0){
+        if(nextAttackAt > LQ.game.time.now){
           return;
         }
         nextAttackAt = LQ.game.time.now + attackDelay;

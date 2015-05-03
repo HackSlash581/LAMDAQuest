@@ -130,7 +130,7 @@ define([
 
         arcade.collide(LQ.player, LQ.environmentLayer);
         arcade.collide(this.enemyPool, LQ.environmentLayer);
-	arcade.collide(LQ.ally, LQ.environmentLayer);
+//	arcade.collide(LQ.ally, LQ.environmentLayer);
         //arcade.collide(LQ.player, LQ.doors, this.enterDungeon1);
         arcade.collide(this.enemyPool, this.enemyPool);
 
