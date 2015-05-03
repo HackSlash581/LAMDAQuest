@@ -15,7 +15,7 @@ define([
         LQ.player = LQ.game.add.sprite(result[0].x, result[0].y, 'player');
 //        LQ.player = LQ.game.add.sprite(58, 2642, 'player');
         LQ.player.displayName = "Steve";
-        LQ.player.speed = 600;
+        LQ.player.speed = 75;
 
         LQ.game.physics.arcade.enable(LQ.player);
         LQ.player.body.collideWorldBounds = true;
