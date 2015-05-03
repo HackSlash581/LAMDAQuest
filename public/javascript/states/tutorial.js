@@ -142,6 +142,7 @@ define([
     
         // **** Enemy updates ******
         this.updateEnemies();
+        this.updateBullets();
 
         //enemies stop spawning after 10 have been killed... they won!
         if(this.enemiesKilled < 10){
@@ -205,7 +206,8 @@ define([
         this.pauseEnemy();
          if(LQ.player.hasAlly == true){
           ally.pauseAlly();          
-        }       
+        }
+        this.pauseBullets();       
       }
     },
 
@@ -423,6 +425,18 @@ define([
           var bullet = this.bulletPool.getFirstExists(false);
           bullet.reset(mage.x + 20, mage.y + 30);
           bullet.body.velocity.x = -300;         
+    },
+
+    pauseBullets: function(){
+        bulletPool.forEachAlive(function(bullet){
+          bullet.body.velocity.x = 0;
+        }, this)      
+    },
+
+    updateBullets: function(){
+        bulletPool.forEachAlive(function(bullet){
+          bullet.body.velocity.x = -300;
+        }, this)      
     },
 
     destroyItem: function(item){
