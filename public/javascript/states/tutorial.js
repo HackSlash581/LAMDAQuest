@@ -447,7 +447,7 @@ define([
       bow.kill();
       LQ.player.hasBow = true;
       LQ.player.weapon = "bow";
-      LQ.player.arrows += 100;
+      LQ.player.arrows += 2;
       LQ.arrowsLabel.text = "Arrows: " + LQ.player.arrows;
     },
 
